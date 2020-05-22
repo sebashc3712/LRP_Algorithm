@@ -23,11 +23,12 @@ using namespace std;
 
 
 
-bool mainCLP(instancia caso, int * ruta, int tamanioRuta, bool banderaDibujado){
+//bool mainCLP(instancia caso, int * ruta, int tamanioRuta, bool banderaDibujado){
+bool mainCLP(mdcvfp caso, int * ruta, int tamanioRuta, bool banderaDibujado){
 	//Declaración de variables
 	bool cabe;
-	
-	
+
+
 	//Variables de tiempo
 	//si es 1 es full_supported
 	//cout << "Paso" << endl;
@@ -36,7 +37,7 @@ bool mainCLP(instancia caso, int * ruta, int tamanioRuta, bool banderaDibujado){
 	bool parametro_opcion_algoritmo=true;	//full support
 	int parametro_opcion=3;				//que autor
 	int parametro_opcion_construccion=3;//que tipo de construccion
-	int parametro_mejoras=1;           //que mejorar realizar   
+	int parametro_mejoras=1;           //que mejorar realizar
 	int parametro_arquivo_imprimir=1; //archivo para imprimir
 	Container.Set_Full_Suported(true);
 	Container.Set_Algoritmo_Opcion(parametro_opcion);
@@ -45,7 +46,7 @@ bool mainCLP(instancia caso, int * ruta, int tamanioRuta, bool banderaDibujado){
 	Container.Set_Algoritmo_Arquivo_Imprimir(parametro_arquivo_imprimir);
 
 	Container.Set_Val_Quita_Aleatorio(false);
-	
+
 	Container.Set_Algoritmo_Opcion_Irrestricto(false);
 	if(Container.Get_Algoritmo_Opcion_Irrestricto())
 	{
@@ -79,16 +80,16 @@ bool mainCLP(instancia caso, int * ruta, int tamanioRuta, bool banderaDibujado){
 		{
 			Container.SetMejoraLocal(false);
 			Container.Set_m_mejora_local_cliente(true);
-		} 
+		}
 		break;
 		case 4:
 		{
 			Container.SetMejoraLocal(true);
 			Container.Set_m_mejora_local_cliente(true);
-		} 
+		}
 		break;
-	}	
-		
+	}
+
 	Container.SetMuchasIteraciones(false);
 	Container.Set_Tipo_Origen(8);
 	Container.Set_Val_Quita_Aleatorio(false);
@@ -96,30 +97,30 @@ bool mainCLP(instancia caso, int * ruta, int tamanioRuta, bool banderaDibujado){
 	Container.Set_m_tipo_evaluacion(2);
 	Container.Set_Algoritmo_Opcion_Daneses(false);
 	Container.Set_Algoritmo_Opcion_Ceschia(false);
-	if(parametro_opcion_algoritmo)		
-		Container.Set_Algoritmo_Opcion_Junqueira(true); //TRUE -> Delta igual a cero 
+	if(parametro_opcion_algoritmo)
+		Container.Set_Algoritmo_Opcion_Junqueira(true); //TRUE -> Delta igual a cero
 	else
 		Container.Set_Algoritmo_Opcion_Junqueira(false);
 
 //cout << "Paso2" << endl;
  cabe = Container.Grasp_Ceschia();
 //	Container.Constructivo_Ceschia(false);
-	
+
 	//Bandera de dibujado para mostrar patrón de empaquetamiento en pantalla
 	if(banderaDibujado){
 		//Container.DibujarOpenGL(Container.Get_BestListaConfiguracaos());
-		
+
 		Container.EscribirMejorSolucion(Container.Get_BestListaConfiguracaos());
-		
-		
+
+
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	//Retornar el valor de verdad
 	return cabe;
-	
+
 }

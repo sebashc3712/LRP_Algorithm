@@ -5,8 +5,8 @@
  #include "Container.h"
 #endif
 
-#include <vector> 
-#include <string> 
+#include <vector>
+#include <string>
 using namespace std;
 
 
@@ -15,6 +15,6 @@ using namespace std;
 //Listado de prototipos//
 /////////////////////////
 
-bool mainCLP(instancia, int *, int,bool);
+bool mainCLP(mdcvfp, int *, int,bool);
 
 #endif

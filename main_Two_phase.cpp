@@ -93,50 +93,50 @@ instancia casoEstudio;
 
 /********* Struct to be used along the algorithm*********************/
 
-struct mdcvfp {
-    int nvehicles;
-    int ncustomers;
-    int ndepots;
-    int heightVehicle;
-    int widthVehicle;
-    int lengthVehicle;
-    float volumeVehicle;
-    dist_t factor_demand_dist; // Factor to convert capacity in distance
-    dist_t penalty_reloc; // cost for relocating a customer
-    int numberTypeWaste;
-    struct depot {
-        int max_duration;
-        int max_load;
-    };
-    vector <depot> depots;
-    struct customer {
-        int id;
-        float x;
-        float y;
-        int service;
-        int demand;
-        int frequency;
-        int numberBoxes;
-        int demandVolume;
-    };
-    vector <customer> customers;
-    struct box{
-        int customerId;
-        int boxId;
-        int heightBox;
-        int widthBox;
-        int lengthBox;
-        bool fragilityBox;
-        int wasteType;
-    };
-    vector <box> boxes;
-    struct relocation_point{
-        int customerId;
-        int x;
-        int y;
-    };
-    vector <relocation_point> relocation_points;
-};
+//struct mdcvfp {
+//    int nvehicles;
+//    int ncustomers;
+//    int ndepots;
+//    int heightVehicle;
+//    int widthVehicle;
+//    int lengthVehicle;
+//    float volumeVehicle;
+//    dist_t factor_demand_dist; // Factor to convert capacity in distance
+//    dist_t penalty_reloc; // cost for relocating a customer
+//    int numberTypeWaste;
+//    struct depot {
+//        int max_duration;
+//        int max_load;
+//    };
+//    vector <depot> depots;
+//    struct customer {
+//        int id;
+//        float x;
+//        float y;
+//        int service;
+//        int demand;
+//        int frequency;
+//        int numberBoxes;
+//        int demandVolume;
+//    };
+//    vector <customer> customers;
+//    struct box{
+//        int customerId;
+//        int boxId;
+//        int heightBox;
+//        int widthBox;
+//        int lengthBox;
+//        bool fragilityBox;
+//        int wasteType;
+//    };
+//    vector <box> boxes;
+//    struct relocation_point{
+//        int customerId;
+//        int x;
+//        int y;
+//    };
+//    vector <relocation_point> relocation_points;
+//};
 
 /******************************************************************/
 
@@ -4898,6 +4898,28 @@ int main(int argc, char**argv) {
 		solucion.close();
 		/****************************************************************************/
 
+        /***************** Using GRASP to delete unfeasible clusters******************/
+
+        list<vector<int>>::iterator it_partial_clusters = partial_clusters.begin();
+        list<vector<vector<int>>>::iterator it_partial_rec_types=partial_recollection_types.begin();
+
+        for(it_partial_clusters;it_partial_clusters!=partial_clusters.end();it_partial_clusters++){
+
+            vector<int> temp_ruta = (*it_partial_clusters);
+            int* ruta=VectorToArray(temp_ruta);
+
+
+            if(mainCLP(mydata,ruta,(*it_partial_clusters).size(),false)==false){
+
+                partial_clusters.erase(it_partial_clusters);
+                partial_recollection_types.erase(it_partial_rec_types);
+
+            }
+
+            it_partial_rec_types++;
+        }
+
+		/*****************************************************************************/
 
 		/***************Mathematical model to define routes*************************/
 
