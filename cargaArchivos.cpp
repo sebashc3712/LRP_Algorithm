@@ -89,6 +89,7 @@ struct mdcvfp {
         int y;
     };
     vector <relocation_point> relocation_points;
+    vector <demanda> demandaClientes;
 };
 //Función que obtiene todos los archivos de un directorio
 vector<string> listarArchivos(char * directorio){

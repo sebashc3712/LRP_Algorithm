@@ -28,7 +28,7 @@ CONTAINER* CONFIGURACAO::m_Container=NULL;
 			{
 				return (m_z>p2.m_z);
 			}
-			else	
+			else
 			return (m_y>p2.m_y);
 			//(p1.largo*p1.ancho)>(p2.largo*p2.ancho);
 		}
@@ -43,7 +43,7 @@ CONTAINER* CONFIGURACAO::m_Container=NULL;
 		return (m_Volumen>p2.m_Volumen);
 
 }*/
-bool CONFIGURACAO::operator<(const CONFIGURACAO &p2) 
+bool CONFIGURACAO::operator<(const CONFIGURACAO &p2)
 {
 	if (m_Container->Get_Tipo_Gravedad()==0)
 	{
@@ -120,7 +120,7 @@ ORIG::ORIG()
 {
 //	std::vector<short int> vec(3);
 //	m_orig=vec;
-	
+
 }
 
 ORIG::ORIG(int a,int b, int c)
@@ -182,7 +182,7 @@ ORIG::ORIG(int a,int b, int c)
 }
 void SPACE::Cambiar(ORIG &orig,int a,int b,int c)
 {
-	
+
 	if (a>=max(b,c))
 	{
 		orig.SetTercero(a);
@@ -294,10 +294,10 @@ void CONTAINER::InicializarVariables()
 	m_tipo_mixto=false;
 
 }
-CONTAINER::CONTAINER(instancia caso,int * ruta, int tamanioRuta)
+CONTAINER::CONTAINER(mdcvfp caso,int * ruta, int tamanioRuta)
 {
 	//cout << "Paso5" << endl;
-	LeerDatosContainer(caso,ruta,tamanioRuta);	
+	LeerDatosContainer(caso,ruta,tamanioRuta);
 	//Ordeno las piezas por volumen
 //	std::sort(m_Pieces.begin(),m_Pieces.end());
 	//Ahora pongo los numeritos
@@ -315,10 +315,10 @@ CONTAINER::CONTAINER(instancia caso,int * ruta, int tamanioRuta)
 	m_objetivo_vol=true;
 	m_tipo_mixto=false;
 	m_medida1=0;
-	m_medida2=0;	
-	
+	m_medida2=0;
+
 		m_full_supported=true;
-		
+
 	//printf("number of block %d",m_Bloques.size());
 }
 void CONTAINER::JuntarPiezasParecidas()
@@ -333,30 +333,30 @@ void CONTAINER::JuntarPiezasParecidas()
 		{
 			//No voy a juntar una consigo misma
 			//Ahora tengo dos piezas
-			//Casos 
+			//Casos
 			//si puede estar en esta posicion
 			if (m_Pieces[i].Get_Rx()==true)
 			{
 				//son igual en una, me falta la otra
-				if (m_Pieces[k].Get_Rx()==true && m_Pieces[k].Get_x()==m_Pieces[i].Get_x()) 
+				if (m_Pieces[k].Get_Rx()==true && m_Pieces[k].Get_x()==m_Pieces[i].Get_x())
 				{
 
 					PuedoJuntarParecidas(i,k,m_Pieces[i].Get_y(),m_Pieces[i].Get_z(),m_Pieces[i].Get_x(),m_Pieces[k].Get_y(),m_Pieces[k].Get_z(),1,1);
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 
 				}
-				if (m_Pieces[k].Get_Ry()==true && m_Pieces[k].Get_y()==m_Pieces[i].Get_x()) 
+				if (m_Pieces[k].Get_Ry()==true && m_Pieces[k].Get_y()==m_Pieces[i].Get_x())
 				{
 
 					PuedoJuntarParecidas(i,k,m_Pieces[i].Get_y(),m_Pieces[i].Get_z(),m_Pieces[i].Get_x(),m_Pieces[k].Get_x(),m_Pieces[k].Get_z(),1,3);
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 
 				}
-				if (m_Pieces[k].Get_Rz()==true && m_Pieces[k].Get_z()==m_Pieces[i].Get_x()) 
+				if (m_Pieces[k].Get_Rz()==true && m_Pieces[k].Get_z()==m_Pieces[i].Get_x())
 				{
 
 					PuedoJuntarParecidas(i,k,m_Pieces[i].Get_y(),m_Pieces[i].Get_z(),m_Pieces[i].Get_x(),m_Pieces[k].Get_y(),m_Pieces[k].Get_x(),1,5);
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 
 				}
 
@@ -365,25 +365,25 @@ void CONTAINER::JuntarPiezasParecidas()
 			if (m_Pieces[i].Get_Ry()==true)
 			{
 				//son igual en una, me falta la otra
-				if (m_Pieces[k].Get_Rx()==true && m_Pieces[k].Get_x()==m_Pieces[i].Get_y()) 
+				if (m_Pieces[k].Get_Rx()==true && m_Pieces[k].Get_x()==m_Pieces[i].Get_y())
 				{
 
 					PuedoJuntarParecidas(i,k,m_Pieces[i].Get_x(),m_Pieces[i].Get_z(),m_Pieces[i].Get_y(),m_Pieces[k].Get_y(),m_Pieces[k].Get_z(),3,1);
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 
 				}
-				if (m_Pieces[k].Get_Ry()==true && m_Pieces[k].Get_y()==m_Pieces[i].Get_y()) 
+				if (m_Pieces[k].Get_Ry()==true && m_Pieces[k].Get_y()==m_Pieces[i].Get_y())
 				{
 
 					PuedoJuntarParecidas(i,k,m_Pieces[i].Get_x(),m_Pieces[i].Get_z(),m_Pieces[i].Get_y(),m_Pieces[k].Get_x(),m_Pieces[k].Get_z(),3,3);
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 
 				}
-				if (m_Pieces[k].Get_Rz()==true && m_Pieces[k].Get_z()==m_Pieces[i].Get_y()) 
+				if (m_Pieces[k].Get_Rz()==true && m_Pieces[k].Get_z()==m_Pieces[i].Get_y())
 				{
 
 					PuedoJuntarParecidas(i,k,m_Pieces[i].Get_x(),m_Pieces[i].Get_z(),m_Pieces[i].Get_y(),m_Pieces[k].Get_x(),m_Pieces[k].Get_y(),3,5);
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 
 				}
 
@@ -392,25 +392,25 @@ void CONTAINER::JuntarPiezasParecidas()
 			if (m_Pieces[i].Get_Rz()==true)
 			{
 				//son igual en una, me falta la otra
-				if (m_Pieces[k].Get_Rx()==true && m_Pieces[k].Get_x()==m_Pieces[i].Get_z()) 
+				if (m_Pieces[k].Get_Rx()==true && m_Pieces[k].Get_x()==m_Pieces[i].Get_z())
 				{
 
 					PuedoJuntarParecidas(i,k,m_Pieces[i].Get_x(),m_Pieces[i].Get_y(),m_Pieces[i].Get_z(),m_Pieces[k].Get_y(),m_Pieces[k].Get_z(),5,1);
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 
 				}
-				if (m_Pieces[k].Get_Ry()==true && m_Pieces[k].Get_y()==m_Pieces[i].Get_z()) 
+				if (m_Pieces[k].Get_Ry()==true && m_Pieces[k].Get_y()==m_Pieces[i].Get_z())
 				{
 
 					PuedoJuntarParecidas(i,k,m_Pieces[i].Get_x(),m_Pieces[i].Get_y(),m_Pieces[i].Get_z(),m_Pieces[k].Get_x(),m_Pieces[k].Get_z(),5,3);
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 
 				}
-				if (m_Pieces[k].Get_Rz()==true && m_Pieces[k].Get_z()==m_Pieces[i].Get_z()) 
+				if (m_Pieces[k].Get_Rz()==true && m_Pieces[k].Get_z()==m_Pieces[i].Get_z())
 				{
 
 					PuedoJuntarParecidas(i,k,m_Pieces[i].Get_x(),m_Pieces[i].Get_y(),m_Pieces[i].Get_z(),m_Pieces[k].Get_x(),m_Pieces[k].Get_y(),5,5);
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 
 				}
 			}
@@ -432,45 +432,45 @@ void CONTAINER::JuntarPiezasParecidasPesos()
 		{
 			//No voy a juntar una consigo misma
 			//Ahora tengo dos piezas
-			//Casos 
+			//Casos
 			//si puede estar en esta posicion
 			if (m_Pieces[i].Get_Rx()==true)
 			{
 				//son igual en una, me falta la otra
-				if (m_Pieces[k].Get_Rx()==true && m_Pieces[k].Get_x()==m_Pieces[i].Get_x()) 
+				if (m_Pieces[k].Get_Rx()==true && m_Pieces[k].Get_x()==m_Pieces[i].Get_x())
 				{
 					PuedoJuntarParecidasPesos(i,k,m_Pieces[i].Get_y(),m_Pieces[i].Get_z(),m_Pieces[i].Get_x(),m_Pieces[k].Get_y(),m_Pieces[k].Get_z(),1,1,m_Pieces[i].Get_m_peso_pieza(),m_Pieces[k].Get_m_peso_pieza(),m_Pieces[i].Get_Sx(),m_Pieces[k].Get_Sx(),m_Pieces[i].Get_m_densidad_pieza(),m_Pieces[i].Get_m_densidad_pieza());
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 				}
-				if (m_Pieces[k].Get_Ry()==true && m_Pieces[k].Get_y()==m_Pieces[i].Get_x()) 
+				if (m_Pieces[k].Get_Ry()==true && m_Pieces[k].Get_y()==m_Pieces[i].Get_x())
 				{
 					PuedoJuntarParecidasPesos(i,k,m_Pieces[i].Get_y(),m_Pieces[i].Get_z(),m_Pieces[i].Get_x(),m_Pieces[k].Get_x(),m_Pieces[k].Get_z(),1,3,m_Pieces[i].Get_m_peso_pieza(),m_Pieces[k].Get_m_peso_pieza(),m_Pieces[i].Get_Sx(),m_Pieces[k].Get_Sy(),m_Pieces[i].Get_m_densidad_pieza(),m_Pieces[i].Get_m_densidad_pieza());
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 				}
-				if (m_Pieces[k].Get_Rz()==true && m_Pieces[k].Get_z()==m_Pieces[i].Get_x()) 
+				if (m_Pieces[k].Get_Rz()==true && m_Pieces[k].Get_z()==m_Pieces[i].Get_x())
 				{
 					PuedoJuntarParecidasPesos(i,k,m_Pieces[i].Get_y(),m_Pieces[i].Get_z(),m_Pieces[i].Get_x(),m_Pieces[k].Get_y(),m_Pieces[k].Get_x(),1,5,m_Pieces[i].Get_m_peso_pieza(),m_Pieces[k].Get_m_peso_pieza(),m_Pieces[i].Get_Sx(),m_Pieces[k].Get_Sz(),m_Pieces[i].Get_m_densidad_pieza(),m_Pieces[i].Get_m_densidad_pieza());
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 				}
 			}
 			//O en esta
 			if (m_Pieces[i].Get_Ry()==true)
 			{
 				//son igual en una, me falta la otra
-				if (m_Pieces[k].Get_Rx()==true && m_Pieces[k].Get_x()==m_Pieces[i].Get_y()) 
+				if (m_Pieces[k].Get_Rx()==true && m_Pieces[k].Get_x()==m_Pieces[i].Get_y())
 				{
 					PuedoJuntarParecidasPesos(i,k,m_Pieces[i].Get_x(),m_Pieces[i].Get_z(),m_Pieces[i].Get_y(),m_Pieces[k].Get_y(),m_Pieces[k].Get_z(),3,1,m_Pieces[i].Get_m_peso_pieza(),m_Pieces[k].Get_m_peso_pieza(),m_Pieces[i].Get_Sy(),m_Pieces[k].Get_Sx(),m_Pieces[i].Get_m_densidad_pieza(),m_Pieces[i].Get_m_densidad_pieza());
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 				}
-				if (m_Pieces[k].Get_Ry()==true && m_Pieces[k].Get_y()==m_Pieces[i].Get_y()) 
+				if (m_Pieces[k].Get_Ry()==true && m_Pieces[k].Get_y()==m_Pieces[i].Get_y())
 				{
 					PuedoJuntarParecidasPesos(i,k,m_Pieces[i].Get_x(),m_Pieces[i].Get_z(),m_Pieces[i].Get_y(),m_Pieces[k].Get_x(),m_Pieces[k].Get_z(),3,3,m_Pieces[i].Get_m_peso_pieza(),m_Pieces[k].Get_m_peso_pieza(),m_Pieces[i].Get_Sy(),m_Pieces[k].Get_Sy(),m_Pieces[i].Get_m_densidad_pieza(),m_Pieces[i].Get_m_densidad_pieza());
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 				}
-				if (m_Pieces[k].Get_Rz()==true && m_Pieces[k].Get_z()==m_Pieces[i].Get_y()) 
+				if (m_Pieces[k].Get_Rz()==true && m_Pieces[k].Get_z()==m_Pieces[i].Get_y())
 				{
 					PuedoJuntarParecidasPesos(i,k,m_Pieces[i].Get_x(),m_Pieces[i].Get_z(),m_Pieces[i].Get_y(),m_Pieces[k].Get_x(),m_Pieces[k].Get_y(),3,5,m_Pieces[i].Get_m_peso_pieza(),m_Pieces[k].Get_m_peso_pieza(),m_Pieces[i].Get_Sy(),m_Pieces[k].Get_Sz(),m_Pieces[i].Get_m_densidad_pieza(),m_Pieces[i].Get_m_densidad_pieza());
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 
 				}
 
@@ -479,20 +479,20 @@ void CONTAINER::JuntarPiezasParecidasPesos()
 			if (m_Pieces[i].Get_Rz()==true)
 			{
 				//son igual en una, me falta la otra
-				if (m_Pieces[k].Get_Rx()==true && m_Pieces[k].Get_x()==m_Pieces[i].Get_z()) 
+				if (m_Pieces[k].Get_Rx()==true && m_Pieces[k].Get_x()==m_Pieces[i].Get_z())
 				{
 					PuedoJuntarParecidasPesos(i,k,m_Pieces[i].Get_x(),m_Pieces[i].Get_y(),m_Pieces[i].Get_z(),m_Pieces[k].Get_y(),m_Pieces[k].Get_z(),5,1,m_Pieces[i].Get_m_peso_pieza(),m_Pieces[k].Get_m_peso_pieza(),m_Pieces[i].Get_Sz(),m_Pieces[k].Get_Sx(),m_Pieces[i].Get_m_densidad_pieza(),m_Pieces[i].Get_m_densidad_pieza());
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 				}
-				if (m_Pieces[k].Get_Ry()==true && m_Pieces[k].Get_y()==m_Pieces[i].Get_z()) 
+				if (m_Pieces[k].Get_Ry()==true && m_Pieces[k].Get_y()==m_Pieces[i].Get_z())
 				{
 					PuedoJuntarParecidasPesos(i,k,m_Pieces[i].Get_x(),m_Pieces[i].Get_y(),m_Pieces[i].Get_z(),m_Pieces[k].Get_x(),m_Pieces[k].Get_z(),5,3,m_Pieces[i].Get_m_peso_pieza(),m_Pieces[k].Get_m_peso_pieza(),m_Pieces[i].Get_Sz(),m_Pieces[k].Get_Sy(),m_Pieces[i].Get_m_densidad_pieza(),m_Pieces[i].Get_m_densidad_pieza());
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 				}
-				if (m_Pieces[k].Get_Rz()==true && m_Pieces[k].Get_z()==m_Pieces[i].Get_z()) 
+				if (m_Pieces[k].Get_Rz()==true && m_Pieces[k].Get_z()==m_Pieces[i].Get_z())
 				{
 					PuedoJuntarParecidasPesos(i,k,m_Pieces[i].Get_x(),m_Pieces[i].Get_y(),m_Pieces[i].Get_z(),m_Pieces[k].Get_x(),m_Pieces[k].Get_y(),5,5,m_Pieces[i].Get_m_peso_pieza(),m_Pieces[k].Get_m_peso_pieza(),m_Pieces[i].Get_Sz(),m_Pieces[k].Get_Sz(),m_Pieces[i].Get_m_densidad_pieza(),m_Pieces[i].Get_m_densidad_pieza());
-					//en este caso ya tengo que son iguales 
+					//en este caso ya tengo que son iguales
 				}
 			}
 		}
@@ -506,7 +506,7 @@ void CONTAINER::PuedoJuntar(int pieza1, int pieza2, int ancho1, int largo1, int 
 		//Tengo la altura, la anchura el fondo
 		//BLOQUE(pieza1,pieza2,ancho1+ancho2,largo2,alto1,this,1,1);
 	}
-	if (ancho2==ancho1) 
+	if (ancho2==ancho1)
 	{
 		//BLOQUE(pieza1,pieza2,largo1+largo2,ancho2,alto1,this,1,1);
 	}
@@ -522,7 +522,7 @@ void CONTAINER::PuedoJuntar(int pieza1, int pieza2, int ancho1, int largo1, int 
 //esta funcion mira si puedo juntar y los junta si es posible
 void CONTAINER::PuedoJuntarParecidas(int pieza1, int pieza2, int ancho1, int largo1, int alto1, int ancho2, int largo2,short int tipo1,short int tipo2)
 {
-	//Un criterio puede ser dejar todas los que tenga un tanto 
+	//Un criterio puede ser dejar todas los que tenga un tanto
 	//por ciento menor
 	double factor=0.02;
 	int total_area_junta=(ancho1*largo1+ancho2*largo2);
@@ -572,7 +572,7 @@ void CONTAINER::PuedoJuntarParecidas(int pieza1, int pieza2, int ancho1, int lar
 
 	}
 	//rotadas las dos
-	
+
 	if (ancho2>ancho1)
 	{
 		int tipo_o1=tipo1+1;
@@ -701,12 +701,12 @@ void CONTAINER::PuedoJuntarParecidas(int pieza1, int pieza2, int ancho1, int lar
 			//m_Bloques.push_back(B);
 		}
 		}
-	}	
+	}
 }
 //Para la creación la x,y,z si es posible rotarla en cada dirección y la cantidad
 void CONTAINER::PuedoJuntarParecidasPesos(int pieza1, int pieza2, int ancho1, int largo1, int alto1, int ancho2, int largo2,short int tipo1,short int tipo2, int peso1, int peso2, int soporte1, int soporte2, float densidad1, float densidad2)
 {
-	//Un criterio puede ser dejar todas los que tenga un tanto 
+	//Un criterio puede ser dejar todas los que tenga un tanto
 	//por ciento menor
 	double factor=0.02;
 	int total_area_junta=(ancho1*largo1+ancho2*largo2);
@@ -724,7 +724,7 @@ void CONTAINER::PuedoJuntarParecidasPesos(int pieza1, int pieza2, int ancho1, in
 				//m_//BLOQUEs.push_back(B);
 			}
 			else
-			{			
+			{
 				//BLOQUE B(pieza2,pieza1,ancho1+ancho2,largo2,alto1,ancho2,largo2,ancho1,largo1,this,1,1,tipo_o1,tipo_o2,peso1+peso2,soporte2,densidad1,densidad2);
 				//m_Bloques.push_back(B);
 			}
@@ -1001,7 +1001,7 @@ void CONTAINER::PuedoJuntarParecidasPesos(int pieza1, int pieza2, int ancho1, in
 				}
 			}
 		}
-	}	
+	}
 }
 //Para la creación la x,y,z si es posible rotarla en cada dirección y la cantidad
 PIECE::PIECE(int id,int x, bool Px,int y,bool Py, int z, bool Pz, int q,CONTAINER *a,int pes,int s1,int s2, int s3, int cli, int costo)
@@ -1047,7 +1047,7 @@ PIECE::PIECE(int id,int x, bool Px,int y,bool Py, int z, bool Pz, int q,CONTAINE
 	if (m_Container->Get_Piezas()[id1].Get_Rx()==true && m_Container->Get_Piezas()[id1].Get_Ry()==true &&
 		m_Container->Get_Piezas()[id1].Get_Rz()==true && m_Container->Get_Piezas()[id2].Get_Rx()==true && m_Container->Get_Piezas()[id2].Get_Ry()==true &&
 		m_Container->Get_Piezas()[id2].Get_Rz()==true)
-	{	
+	{
 		m_Rotate_x=true;
 		m_Rotate_y=true;
 	}
@@ -1088,7 +1088,7 @@ BLOQUE::BLOQUE(int id1, int id2,int x, int y, int z, int x1,int y1, int x2, int 
 	m_Rotate_x=false;
 //	if (
 	m_Rotate_y=false;
-	//Si tengo perdida no puedo poner mas de uno en vertical 
+	//Si tengo perdida no puedo poner mas de uno en vertical
 	if ( m_perdida==false && m_Container->Get_Piezas()[id1].Get_Rx()==true && m_Container->Get_Piezas()[id1].Get_Ry()==true &&
 		m_Container->Get_Piezas()[id1].Get_Rz()==true && m_Container->Get_Piezas()[id2].Get_Rx()==true && m_Container->Get_Piezas()[id2].Get_Ry()==true &&
 		m_Container->Get_Piezas()[id2].Get_Rz()==true)
@@ -1135,7 +1135,7 @@ BLOQUE::BLOQUE(int id1, int id2,int x, int y, int z, int x1,int y1, int x2, int 
 	m_Rotate_x=false;
 //	if (
 	m_Rotate_y=false;
-	//Si tengo perdida no puedo poner mas de uno en vertical 
+	//Si tengo perdida no puedo poner mas de uno en vertical
 	if ( m_perdida==false && m_Container->Get_Piezas()[id1].Get_Rx()==true && m_Container->Get_Piezas()[id1].Get_Ry()==true &&
 		m_Container->Get_Piezas()[id1].Get_Rz()==true && m_Container->Get_Piezas()[id2].Get_Rx()==true && m_Container->Get_Piezas()[id2].Get_Ry()==true &&
 		m_Container->Get_Piezas()[id2].Get_Rz()==true)
@@ -1167,8 +1167,34 @@ void CONTAINER::EscribirDatosProgramaDibujo()
 	fclose(fin2);
 
 }
-void CONTAINER::LeerDatosContainer(instancia caso, int * ruta, int tamanioRuta)
+void CONTAINER::LeerDatosContainer(mdcvfp caso, int * ruta, int tamanioRuta)
 {
+    /*****************Create ListadoItems in Structure*********************/
+
+    for(int i{0};i<(caso.ncustomers*3);i++){
+
+        vector<vector<float>> list_customer;
+        vector<float> attr_box;
+
+        for(int j{0};caso.boxes.size();j++){
+
+            if(caso.boxes[j].customerId==i){
+
+                attr_box.push_back(caso.boxes[j].widthBox);
+                attr_box.push_back(0);
+                attr_box.push_back(caso.boxes[j].lengthBox);
+                attr_box.push_back(0);
+                attr_box.push_back(caso.boxes[j].heigthBox);
+                attr_box.push_back(0);
+                list_customer.push_back(attr_box);
+                attr_box = vector<float>();
+            }
+        }
+        caso.demandaClientes[i].listadoItems=list_customer;
+    }
+
+    /***********************************************************************/
+
 	//FILE *fin2;
 	m_Pieces.clear();
 	m_Q=0;
@@ -1192,11 +1218,13 @@ void CONTAINER::LeerDatosContainer(instancia caso, int * ruta, int tamanioRuta)
 	//printf("Numero de clientes %d",n_cliente);
 	int sum=0;
 	for(int i=0;i<n_cliente;i++){
-		sum = sum + caso.demandaClientes[ruta[i]].listadoItems.size();  
+
+		sum = sum + caso.demandaClientes[ruta[i]-1].listadoItems.size();
+
 	}
 	m_Q = sum;
-	
-	
+
+
 	Setm_num_total_clientes(n_cliente);
 	for(int j=0;j<n_cliente;j++)
 	{
@@ -1207,10 +1235,10 @@ void CONTAINER::LeerDatosContainer(instancia caso, int * ruta, int tamanioRuta)
 
 	//Las coordenadas del contenedor
 	//fscanf(fin2,"%d\t%d\t%d",&m_X,&m_Y,&m_Z);
-	m_X = caso.largoContenedor;
-	m_Y = caso.anchoContenedor;
-	m_Z = caso.altoContenedor;
-	
+	m_X = caso.lengthVehicle;
+	m_Y = caso.widthVehicle;
+	m_Z = caso.heightVehicle;
+
 	//Variables temporales para almacenar el número de piezas
 	int Id=0,x,y,z,cli,s,s1,s2,s3,Rx,Ry,Rz;
 	int aux_s=1;
@@ -1220,47 +1248,47 @@ void CONTAINER::LeerDatosContainer(instancia caso, int * ruta, int tamanioRuta)
 	{
 		//printf("Cliente %d \n", ruta[i]);
 		cli=i;
-		for(int j=0;j<caso.demandaClientes[ruta[i]].listadoItems.size();j++){
-			
+		for(int j=0;j<caso.demandaClientes[ruta[i]-1].listadoItems.size();j++){
+
 			Id++;
-			
+
 			m_Numpieces++;
 			//Leemos las coordenadas de las piezas
 			//fscanf(fin2,"%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n" , &Id, &x, &Rx, &y, &Ry, &z, &Rz,&q,&s,&s1,&s2,&s3,&cli);
 
-			aux_s=caso.demandaClientes[ruta[i]].listadoItems[j][0]*caso.demandaClientes[ruta[i]].listadoItems[j][1]*caso.demandaClientes[ruta[i]].listadoItems[j][2];
+			aux_s=caso.demandaClientes[ruta[i]-1].listadoItems[j][0]*caso.demandaClientes[ruta[i]-1].listadoItems[j][1]*caso.demandaClientes[ruta[i]-1].listadoItems[j][2];
 			//PIECE Piece(Id,x,Rx,y,Ry,z,Rz,q,this,aux_s,999999,999999,999999,cli,aux_costopieza);
-			if(caso.demandaClientes[ruta[i]].listadoItems[j][3]==1)
+			if(caso.demandaClientes[ruta[i]-1].listadoItems[j][3]==1)
 			{
-				PIECE Piece(Id,caso.demandaClientes[ruta[i]].listadoItems[j][2],caso.demandaClientes[ruta[i]].listadoItems[j][4],caso.demandaClientes[ruta[i]].listadoItems[j][1],caso.demandaClientes[ruta[i]].listadoItems[j][5],caso.demandaClientes[ruta[i]].listadoItems[j][0],caso.demandaClientes[ruta[i]].listadoItems[j][6],1,this,aux_s,0,0,0,cli,aux_costopieza);
+				PIECE Piece(Id,caso.demandaClientes[ruta[i]-1].listadoItems[j][2],caso.demandaClientes[ruta[i]-1].listadoItems[j][4],caso.demandaClientes[ruta[i]-1].listadoItems[j][1],caso.demandaClientes[ruta[i]].listadoItems[j][5],caso.demandaClientes[ruta[i]].listadoItems[j][0],caso.demandaClientes[ruta[i]].listadoItems[j][6],1,this,aux_s,0,0,0,cli,aux_costopieza);
 				m_total_volumen_cliente[i]+=Piece.Get_Volumen()*q;
 				m_total_volumen+=Piece.Get_Volumen()*q;
 				m_Pieces.push_back(Piece);
 			}
 			else
 			{
-				PIECE Piece(Id,caso.demandaClientes[ruta[i]].listadoItems[j][2],caso.demandaClientes[ruta[i]].listadoItems[j][4],caso.demandaClientes[ruta[i]].listadoItems[j][1],caso.demandaClientes[ruta[i]].listadoItems[j][5],caso.demandaClientes[ruta[i]].listadoItems[j][0],caso.demandaClientes[ruta[i]].listadoItems[j][6],1,this,aux_s,999999,999999,999999,cli,aux_costopieza);
+				PIECE Piece(Id,caso.demandaClientes[ruta[i]-1].listadoItems[j][2],caso.demandaClientes[ruta[i]-1].listadoItems[j][4],caso.demandaClientes[ruta[i]-1].listadoItems[j][1],caso.demandaClientes[ruta[i]-1].listadoItems[j][5],caso.demandaClientes[ruta[i]].listadoItems[j][0],caso.demandaClientes[ruta[i]].listadoItems[j][6],1,this,aux_s,999999,999999,999999,cli,aux_costopieza);
 				m_total_volumen_cliente[i]+=Piece.Get_Volumen()*q;
 				m_total_volumen+=Piece.Get_Volumen()*q;
 				m_Pieces.push_back(Piece);
 			}
-			
 
-			
-			
+
+
+
 			//printf("TOTAL VOLUMEN %d",m_total_volumen);
-			
+
 		}
-		
+
 	}
-	//Conforme voy leyendo los datos del container puedo ver cual es la 
+	//Conforme voy leyendo los datos del container puedo ver cual es la
 	//mas pequena en cada dirección, calculamos minimos para cada dirección
-		
-	
-	
+
+
+
 }
 void CONTAINER::MinimaDimensionCliente()
-{	
+{
 	int i;
 	for(i=0;i<m_num_total_clientes;i++)
 		vec_minima_longitud.push_back(m_X);
@@ -1364,7 +1392,7 @@ void SPACE::CalcularDistanciaOrigenCuatro()
 	if (m_x1<=(m_Container->Get_X()-m_x2))
 	{
 		if (m_y1<=(m_Container->Get_Y()-m_y2))
-		{		
+		{
 			Cambiar(m_distancia_origen,m_x1,m_y1,m_z1);
 			m_origen_distancia=1;
 		}
@@ -1378,7 +1406,7 @@ void SPACE::CalcularDistanciaOrigenCuatro()
 	}
 	else
 	{
-		//Si el final esta antes del container pues tiene que ser uno de los 
+		//Si el final esta antes del container pues tiene que ser uno de los
 		//primeros
 		//Posicion 5
 		if (m_y1<=(m_Container->Get_Y()-m_y2))
@@ -1395,7 +1423,7 @@ void SPACE::CalcularDistanciaOrigenCuatro()
 	}
 }
 //Para el contenedor
-// 1.(0,0,0) , 2.(0,Y,0)  3.(0,0,Z)  4.(0,Y,Z)  5.(X,0,0)  6.(X,Y,0)  7.(X,0,Z)  8.(X,Y,Z) 
+// 1.(0,0,0) , 2.(0,Y,0)  3.(0,0,Z)  4.(0,Y,Z)  5.(X,0,0)  6.(X,Y,0)  7.(X,0,Z)  8.(X,Y,Z)
 //Para el space
 // 1. (m_x1,m_y1, m_z1) ,2 . (m_x1,m_y2,m_z1) 3 (m_x1, m_y1, m_z2) 4 (m_x1,m_y2,m_z2)
 // 5. (m_x2,m_y1, m_z1) ,6   (m_x2,m_y2,m_z1) 7 (m_x2,m_y1,m_z2) 8 (m_x2,m_y2,m_z2)
@@ -1411,7 +1439,7 @@ void SPACE::CalcularDistanciaOrigen()
 		if (m_z1<=(m_Container->Get_Z()-m_z2))
 		{
 			if (m_y1<=(m_Container->Get_Y()-m_y2))
-			{	
+			{
 				Cambiar(m_distancia_origen,m_x1,m_y1,m_z1);
 				m_origen_distancia=1;
 			}
@@ -1429,19 +1457,19 @@ void SPACE::CalcularDistanciaOrigen()
 			{
 				//Posicion 3
 				Cambiar(m_distancia_origen,m_x1,m_y1,m_Container->Get_Z()-m_z2);
-				m_origen_distancia=3;	
+				m_origen_distancia=3;
 			}
 			else
 			{
 			//Posicion 4
 				Cambiar(m_distancia_origen,m_x1,m_Container->Get_Y()-m_y2,m_Container->Get_Z()-m_z2);
-				m_origen_distancia=4;	
+				m_origen_distancia=4;
 			}
 		}
 	}
 	else
 	{
-		//Si el final esta antes del container pues tiene que ser uno de los 
+		//Si el final esta antes del container pues tiene que ser uno de los
 		//primeros
 		//Posicion 5
 		if (m_z1<=(m_Container->Get_Z()-m_z2))
@@ -1476,7 +1504,7 @@ void SPACE::CalcularDistanciaOrigen()
 	}
 }
 //Para el contenedor
-// 1.(0,0,0) , 2.(0,Y,0)  3.(0,0,Z)  4.(0,Y,Z)  5.(X,0,0)  6.(X,Y,0)  7.(X,0,Z)  8.(X,Y,Z) 
+// 1.(0,0,0) , 2.(0,Y,0)  3.(0,0,Z)  4.(0,Y,Z)  5.(X,0,0)  6.(X,Y,0)  7.(X,0,Z)  8.(X,Y,Z)
 //Para el space
 // 1. (m_x1,m_y1, m_z1) ,2 . (m_x1,m_y2,m_z1) 3 (m_x1, m_y1, m_z2) 4 (m_x1,m_y2,m_z2)
 // 5. (m_x2,m_y1, m_z1) ,6   (m_x2,m_y2,m_z1) 7 (m_x2,m_y1,m_z2) 8 (m_x2,m_y2,m_z2)
@@ -1493,7 +1521,7 @@ void SPACE::CalcularDistanciaOrigenFullSupported()
 	//la mayor parte del porcentaje del tiempo
 	//Tienen que tener a x1 menor que esto para que pueda ser uno de los 3 siguientes
 		if (m_y1<=(m_Container->Get_Y()-m_y2))
-		{	
+		{
 			Cambiar(m_distancia_origen,m_x1,m_y1,m_z1);
 			m_origen_distancia=1;
 		}
@@ -1504,11 +1532,11 @@ void SPACE::CalcularDistanciaOrigenFullSupported()
 			Cambiar(m_distancia_origen,m_x1,m_Container->Get_Y()-m_y2,m_z1);
 			m_origen_distancia=2;
 		}
-/*	
+/*
 	if (m_x1<=(m_Container->Get_X()-m_x2))
 	{
 		if (m_y1<=(m_Container->Get_Y()-m_y2))
-		{	
+		{
 			Cambiar(m_distancia_origen,m_x1,m_y1,m_z1);
 			m_origen_distancia=1;
 		}
@@ -1522,7 +1550,7 @@ void SPACE::CalcularDistanciaOrigenFullSupported()
 	}
 	else
 	{
-		//Si el final esta antes del container pues tiene que ser uno de los 
+		//Si el final esta antes del container pues tiene que ser uno de los
 		//primeros
 		//Posicion 5
 		if (m_y1<=(m_Container->Get_Y()-m_y2))
@@ -1550,7 +1578,7 @@ void SPACE::CalcularDistanciaOrigenEuclidea()
 		if (m_z1<=(m_Container->Get_Z()-m_z2))
 		{
 			if (m_y1<=(m_Container->Get_Y()-m_y2))
-			{				
+			{
 				m_val_dist=m_x1^2+m_y1^2+m_z1^2;
 				m_origen_distancia=1;
 			}
@@ -1565,25 +1593,25 @@ void SPACE::CalcularDistanciaOrigenEuclidea()
 		else
 		{
 			if (m_y1<=(m_Container->Get_Y()-m_y2))
-			
+
 			{
 				//Posicion 3
 				m_val_dist=m_x1^2+(m_y2)^2+(m_Container->Get_Z()-m_z2)^2;
-				m_origen_distancia=3;	
+				m_origen_distancia=3;
 
 			}
 			else
 			{
 			//Posicion 4
 				m_val_dist=m_x1^2+(m_Container->Get_Y()-m_y2)^2+(m_Container->Get_Z()-m_z2)^2;
-				m_origen_distancia=4;	
-	
+				m_origen_distancia=4;
+
 			}
 		}
 	}
 	else
 	{
-		//Si el final esta antes del container pues tiene que ser uno de los 
+		//Si el final esta antes del container pues tiene que ser uno de los
 		//primeros
 		//Posicion 5
 		if (m_z1<=(m_Container->Get_Z()-m_z2))
@@ -1593,7 +1621,7 @@ void SPACE::CalcularDistanciaOrigenEuclidea()
 				m_val_dist=(m_distancia_origen,m_Container->Get_X()-m_x2)^2+(m_y1)^2+(m_z1)^2;
 
 				m_origen_distancia=5;
-	
+
 			}
 			else
 			{
@@ -1629,7 +1657,7 @@ void SPACE::CalcularDistanciaOrigenDos()
 	//la mayor parte del porcentaje del tiempo
 	//Tienen que tener a x1 menor que esto para que pueda ser uno de los 3 siguientes
 	if (m_y1<=(m_Container->Get_Y()-m_y2))
-	{			
+	{
 		Cambiar(m_distancia_origen,m_x1,m_y1,m_z1);
 		m_origen_distancia=1;
 	}
@@ -1642,7 +1670,7 @@ void SPACE::CalcularDistanciaOrigenDos()
 	}
 }
 //Para el contenedor
-// 1.(0,0,0) , 2.(0,Y,0)  3.(0,0,Z)  4.(0,Y,Z)  5.(X,0,0)  6.(X,Y,0)  7.(X,0,Z)  8.(X,Y,Z) 
+// 1.(0,0,0) , 2.(0,Y,0)  3.(0,0,Z)  4.(0,Y,Z)  5.(X,0,0)  6.(X,Y,0)  7.(X,0,Z)  8.(X,Y,Z)
 //Para el space
 // 1. (m_x1,m_y1, m_z1) ,2 . (m_x1,m_y2,m_z1) 3 (m_x1, m_y1, m_z2) 4 (m_x1,m_y2,m_z2)
 // 5. (m_x2,m_y1, m_z1) ,6   (m_x2,m_y2,m_z1) 7 (m_x2,m_y1,m_z2) 8 (m_x2,m_y2,m_z2)
@@ -1690,7 +1718,7 @@ void CONFIGURACAO::CambiarEsquina(SPACE &E)
 }
 //Original Calcular distancia a origen sin cota
 //Para el contenedor
-// 1.(0,0,0) , 2.(0,Y,0)  3.(0,0,Z)  4.(0,Y,Z)  5.(X,0,0)  6.(X,Y,0)  7.(X,0,Z)  8.(X,Y,Z) 
+// 1.(0,0,0) , 2.(0,Y,0)  3.(0,0,Z)  4.(0,Y,Z)  5.(X,0,0)  6.(X,Y,0)  7.(X,0,Z)  8.(X,Y,Z)
 //Para el space
 // 1. (m_x1,m_y1, m_z1) ,2 . (m_x1,m_y2,m_z1) 3 (m_x1, m_y1, m_z2) 4 (m_x1,m_y2,m_z2)
 // 5. (m_x2,m_y1, m_z1) ,6   (m_x2,m_y2,m_z1) 7 (m_x2,m_y1,m_z2) 8 (m_x2,m_y2,m_z2)
@@ -1707,7 +1735,7 @@ bool CONTAINER::Mejor_DistA_Que_DistB_Origen(ORIG &A, int VolA,ORIG &B, int VolB
 	if (A.GetTercero()>B.GetTercero()) return false;
 	if (A.GetTercero()<B.GetTercero()) return true;
 	if (VolA<=VolB) return true;
-	else 
+	else
 		return false;
 }
 //Devuelve true si es mejor la primera que la segunda
@@ -1721,7 +1749,7 @@ bool CONTAINER::Mejor_DistA_Que_DistB_Espacios(ORIG &A, int VolA,ORIG &B, int Vo
 	if (A.GetTercero()>B.GetTercero()) return false;
 	if (A.GetTercero()<B.GetTercero()) return true;
 	if (VolA<=VolB) return true;
-	else 
+	else
 		return false;
 }//Devuelve true si es mejor la primera que la segunda
 bool CONTAINER::Mejor_DistA_Que_DistB_Espacios_Euclidea(int A, int VolA,int B, int VolB)
@@ -1729,7 +1757,7 @@ bool CONTAINER::Mejor_DistA_Que_DistB_Espacios_Euclidea(int A, int VolA,int B, i
 	if (A<B) return true;
 	if (A>B) return false;
 	if (VolA<=VolB) return true;
-	else 
+	else
 		return false;
 }
 //Devuelve true si es mejor el primer espacio al segundo
@@ -1744,7 +1772,7 @@ bool CONTAINER::Mejor_DistA_Que_DistB(SPACE &A ,SPACE &B)
 	if (A.Get_Distancia().GetTercero()>B.Get_Distancia().GetTercero()) return false;
 	if (A.Get_Distancia().GetTercero()<B.Get_Distancia().GetTercero()) return true;
 	if (A.Get_Volumen()<=B.Get_Volumen()) return true;
-	else 
+	else
 		return false;
 /*	}
 	else
@@ -1779,7 +1807,7 @@ SPACE & CONTAINER::ElegirSpace()
 		if ((*it).Get_Flag()==false)
 		{
 			quedan_todavia=true;
-			if (primero==true) 
+			if (primero==true)
 			{
 				if (m_Aleatorizado==false)
 				{
@@ -1794,7 +1822,7 @@ SPACE & CONTAINER::ElegirSpace()
 			{
 				if (m_Aleatorizado==false)
 				{
-	
+
 					if (m_full_supported==false)
 					{
 						if (Mejor_DistA_Que_DistB((*elegido),(*it))==false)
@@ -1818,7 +1846,7 @@ SPACE & CONTAINER::ElegirSpace()
 				}
 //				elegido=it;
 				else
-				{	
+				{
 					if (m_full_supported==false)
 					{
 						if (Mejor_DistA_Que_DistB((*elegido),(*it))==false)
@@ -1841,16 +1869,16 @@ SPACE & CONTAINER::ElegirSpace()
 
 				}
 			}
-			++it;	
+			++it;
 		}
-		//Funcion que me elimina los espacios 
-		//si la quito todo funsiona igual 
+		//Funcion que me elimina los espacios
+		//si la quito todo funsiona igual
 		else
 		{
 			it=m_Spaces.erase(it);
 		}
 	}
-	if (quedan_todavia==false || m_Spaces.size()==0) 
+	if (quedan_todavia==false || m_Spaces.size()==0)
 	{
 //		printf("No quedan espacios");
 //		if (m_max_total_volumen_ocupado==0)
@@ -1862,7 +1890,7 @@ SPACE & CONTAINER::ElegirSpace()
 			double pt=((double)m_total_volumen_ocupado/(double)m_total_volumen)*100;
 			fprintf(fin3,"%s\tV\t%d\tVU\t%d\t%f\n",m_Nombre,m_total_volumen,m_total_volumen_ocupado,pt);
 			fclose(fin3);
-		}	
+		}
 		return m_Spaces.front();
 	}
 	return (*elegido);
@@ -1928,7 +1956,7 @@ CONFIGURACAO::CONFIGURACAO(CONTAINER *a ,int Id, int x1,int y1, int z1, int tx, 
 	m_Id=Id;
 	m_x1=x1; m_y1=y1; m_z1=z1;
 	m_x2=x1+tx; m_y2=y1+ty; m_z2=z1+tz;
-	m_dx=dx; m_dy=dy; m_dz=dz; 
+	m_dx=dx; m_dy=dy; m_dz=dz;
 	m_tipo=tipo;
 	m_num=num;
 	m_Volumen=(m_x2-m_x1)*(m_y2-m_y1)*(m_z2-m_z1);
@@ -2085,7 +2113,7 @@ int CONTAINER::EstimacionConEstaOrientacion(SPACE &Espacio, int x, int y,int z, 
 		Espacio.Get_dy()>=y &&
 		Espacio.Get_dz()>=z))
 		return 0;
-//	else 
+//	else
 //		return 1;
 	if (piezas_maximas==1) return 1;
 	int suma=0;
@@ -2107,7 +2135,7 @@ int CONTAINER::EstimacionConEstaOrientacionPeso(SPACE &Espacio, int x, int y,int
 		Espacio.Get_dz()>=z &&
 		Espacio.Get_m_soporta_peso()>=fuerza))
 		return 0;
-//	else 
+//	else
 //		return 1;
 	if (piezas_maximas==1) return 1;
 	int suma=0;
@@ -2180,10 +2208,10 @@ void CONTAINER::InsertarOrden( std::list< CONFIGURACAO >  &Lista, CONFIGURACAO  
 	for (itl=Lista.begin();itl!=Lista.end();itl++)
 	{
 		if ((*itl).Get_z2()==nuevo.Get_z1()
-			&& ((*itl).Get_x1()<=nuevo.Get_x1()) 
-			&& ((*itl).Get_x2()>=nuevo.Get_x2()) 
+			&& ((*itl).Get_x1()<=nuevo.Get_x1())
+			&& ((*itl).Get_x2()>=nuevo.Get_x2())
 			&& ((*itl).Get_y1()<=nuevo.Get_y1())
-			&& ((*itl).Get_y2()>=nuevo.Get_y2()) )			
+			&& ((*itl).Get_y2()>=nuevo.Get_y2()) )
 		{
 			Lista.insert(itl,nuevo);
 			return;
@@ -2196,7 +2224,7 @@ void CONTAINER::InsertarOrden( std::list< CONFIGURACAO >  &Lista, CONFIGURACAO  
 
 //Esta funcion es la que devuelve la mejor configuración
 //de las cajas en el espacio
-void CONTAINER::PonerConfiguracao(SPACE &Espacio,CONFIGURACAO &Configuracao,std::list<CONFIGURACAO> &lista,bool compactada)	
+void CONTAINER::PonerConfiguracao(SPACE &Espacio,CONFIGURACAO &Configuracao,std::list<CONFIGURACAO> &lista,bool compactada)
 {
 	std::list<CONFIGURACAO> ::iterator it,itfin=lista.end();
 	//Tengo que bucar una configuracao que tenga de vertice el mismo que el space
@@ -2204,7 +2232,7 @@ void CONTAINER::PonerConfiguracao(SPACE &Espacio,CONFIGURACAO &Configuracao,std:
 	for (it=lista.begin();it!=itfin && fin!=true;)
 	{
 		//Me vale cualquiera de los que tengo o mejor
-		//lo busco para el que me haya dicho el 
+		//lo busco para el que me haya dicho el
 		if (compactada==false)
 		{
 			switch (Espacio.Get_origen_distancia())
@@ -2234,7 +2262,7 @@ void CONTAINER::PonerConfiguracao(SPACE &Espacio,CONFIGURACAO &Configuracao,std:
 						m_Configuracaos.push_back((*it));
 						fin=true;
 
-						it=lista.erase(it);	
+						it=lista.erase(it);
 
 					}
 					else
@@ -2252,7 +2280,7 @@ void CONTAINER::PonerConfiguracao(SPACE &Espacio,CONFIGURACAO &Configuracao,std:
 						fin=true;
 
 						it=lista.erase(it);
-	
+
 					}
 					else
 						++it;
@@ -2268,7 +2296,7 @@ void CONTAINER::PonerConfiguracao(SPACE &Espacio,CONFIGURACAO &Configuracao,std:
 						m_Configuracaos.push_back((*it));
 						fin=true;
 						it=lista.erase(it);
-	
+
 					}
 					else
 						++it;
@@ -2278,30 +2306,30 @@ void CONTAINER::PonerConfiguracao(SPACE &Espacio,CONFIGURACAO &Configuracao,std:
 				{
 					if (Espacio.Get_x2()==(*it).Get_x2() &&
 						Espacio.Get_y1()==(*it).Get_y1() &&
-						Espacio.Get_z1()==(*it).Get_z1() )	
+						Espacio.Get_z1()==(*it).Get_z1() )
 
 					{
 						Configuracao=(*it);
 						m_Configuracaos.push_back((*it));
 						fin=true;
 						it=lista.erase(it);
-		
+
 					}
 					else
-						++it;	
+						++it;
 				}
 				break;
 				case  6:
 				{
 					if (Espacio.Get_x2()==(*it).Get_x2() &&
 						Espacio.Get_y2()==(*it).Get_y2() &&
-						Espacio.Get_z1()==(*it).Get_z1() )	
+						Espacio.Get_z1()==(*it).Get_z1() )
 
 					{
 						Configuracao=(*it);
 						m_Configuracaos.push_back((*it));
 						fin=true;
-						it=lista.erase(it);	
+						it=lista.erase(it);
 
 					}
 					else
@@ -2312,12 +2340,12 @@ void CONTAINER::PonerConfiguracao(SPACE &Espacio,CONFIGURACAO &Configuracao,std:
 				{
 					if (Espacio.Get_x2()==(*it).Get_x2() &&
 						Espacio.Get_y1()==(*it).Get_y1() &&
-						Espacio.Get_z2()==(*it).Get_z2() )	
+						Espacio.Get_z2()==(*it).Get_z2() )
 					{
 						Configuracao=(*it);
 						m_Configuracaos.push_back((*it));
 						fin=true;
-						it=lista.erase(it);	
+						it=lista.erase(it);
 					}
 					else
 						++it;
@@ -2383,7 +2411,7 @@ void CONTAINER::PonerConfiguracao(SPACE &Espacio,CONFIGURACAO &Configuracao,std:
 		}
 	}
 }
-//Calcula cual es la mejor de las posibles configuracao que tiene cada posible 
+//Calcula cual es la mejor de las posibles configuracao que tiene cada posible
 //rotacion, es decir, hay que pasarle x, y, z y el numero y el devuelve una configuracao
 void CONFIGURACAO::MejorColumnaDeUnaPieza(SPACE &Espacio,PIECE &Pieza)
 {
@@ -2403,7 +2431,7 @@ void CONFIGURACAO::MejorColumnaDeUnaPieza(SPACE &Espacio,PIECE &Pieza)
 		CompararConColumnas(6,Espacio,Pieza.Get_y(),Pieza.Get_z(),Pieza.Get_x(),Pieza.Get_Id(),Pieza.Get_q()-Pieza.Get_Num());
 	}
 }
-//Esta funcion puede generar columnas 
+//Esta funcion puede generar columnas
 void CONFIGURACAO::CompararConColumnas(short int tipo,SPACE &Espacio, int x, int y,int z, int Id,int piezas_maximas)
 {
 	//La pieza no cabe
@@ -2457,7 +2485,7 @@ void CONFIGURACAO::CompararConColumnas(short int tipo,SPACE &Espacio, int x, int
 
 		ORIG OrigActual(Espacio.Get_dx()-Eje_x*x,Espacio.Get_dy()-Eje_y*y,Espacio.Get_dz()-Eje_z*z);
 		int Vol=Eje_x*x*Eje_y*y*Eje_z*z;
-		//Para el constructivo 
+		//Para el constructivo
 		if (m_Container->Get_Aleatorizado()==false)
 		{
 			if (Mejor_DistA_Que_DistB_Configuracaos(m_set_distancias,m_num,OrigActual,numActual,Vol,Eje_x*x,Eje_y*y)==false)
@@ -2467,11 +2495,11 @@ void CONFIGURACAO::CompararConColumnas(short int tipo,SPACE &Espacio, int x, int
 			}
 		}
 		//Para hacer un constructivo aleatorizado
-		//La diferencia es que aqui tengo que tener una lista que es la que me controla cuantos 
-		//pueden caber 
+		//La diferencia es que aqui tengo que tener una lista que es la que me controla cuantos
+		//pueden caber
 		else
 		{
-			//Tengo que ver si puedo o no meterla en la lista 
+			//Tengo que ver si puedo o no meterla en la lista
 			//En la configuracion que tengo es la pero posible
 
 			//Esta funcion inserta esta en la RCL
@@ -2493,7 +2521,7 @@ CONFIGURACAO::CONFIGURACAO(CONTAINER *a ,int Id, int x1,int y1, int z1, int tx, 
 	m_x1=x1; m_y1=y1; m_z1=z1;
 	m_origen_distancia=orig;
 	m_x2=x1+tx; m_y2=y1+ty; m_z2=z1+tz;
-	m_dx=dx; m_dy=dy; m_dz=dz; 
+	m_dx=dx; m_dy=dy; m_dz=dz;
 	m_tipo=tipo;
 	m_num=m_dx*m_dy*m_dz;
 	m_Volumen=(m_x2-m_x1)*(m_y2-m_y1)*(m_z2-m_z1);
@@ -2513,7 +2541,7 @@ CONFIGURACAO::CONFIGURACAO(CONTAINER *a ,int Id, int x1,int y1, int z1, int x2, 
 //void CONFIGURACAO::CompararConCapasPeso(short int tipo,SPACE &Espacio, int x, int y,int z, int Id,int piezas_maximas,int fuerza, int densidad, int soporte, int Volumen,int Costo, int Cliente)
 void CONFIGURACAO::CompararConCapasPeso(short int tipo,SPACE &Espacio, int x, int y,int z, int Id,int piezas_maximas,int fuerza, int densidad, int soporte, int Volumen, int Cliente)
 {
-	if (m_Container->Get_Tipo_Mejora()==3) 
+	if (m_Container->Get_Tipo_Mejora()==3)
 		piezas_maximas=1;
 	//La pieza no cabe
 	if (!(Espacio.Get_dx()>=x &&
@@ -2608,18 +2636,18 @@ void CONFIGURACAO::CompararConCapasPeso(short int tipo,SPACE &Espacio, int x, in
 		}
 */
 		//Tengo columnas ahora tengo que hacer caras con esa columna
-		//En eje y 
+		//En eje y
 		//Dimensiones de la pieza las naturales
 		//en x, las demas son unas por tanto esta configuracao
 		//Tengo que poner eje, que ya esta puesto por el espacio
 		ORIG OrigActual;
-		if (m_Container->Get_objetivo_vol()==false)	
+		if (m_Container->Get_objetivo_vol()==false)
 		{
 			Cambiar(OrigActual,Espacio.Get_dx()-Eje_x*x,Espacio.Get_dy()-Eje_y*y,Espacio.Get_dz()-Eje_z*z);
 		}
 		int Vol=Eje_x*Eje_y*Eje_z*Volumen;
 		//int Cos=Eje_x*Eje_y*Eje_z*Costo;
-		//Para el constructivo 
+		//Para el constructivo
 		if (m_Container->Get_Aleatorizado()==false)
 		{
 			if (m_Container->Get_Tipo_Mejora()!=3)
@@ -2644,11 +2672,11 @@ void CONFIGURACAO::CompararConCapasPeso(short int tipo,SPACE &Espacio, int x, in
 			}
 		}
 		//Para hacer un constructivo aleatorizado
-		//La diferencia es que aqui tengo que tener una lista que es la que me controla cuantos 
-		//pueden caber 
+		//La diferencia es que aqui tengo que tener una lista que es la que me controla cuantos
+		//pueden caber
 		else
 		{
-			//Tengo que ver si puedo o no meterla en la lista 
+			//Tengo que ver si puedo o no meterla en la lista
 			//En la configuracion que tengo es la pero posible
 
 			//Esta funcion inserta esta en la RCL
@@ -2674,7 +2702,7 @@ void CONFIGURACAO::CompararConCapasPeso(short int tipo,SPACE &Espacio, int x, in
 void CONTAINER::ReducirBloquesConEstaPieza()
 {
 	std::list <CONFIGURACAO> ::iterator itC;
-	//Primero identificar bloques que no tienen nada arriba 
+	//Primero identificar bloques que no tienen nada arriba
 	for (itC=m_Configuracaos.begin();itC!=m_Configuracaos.end();itC++)
 	{
 		if (NadieEncimaDeEsteBloque((*itC))==true)
@@ -2694,7 +2722,7 @@ void CONTAINER::ReducirBloqueYRellenar(CONFIGURACAO &C)
 		{
 			for (int register k=m_dx;k>=1;k--)
 			{
-				
+
 			}
 		}
 	}
@@ -2702,7 +2730,7 @@ void CONTAINER::ReducirBloqueYRellenar(CONFIGURACAO &C)
 */
 void CONFIGURACAO::CompararConCapas(short int tipo,SPACE &Espacio, int x, int y,int z, int Id,int piezas_maximas,int soporte,int Volumen)
 {
-//	if (m_Container->Get_Tipo_Mejora()==3) 
+//	if (m_Container->Get_Tipo_Mejora()==3)
 //		piezas_maximas=get_random(1,piezas_maximas);
 	//La pieza no cabe
 	if (!(Espacio.Get_dx()>=x &&
@@ -2791,17 +2819,17 @@ void CONFIGURACAO::CompararConCapas(short int tipo,SPACE &Espacio, int x, int y,
 */
 		//Tengo columnas ahora tengo que hacer caras con esa columna
 		//En eje y
-		 
+
 		//Dimensiones de la pieza las naturales
 		//en x, las demas son unas por tanto esta configuracao
 		//Tengo que poner eje, que ya esta puesto por el espacio
 		ORIG OrigActual;
-		if (m_Container->Get_objetivo_vol()==false)	
+		if (m_Container->Get_objetivo_vol()==false)
 		{
 			Cambiar(OrigActual,Espacio.Get_dx()-Eje_x*x,Espacio.Get_dy()-Eje_y*y,Espacio.Get_dz()-Eje_z*z);
 		}
 		int Vol=Eje_x*Eje_y*Eje_z*Volumen;
-		//Para el constructivo 
+		//Para el constructivo
 		if (m_Container->Get_Aleatorizado()==false)
 		{
 			if (m_Container->Get_Tipo_Mejora()!=3)
@@ -2824,11 +2852,11 @@ void CONFIGURACAO::CompararConCapas(short int tipo,SPACE &Espacio, int x, int y,
 			}
 		}
 		//Para hacer un constructivo aleatorizado
-		//La diferencia es que aqui tengo que tener una lista que es la que me controla cuantos 
-		//pueden caber 
+		//La diferencia es que aqui tengo que tener una lista que es la que me controla cuantos
+		//pueden caber
 		else
 		{
-			//Tengo que ver si puedo o no meterla en la lista 
+			//Tengo que ver si puedo o no meterla en la lista
 			//En la configuracion que tengo es la pero posible
 
 			//Esta funcion inserta esta en la RCL
@@ -2874,7 +2902,7 @@ void CONFIGURACAO::CompararConBloques(short int tipo,SPACE &Espacio, int x, int 
 			//Eje XYz
 			case 1:
 				{
-					
+
 					Eje_y=min(Eje_y, (piezas_maximas/Eje_x));
 					Eje_z=min(Eje_z, ((piezas_maximas/Eje_x)/Eje_y));
 					numActual=Eje_x*Eje_y*Eje_z;
@@ -2912,7 +2940,7 @@ void CONFIGURACAO::CompararConBloques(short int tipo,SPACE &Espacio, int x, int 
 				}
 
 			// en z
-			case 5: 
+			case 5:
 				{//eje zxy
 					if (Eje_z==1) continue;
 					Eje_x=min(Eje_x, (piezas_maximas/Eje_z));
@@ -2937,17 +2965,17 @@ void CONFIGURACAO::CompararConBloques(short int tipo,SPACE &Espacio, int x, int 
 		}
 		//Tengo columnas ahora tengo que hacer caras con esa columna
 		//En eje y
-		 
+
 		//Dimensiones de la pieza las naturales
 		//en x, las demas son unas por tanto esta configuracao
 		//Tengo que poner eje, que ya esta puesto por el espacio
 		ORIG OrigActual;
-		if (m_Container->Get_objetivo_vol()==false)	
+		if (m_Container->Get_objetivo_vol()==false)
 		{
 			Cambiar(OrigActual,Espacio.Get_dx()-Eje_x*x,Espacio.Get_dy()-Eje_y*y,Espacio.Get_dz()-Eje_z*z);
 		}
 		int Vol=Eje_x*x*Eje_y*y*Eje_z*z;
-		//Para el constructivo 
+		//Para el constructivo
 		if (m_Container->Get_Aleatorizado()==false)
 		{
 			if (Mejor_DistA_Que_DistB_Configuracaos(m_set_distancias,m_num,OrigActual,numActual,Vol,Eje_x*x,Eje_y*y)==false)
@@ -2958,11 +2986,11 @@ void CONFIGURACAO::CompararConBloques(short int tipo,SPACE &Espacio, int x, int 
 			}
 		}
 		//Para hacer un constructivo aleatorizado
-		//La diferencia es que aqui tengo que tener una lista que es la que me controla cuantos 
-		//pueden caber 
+		//La diferencia es que aqui tengo que tener una lista que es la que me controla cuantos
+		//pueden caber
 		else
 		{
-			//Tengo que ver si puedo o no meterla en la lista 
+			//Tengo que ver si puedo o no meterla en la lista
 			//En la configuracion que tengo es la pero posible
 
 			//Esta funcion inserta esta en la RCL
@@ -2986,8 +3014,8 @@ void CONFIGURACAO::CompararConBloques(short int tipo,SPACE &Espacio, int x, int 
 		}
 	}
 }
-//Repasar funcion 
-//Esta funcion puede generar columnas 
+//Repasar funcion
+//Esta funcion puede generar columnas
 ///
 //???????????
 /*
@@ -3037,7 +3065,7 @@ void CONFIGURACAO::CompararConCapasMejorada(short int tipo,SPACE &Espacio, int x
 					if (Eje_y==1) continue;
 					Eje_x=min(Eje_x_Max, (piezas_maximas/Eje_y_Max));
 					if (Eje_x==1) continue;
-					if (Eje_x==Eje_x_Max) 
+					if (Eje_x==Eje_x_Max)
 						continue;
 					Eje_z=1;
 					//en  y
@@ -3065,7 +3093,7 @@ void CONFIGURACAO::CompararConCapasMejorada(short int tipo,SPACE &Espacio, int x
 					if (Eje_z==1) continue;
 					Eje_y=1;
 					Eje_x=min(Eje_x_Max, (piezas_maximas/Eje_z_Max));
-					if (Eje_x==Eje_x_Max) 
+					if (Eje_x==Eje_x_Max)
 						continue;
 					if (Eje_x==1) continue;
 
@@ -3080,7 +3108,7 @@ void CONFIGURACAO::CompararConCapasMejorada(short int tipo,SPACE &Espacio, int x
 					if (Eje_z==1) continue;
 					Eje_x=1;
 					Eje_y=min(Eje_y_Max, (piezas_maximas/Eje_z_Max));
-					if (Eje_y==Eje_y_Max) 
+					if (Eje_y==Eje_y_Max)
 						continue;
 
 					if (Eje_y==1) continue;
@@ -3091,17 +3119,17 @@ void CONFIGURACAO::CompararConCapasMejorada(short int tipo,SPACE &Espacio, int x
 		}
 		//Tengo columnas ahora tengo que hacer caras con esa columna
 		//En eje y
-		 
+
 		//Dimensiones de la pieza las naturales
 		//en x, las demas son unas por tanto esta configuracao
 		//Tengo que poner eje, que ya esta puesto por el espacio
 		ORIG OrigActual;
-		if (m_Container->Get_objetivo_vol()==false)	
+		if (m_Container->Get_objetivo_vol()==false)
 		{
 			Cambiar(OrigActual,Espacio.Get_dx()-Eje_x*x,Espacio.Get_dy()-Eje_y*y,Espacio.Get_dz()-Eje_z*z);
 		}
 		int Vol=Eje_x*x*Eje_y*y*Eje_z*z;
-		//Para el constructivo 
+		//Para el constructivo
 		if (m_Container->Get_Aleatorizado()==false)
 		{
 			if (Mejor_DistA_Que_DistB_Configuracaos(m_set_distancias,m_num,OrigActual,numActual,Vol)==false)
@@ -3112,11 +3140,11 @@ void CONFIGURACAO::CompararConCapasMejorada(short int tipo,SPACE &Espacio, int x
 			}
 		}
 		//Para hacer un constructivo aleatorizado
-		//La diferencia es que aqui tengo que tener una lista que es la que me controla cuantos 
-		//pueden caber 
+		//La diferencia es que aqui tengo que tener una lista que es la que me controla cuantos
+		//pueden caber
 		else
 		{
-			//Tengo que ver si puedo o no meterla en la lista 
+			//Tengo que ver si puedo o no meterla en la lista
 			//En la configuracion que tengo es la pero posible
 
 			//Esta funcion inserta esta en la RCL
@@ -3156,13 +3184,13 @@ void CONFIGURACAO::InsertarOrdenadaRCL(CONFIGURACAO &Actual)
 	{
 		if (m_Container->Get_objetivo_vol()==true)
 		{
-			if ((*itl).Get_Volumen()>Get_Volumen())		
+			if ((*itl).Get_Volumen()>Get_Volumen())
 			{
 				m_Container->Get_ListaRCL().insert(itl,Actual);
 				if (m_Container->Get_ListaRCL().size()>m_Container->Get_TamRCL())
 					m_Container->Get_ListaRCL().pop_front();
 				return;
-			}		
+			}
 		}
 		else
 		{
@@ -3361,20 +3389,20 @@ void CONFIGURACAO::PonerMedidas(int dx,int dy, int dz)
 	m_dy=dy;
 	m_dz=dz;
 	m_num=m_dx*m_dy*m_dz;
-	
+
 }
 void CONFIGURACAO::PonerMedidas2(int x1,int y1, int z1, int x2, int y2, int z2)
 {
 	m_x1=x1; m_y1=y1; m_z1=z1;
 	m_x2=x2; m_y2=y2; m_z2=z2;
-	
+
 }
 // Me devuelve true si es mejor la primera que la segunda
 bool CONFIGURACAO::Mejor_DistA_Que_DistB_Configuracaos(ORIG &A, int NumA,ORIG &B, int NumB,int Vol,int dx,int dy)
 {
-	
+
 	//
-	
+
 	if (m_Container->Get_objetivo_vol()==true)
 	{
 		if (m_Volumen<Vol) return false;
@@ -3395,13 +3423,13 @@ bool CONFIGURACAO::Mejor_DistA_Que_DistB_Configuracaos(ORIG &A, int NumA,ORIG &B
 	if (A.GetTercero()>B.GetTercero()) return false;
 	if (A.GetTercero()<B.GetTercero()) return true;
 	if (NumA<=NumB) return true;
-	else 
+	else
 		return false;
 }
 // Me devuelve true si es mejor la primera que la segunda
 bool CONFIGURACAO::Mejor_DistA_Que_DistB_Configuracaos(CONFIGURACAO &C)
 {
-	
+
 	//
 	if (m_Container->Get_objetivo_vol()==true)
 	{//Solamente funcion objetivo
@@ -3421,7 +3449,7 @@ bool CONFIGURACAO::Mejor_DistA_Que_DistB_Configuracaos(CONFIGURACAO &C)
 	if (m_set_distancias.GetTercero()>C.Get_Distancia().GetTercero()) return false;
 	if (m_set_distancias.GetTercero()<C.Get_Distancia().GetTercero()) return true;
 	if (m_num<=C.Get_Num()) return true;
-	else 
+	else
 		return false;
 }
 /*
@@ -3452,7 +3480,7 @@ bool CONFIGURACAO::Mejor_DistA_Que_DistB_FullSupported(ORIG &A, int NumA,ORIG &B
 		//si tienen igual area por volumen
 		if (m_Volumen>Vol && ((m_x2-m_x1)*(m_y2-m_y1))==(dx*dy)) return false;
 /*		if (((m_x2-m_x1)*(m_y2-m_y1))>(dx*dy)) return true;
-		//Si tienen igual volumen e igual area 
+		//Si tienen igual volumen e igual area
 		if (A.GetPrimero()>B.GetPrimero()) return false;
 		if (A.GetPrimero()<B.GetPrimero()) return true;
 		if (A.GetSegundo()>B.GetSegundo()) return false;
@@ -3460,7 +3488,7 @@ bool CONFIGURACAO::Mejor_DistA_Que_DistB_FullSupported(ORIG &A, int NumA,ORIG &B
 		if (A.GetTercero()>B.GetTercero()) return false;
 		if (A.GetTercero()<B.GetTercero()) return true;
 		if (NumA<=NumB) return true;
-		else 
+		else
 			return false;*/
 		//Solamente funcion objetivo
 		//si ya no caben mas encima
@@ -3486,7 +3514,7 @@ bool CONFIGURACAO::Mejor_DistA_Que_DistB_FullSupported(ORIG &A, int NumA,ORIG &B
 		}*/
 
 /*		if (((m_x2-m_x1)*(m_y2-m_y1))>(dx*dy)) return true;
-		//Si tienen igual volumen e igual area 
+		//Si tienen igual volumen e igual area
 		if (A.GetPrimero()>B.GetPrimero()) return false;
 		if (A.GetPrimero()<B.GetPrimero()) return true;
 		if (A.GetSegundo()>B.GetSegundo()) return false;
@@ -3494,7 +3522,7 @@ bool CONFIGURACAO::Mejor_DistA_Que_DistB_FullSupported(ORIG &A, int NumA,ORIG &B
 		if (A.GetTercero()>B.GetTercero()) return false;
 		if (A.GetTercero()<B.GetTercero()) return true;
 		if (NumA<=NumB) return true;
-		else 
+		else
 			return false;*/
 		return true;
 
@@ -3507,7 +3535,7 @@ bool CONFIGURACAO::Mejor_DistA_Que_DistB_FullSupported(ORIG &A, int NumA,ORIG &B
 	if (A.GetTercero()>B.GetTercero()) return false;
 	if (A.GetTercero()<B.GetTercero()) return true;
 	if (NumA<=NumB) return true;
-	else 
+	else
 		return false;
 }
 // Me devuelve true si es mejor la primera que la segunda
@@ -3530,7 +3558,7 @@ bool CONFIGURACAO::Mejor_DistA_Que_DistB_Pesos(ORIG &A, int NumA,ORIG &B, int Nu
 	std::list<BLOQUE> ::iterator itbfin=m_Bloques.end();
 	for (itb=m_Bloques.begin();itb!=itbfin;)
 	{
-		
+
 		if (kblo==(*itb).Get_Id1() || kblo==(*itb).Get_Id2())
 		{
 			if (m_Pieces[kblo].Get_Num()==m_Pieces[kblo].Get_q())
@@ -3541,9 +3569,9 @@ bool CONFIGURACAO::Mejor_DistA_Que_DistB_Pesos(ORIG &A, int NumA,ORIG &B, int Nu
 				(*itb).Set_Num((*itb).Get_Num()-ceil((double)cuantos/(double)(*itb).Get_Num1()));
 				if (kblo==(*itb).Get_Id2())
 				(*itb).Set_Num((*itb).Get_Num()-ceil((double)cuantos/(double)(*itb).Get_Num2()));
-				if ((*itb).Get_Num()<=0) 
+				if ((*itb).Get_Num()<=0)
 					itb=m_Bloques.erase(itb);
-				else	
+				else
 					++itb;
 			}
 		}
@@ -3593,7 +3621,7 @@ void CONTAINER::CambiarConfiguracaoBloque(CONFIGURACAO &C, SPACE &E, BLOQUE &B, 
 		{
 			C1.PonerMedidas2(C.Get_x1(),C.Get_y1(),C.Get_z1(),C.Get_x1()+(B.Get_x_P1()*C.Get_dx()),C.Get_y1()+(B.Get_y_P1()*C.Get_dy()),C.Get_z1()+(B.Get_z()*C.Get_dz()));
 			C2.PonerMedidas2(C1.Get_x2(),C1.Get_y1(),C1.Get_z1(),C1.Get_x2()+(B.Get_x_P2()*C.Get_dx()),C1.Get_y1()+(B.Get_y_P2()*C.Get_dy()*B.Get_Num2()),C.Get_z1()+(B.Get_z()*C.Get_dz()));
-			//Ahora pongo los espacios vacios 
+			//Ahora pongo los espacios vacios
 			//son tres uno en el que no podre poner nada
 			//y dos grandes
 			SPACE Espacio(this,C.Get_x1(),C.Get_y1(),C.Get_z2(),C.Get_x2()-C.Get_x1(),C2.Get_y2()-C.Get_y1(),E.Get_z2()-C.Get_z2());
@@ -3622,7 +3650,7 @@ void CONTAINER::CambiarConfiguracaoBloque(CONFIGURACAO &C, SPACE &E, BLOQUE &B, 
 			}
 			lista.push_back(Espacio);
 
-			//el pequeno es el que tengo que meter 
+			//el pequeno es el que tengo que meter
 
 
 		}
@@ -3631,7 +3659,7 @@ void CONTAINER::CambiarConfiguracaoBloque(CONFIGURACAO &C, SPACE &E, BLOQUE &B, 
 		{
 			C1.PonerMedidas2(C.Get_x1(),C.Get_y1(),C.Get_z1(),C.Get_x1()+(B.Get_y_P1()*C.Get_dx()),C.Get_y1()+(B.Get_x_P1()*C.Get_dy()),C.Get_z1()+(B.Get_z()*C.Get_dz()));
 			C2.PonerMedidas2(C1.Get_x1(),C1.Get_y2(),C1.Get_z1(),C1.Get_x1()+(B.Get_y_P2()*C.Get_dx()*B.Get_Num2()),C1.Get_y2()+(B.Get_x_P2()*C.Get_dy()),C.Get_z1()+(B.Get_z()*C.Get_dz()));
-			//Ahora pongo los espacios vacios 
+			//Ahora pongo los espacios vacios
 			//son tres uno en el que no podre poner nada
 			//y dos grandes
 			SPACE Espacio(this,C.Get_x1(),C.Get_y1(),C.Get_z2(),C2.Get_x2()-C.Get_x1(),C.Get_y2()-C.Get_y1(),E.Get_z2()-C.Get_z2());
@@ -3725,7 +3753,7 @@ void CONTAINER::ActualizarConfiguracaoGravedad(CONFIGURACAO &E, int x1,int y1, i
 		//Izquierda: if (xE1-xC1)>0 espaço es ((xE1-xC1),yE2-yE1,zE2-zE1)  v: (xE1,yE1,zE1)
 		if ((x1-E.Get_x1())>0)
 		{
-			//Si se da esto es un Configuracao en el que no voy a poder colocar nada 
+			//Si se da esto es un Configuracao en el que no voy a poder colocar nada
 			//Por ahora no lo creo
 			if (0<min(min((x1-E.Get_x1()),dimy),dimz) )
 			{
@@ -3871,7 +3899,7 @@ void CONTAINER::ActualizarConfiguracaoGravedad(CONFIGURACAO &E, int x1,int y1, i
 		//Izquierda: if (xE1-xC1)>0 espaço es ((xE1-xC1),yE2-yE1,zE2-zE1)  v: (xE1,yE1,zE1)
 		if ((x1-E.Get_x1())>0)
 		{
-			//Si se da esto es un Configuracao en el que no voy a poder colocar nada 
+			//Si se da esto es un Configuracao en el que no voy a poder colocar nada
 			//Por ahora no lo creo
 			if (0<min(min((x1-E.Get_x1()),dimy),dimz) )
 			{
@@ -3976,7 +4004,7 @@ void CONTAINER::EliminarInclusiones()
 	{
 		SPACE E=(*itl);
 	}
-	
+
 	*/	std::list < SPACE > ::iterator itfin=m_Spaces.end();
 	for (itl=m_Spaces.begin();itl!=itfin;)
 	{
@@ -3988,7 +4016,7 @@ void CONTAINER::EliminarInclusiones()
 		bool borrado=false;
 		for (;itl2!=itfin;itl2++)
 		{
-			
+
 			if ((*itl).Incluido((*itl2))==true)
 			{
 				//Me devuelve el puntero que apunta al siguiente
@@ -3998,7 +4026,7 @@ void CONTAINER::EliminarInclusiones()
 				break;
 			}
 		}
-		if (borrado==true) 
+		if (borrado==true)
 			++itl;
 	}
 }
@@ -4015,8 +4043,8 @@ void CONTAINER::EliminarInclusionesNuevos(std::list < SPACE > &Lista)
 			break;
 		for (;itl2!=Lista.end();itl2++)
 		{
-			
-			if ((*itl2).Get_Volumen()<(*itl).Get_Volumen()) 
+
+			if ((*itl2).Get_Volumen()<(*itl).Get_Volumen())
 				continue;
 			if ((*itl).Incluido(*itl2)==true)
 			{
@@ -4045,11 +4073,11 @@ void CONTAINER::EliminarInclusionesListaAntigua(std::list <SPACE > &Lista)
 		for (itl2=m_Spaces.rbegin();itl2!=m_Spaces.rend();itl2++)
 		{
 //			SPACE kk2=(*itl2);
-			if ((*itl2).Get_Volumen()<(*itl).Get_Volumen()) 
+			if ((*itl2).Get_Volumen()<(*itl).Get_Volumen())
 				break;
 			if ((*itl).Incluido((*itl2))==true)
 			{
-				//Si esta incluido termina 
+				//Si esta incluido termina
 				itl=Lista.erase(itl);
 				if (Lista.size()!=0)
 				{
@@ -4076,11 +4104,11 @@ void CONTAINER::EliminarListaTempListaOriginal(std::list <SPACE > &ListaOriginal
 		for (itl2=ListaOriginal.rbegin();itl2!=ListaOriginal.rend();itl2++)
 		{
 //			SPACE kk2=(*itl2);
-			if ((*itl2).Get_Volumen()<(*itl).Get_Volumen()) 
+			if ((*itl2).Get_Volumen()<(*itl).Get_Volumen())
 				break;
 			if ((*itl).Incluido((*itl2))==true)
 			{
-				//Si esta incluido termina 
+				//Si esta incluido termina
 				itl=Lista.erase(itl);
 				if (Lista.size()!=0)
 				{
@@ -4094,11 +4122,11 @@ void CONTAINER::EliminarListaTempListaOriginal(std::list <SPACE > &ListaOriginal
 	}
 }
 bool SPACE::Incluido(SPACE &E)
-{	
-	
+{
+
 	//Esta incluido
-	if (m_x1>= E.Get_x1() && m_x2<=E.Get_x2() 
-		&& m_y1>= E.Get_y1() && m_y2<=E.Get_y2() 
+	if (m_x1>= E.Get_x1() && m_x2<=E.Get_x2()
+		&& m_y1>= E.Get_y1() && m_y2<=E.Get_y2()
 		&& m_z1>= E.Get_z1() && m_z2<=E.Get_z2())
 		return true;
 	return false;
@@ -4107,7 +4135,7 @@ bool SPACE::Incluido(SPACE &E)
 void CONTAINER::VerificarSolucion(std::list<CONFIGURACAO> &lista)
 {
 	return;
-	if (ComprobarConfiguracaosNoIntersectan(lista)==true) 
+	if (ComprobarConfiguracaosNoIntersectan(lista)==true)
 	{
 
 		//printf("Problemas con las configuracaos, se cortan");
@@ -4119,9 +4147,9 @@ void CONTAINER::VerificarSolucion(std::list<CONFIGURACAO> &lista)
 		for(int i=0;;)
 		//printf("Tamano es %d %d,Un espacio o una configuracao tiene mal las coordenadas o pone más piezas de las permitidas",m_Spaces.size(),m_Configuracaos.size());
 		exit(2);
-		
+
 	}
-	if (ComprobarConfiguracaosNoIntersectanSpaces()==true) 
+	if (ComprobarConfiguracaosNoIntersectanSpaces()==true)
 	{
 		for(int i=0;;)
 
@@ -4144,7 +4172,7 @@ bool CONTAINER::ComprobarConfiguracaosNoIntersectan(std::list<CONFIGURACAO> &lis
 			if( (*itB1).Get_x1()>=(*itB3).Get_x2() || (*itB3).Get_x1()>=(*itB1).Get_x2() )
 				continue;
 			if( (*itB1).Get_y1()>=(*itB3).Get_y2() || (*itB3).Get_y1()>=(*itB1).Get_y2() )
-				continue;	
+				continue;
 			if( (*itB1).Get_z1()>=(*itB3).Get_z2() || (*itB3).Get_z1()>=(*itB1).Get_z2() )
 				continue;
 			CONFIGURACAO E1=(*itB1);
@@ -4163,7 +4191,7 @@ bool CONTAINER::ComprobarTodosPosible(std::list<CONFIGURACAO> &lista)
 	std::list< SPACE >::iterator itB3;
 	//Comprobar que todas tenga el numero de piezas que pone
 	for (int ik=0;ik<m_Q;ik++)
-	{	
+	{
 		int utili=m_Pieces[ik].Get_Num();
 		int kk=0;
 		for(itB1=lista.begin();itB1!=lista.end();itB1++)
@@ -4176,7 +4204,7 @@ bool CONTAINER::ComprobarTodosPosible(std::list<CONFIGURACAO> &lista)
 	}
 	//sumo todas las que he`puesto de una pieza y que no sobrepasen las que teni
 	for (int ik=0;ik<m_Q;ik++)
-	{	
+	{
 		int kk=m_Pieces[ik].Get_Num();
 		int utili=0;
 		for(itB1=lista.begin();itB1!=lista.end();itB1++)
@@ -4234,7 +4262,7 @@ bool CONTAINER::ComprobarConfiguracaosNoIntersectanSpaces()
 			if( (*itB1).Get_x1()>=(*itB3).Get_x2() || (*itB3).Get_x1()>=(*itB1).Get_x2() )
 				continue;
 			if( (*itB1).Get_y1()>=(*itB3).Get_y2() || (*itB3).Get_y1()>=(*itB1).Get_y2() )
-				continue;	
+				continue;
 			if( (*itB1).Get_z1()>=(*itB3).Get_z2() || (*itB3).Get_z1()>=(*itB1).Get_z2() )
 				continue;
 			CONFIGURACAO C=(*itB1);
@@ -4259,7 +4287,7 @@ bool CONTAINER::ComprobarConfiguracaosNoIntersectanSpaces()
 			while(!GetMessage(&msg,m_clientedc->GetWindow()->m_hWnd,WM_KEYFIRST,WM_KEYLAST))
 			{
 					m_clientedc->GetWindow()->SendMessage(msg.message);
-				
+
 				}
 				TRACE("%d ",msg.wParam);
 				if(msg.wParam==27)
@@ -4279,7 +4307,7 @@ bool CONTAINER::ComprobarConfiguracaosNoIntersectanSpaces()
 	CBrush brushblanco(RGB(255,255,255));
 	CBrush brushrojo(RGB(255,0,0));
 	//JMT
-//	if (parar==true) 
+//	if (parar==true)
 //	{
 //		int i=m_clientedc->GetWindow()->MessageBox("Siguiente Iteración","",0);
 //	}
@@ -4287,9 +4315,9 @@ bool CONTAINER::ComprobarConfiguracaosNoIntersectanSpaces()
 //	m_clientedc->GetWindow()->OnCmdMsg
 	int x=0,y=0;
 	// Dibujar un rectangulo (el pallet)
-	m_clientedc->FillSolidRect( -m_factor*m_X, m_factor*m_X, m_factor*m_Z*m_X, 
+	m_clientedc->FillSolidRect( -m_factor*m_X, m_factor*m_X, m_factor*m_Z*m_X,
 		                -m_factor*m_Z*m_Y, RGB(255,255,255) );
-//	m_clientedc->FillSolidRect( 0, 0, m_factor*m_X, 
+//	m_clientedc->FillSolidRect( 0, 0, m_factor*m_X,
 //		                -m_factor*m_Y, RGB(0,0,0) );
 
 	m_clientedc->SetBkColor(RGB(255,255,255));
@@ -4297,7 +4325,7 @@ bool CONTAINER::ComprobarConfiguracaosNoIntersectanSpaces()
 	char pallet[120],buff[20];
 	strcpy(pallet,m_Nombre);
 	strcat(pallet," Tablero ");
-	
+
 	itoa(m_Z,buff,10);
 	strcat(pallet,buff);
 	strcat(pallet,"X");
@@ -4323,8 +4351,8 @@ bool CONTAINER::ComprobarConfiguracaosNoIntersectanSpaces()
 //	m_clientedc->TextOut( m_factor*m_Z, (-m_factor*(m_X))*(0.5), ss2 );
 //	m_clientedc->TextOut( m_factor*m_Z, (-m_factor*(m_X))*(0.25), ss3 );
 //	m_clientedc->TextOut( m_factor*m_Z, 0, ss5 );
-	
-	
+
+
 	std::list< CONFIGURACAO > ::iterator itC;
 	std::list< SPACE > ::iterator itE;
 	m_clientedc->SetBkMode(TRANSPARENT);
@@ -4400,7 +4428,7 @@ bool CONTAINER::ComprobarConfiguracaosNoIntersectanSpaces()
 {
 
 //Tengo que darle punto de inicio y cuanto quiero que se mueva
-//Maximo del valor de un pincel 
+//Maximo del valor de un pincel
 //	4,294,967,295
 	int paso=255/m_Q;
 	int r = Id*paso;
@@ -4408,7 +4436,7 @@ bool CONTAINER::ComprobarConfiguracaosNoIntersectanSpaces()
 	int g = m_Q-Id*paso;
 
 	int b = (m_Q-Id)*(m_Q-Id)*(paso);
-	if (Id==0) 
+	if (Id==0)
 	{
 		r=0;
 		g=0;
@@ -4417,7 +4445,7 @@ bool CONTAINER::ComprobarConfiguracaosNoIntersectanSpaces()
 
 	CBrush pp(RGB(r, g, b));
 	m_clientedc->SelectObject(pp);
-	
+
 	CPen pp1(PS_SOLID,2,RGB(r,g,b));
 	m_clientedc->SelectObject(pp1);
 
@@ -4463,9 +4491,9 @@ void CONTAINER:: EscribirSolucion()
 	fclose(fin3);
 }
 void CONTAINER:: EscribirMejorSolucion(std::list<CONFIGURACAO> lista)
-{	
+{
 	int cantidad=0;
-	
+
 //	si es la ultima
 	for (int kju=0;kju<m_Q;kju++)
 		m_Pieces[kju].Set_Num(0);
@@ -4479,7 +4507,7 @@ void CONTAINER:: EscribirMejorSolucion(std::list<CONFIGURACAO> lista)
 		fprintf(fin3,"%d\t%d\t%d\t%d\t%d\n",m_Q,m_num_total_clientes,m_X,m_Y,m_Z);
 	fprintf(fin3,"%d\t%d\n",m_max_total_volumen_ocupado,m_total_volumen_ocupado);
 	std::list< CONFIGURACAO > ::iterator itC;
-	
+
 	float divide=20;
 
 	//Ahora las lineas que van de un lado al otro
@@ -4504,7 +4532,7 @@ void CONTAINER:: EscribirMejorSolucion(std::list<CONFIGURACAO> lista)
 						fprintf(fin3,"%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",(*itC).Get_x1()+(i-1)*sumoi,(*itC).Get_y1()+(j-1)*sumoj,(*itC).Get_z1()+(k-1)*sumok,(*itC).Get_x1()+i*sumoi,(*itC).Get_y1()+j*sumoj,(*itC).Get_z1()+k*sumok,(*itC).Get_Id(),cont,cont);
 					else
 						fprintf(fin3,"%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",(*itC).Get_x1()+(i-1)*sumoi,(*itC).Get_y1()+(j-1)*sumoj,(*itC).Get_z1()+(k-1)*sumok,(*itC).Get_x1()+i*sumoi,(*itC).Get_y1()+j*sumoj,(*itC).Get_z1()+k*sumok,(*itC).Get_Id(),cont,(*itC).Get_m_cliente_config());
-					
+
 					if ((*itC).Get_Id()>cantidad)
 						cantidad=(*itC).Get_Id();
 					m_Pieces[(*itC).Get_Id()].Add_Num(1);
@@ -4552,7 +4580,7 @@ void CONTAINER:: EscribirMejorSolucion(std::list<CONFIGURACAO> lista)
 		{
 			cond_tocable_largo =__min((200-(*itR).Get_z1()),60);
 			if((((minimo-(*itR).Get_x2())+(*itR).Get_z1())>=200)&&((minimo-(*itR).Get_x2())<=cond_tocable_largo))
-		}				
+		}
 	}
 	*/
 	//Piezas que estan fuera
@@ -4579,14 +4607,14 @@ void CONTAINER:: EscribirMejorSolucion(std::list<CONFIGURACAO> lista)
 
 void CONTAINER:: EscribirSolucionLatex(std::list<CONFIGURACAO> lista)
 {
-	
+
 	m_tipo_gravedad=2;
 	lista.sort();
 
 	FILE *fin3;
 	char string[200];
 	strcpy(string,"Latex");
-	//Primero buscamos la ultima ocurrencia de 
+	//Primero buscamos la ultima ocurrencia de
 	int ch='\\';
 	char *ultimo=strrchr( m_Nombre, ch );
 	strcat(string,ultimo+1);
@@ -4623,7 +4651,7 @@ void CONTAINER:: EscribirSolucionLatex(std::list<CONFIGURACAO> lista)
 					(double)((*itC).Get_y1()+(double)(j-1)*sumoj+sumoj/2)/10,
 					(double)((*itC).Get_x1()+(double)(i-1)*sumoi+sumoi/2)/10,
 					(double)((*itC).Get_z1()+(double)(k-1)*sumok+sumok/2)/10);
-					
+
 
 				}
 			}
@@ -4643,12 +4671,12 @@ void CONTAINER:: PintarSolucion(std::list<CONFIGURACAO> &lista)
 
 
 }
-//Esta funcion mueve las cajas en un sentido 
+//Esta funcion mueve las cajas en un sentido
 bool CONTAINER::FuerzaDeGravedad(std::list<CONFIGURACAO> &lista,short int sentido)
 {
 	bool movido=false;
 	//Las ordenamos por el eje que toque
-//	//el sentido es hacia donde la puedo mover 
+//	//el sentido es hacia donde la puedo mover
 //	BubbleSort(m_Best_Configuracao,0);
 	//Esta variable es para que las tenga ordenadas de la forma
 	//que queramos
@@ -4708,12 +4736,12 @@ bool CONTAINER::FuerzaDeGravedad(std::list<CONFIGURACAO> &lista,short int sentid
 	return movido;
 
 }
-//Esta funcion mueve las cajas en un sentido 
+//Esta funcion mueve las cajas en un sentido
 bool CONTAINER::FuerzaDeGravedadIndividual(std::list<CONFIGURACAO> &lista,short int sentido)
 {
 	bool movido=false;
 	//Las ordenamos por el eje que toque
-//	//el sentido es hacia donde la puedo mover 
+//	//el sentido es hacia donde la puedo mover
 //	BubbleSort(m_Best_Configuracao,0);
 	//Esta variable es para que las tenga ordenadas de la forma
 	//que queramos
@@ -4735,7 +4763,7 @@ bool CONTAINER::FuerzaDeGravedadIndividual(std::list<CONFIGURACAO> &lista,short 
 		// Para piezas
 		for (int register i=1;i<=(*itC).Get_dx() && fini!=true;i++)
 		{
-			
+
 			int sumoi=(((*itC).Get_x2()-(*itC).Get_x1())/(*itC).Get_dx());
 			bool finj=false;
 			for (int register j=1;j<=(*itC).Get_dy() && finj!=true;j++)
@@ -4746,7 +4774,7 @@ bool CONTAINER::FuerzaDeGravedadIndividual(std::list<CONFIGURACAO> &lista,short 
 				for (int register k=1;k<=(*itC).Get_dz() && fink!=true;k++)
 				{
 					int sumok=(((*itC).Get_z2()-(*itC).Get_z1())/(*itC).Get_dz());
-					//Si es en un sentido o en otro solamente tengo en cuenta 
+					//Si es en un sentido o en otro solamente tengo en cuenta
 					//para un lado
 					if (sentido==0)
 					{
@@ -4769,7 +4797,7 @@ bool CONTAINER::FuerzaDeGravedadIndividual(std::list<CONFIGURACAO> &lista,short 
 
 					}
 					int muevo=PuedoMover(lista,(*itC).Get_x1()+(i-1)*sumoi,(*itC).Get_y1()+(j-1)*sumoj,(*itC).Get_z1()+(k-1)*sumok,(*itC).Get_x1()+i*sumoi,(*itC).Get_y1()+j*sumoj,(*itC).Get_z1()+k*sumok,sentido);
-					//Tengo que dividir la capa en trozos ya que una caja individual si la 
+					//Tengo que dividir la capa en trozos ya que una caja individual si la
 					//puedo bajar
 //					CONFIGURACAO kk=(*itC);
 
@@ -4777,17 +4805,17 @@ bool CONTAINER::FuerzaDeGravedadIndividual(std::list<CONFIGURACAO> &lista,short 
 					{
 //						//printf("algo se mueve");
 						//Tengo que llamar a la funcion con la configuracion
-						//que tengo 
+						//que tengo
 						std::list< CONFIGURACAO > lista_Temp;
 						//Tengo que meter algunas nuevas configuracaos
 						ActualizarConfiguracaoGravedad((*itC),(*itC).Get_x1()+(i-1)*sumoi,(*itC).Get_y1()+(j-1)*sumoj,(*itC).Get_z1()+(k-1)*sumok,(*itC).Get_x1()+i*sumoi,(*itC).Get_y1()+j*sumoj,(*itC).Get_z1()+k*sumok,lista_Temp,sentido);
 						//Cambio la actual configuracao
-						//Tengo que poner el numero 
+						//Tengo que poner el numero
 						itC->Set_x1((*itC).Get_x1()+(i-1)*sumoi);
 						itC->Set_y1((*itC).Get_y1()+(j-1)*sumoj);
 						itC->Set_x2((*itC).Get_x1()+sumoi);
 						itC->Set_y2((*itC).Get_y1()+sumoj);
-						itC->Set_dx(1);	
+						itC->Set_dx(1);
 						itC->Set_dy(1);
 						itC->Set_dz((*itC).Get_dz());
 						itC->Set_Num((*itC).Get_dz());
@@ -4797,7 +4825,7 @@ bool CONTAINER::FuerzaDeGravedadIndividual(std::list<CONFIGURACAO> &lista,short 
 						//Actualizar esta configuraco me crea algunas nuevas
 						itC2=itC;
 						if (itC!=lista.end()) itC2++;
-						
+
 
 						lista.insert(itC2,lista_Temp.begin(),lista_Temp.end());
 
@@ -4810,7 +4838,7 @@ bool CONTAINER::FuerzaDeGravedadIndividual(std::list<CONFIGURACAO> &lista,short 
 //						printf("algo se mueve");
 						int vol=(*itC).Get_Volumen();
 						//Tengo que llamar a la funcion con la configuracion
-						//que tengo 
+						//que tengo
 						std::list< CONFIGURACAO > lista_Temp;
 						//Tengo que meter algunas nuevas configuracaos
 						ActualizarConfiguracaoGravedad((*itC),(*itC).Get_x1()+(i-1)*sumoi,(*itC).Get_y1()+(j-1)*sumoj,(*itC).Get_z1()+(k-1)*sumok,(*itC).Get_x1()+i*sumoi,(*itC).Get_y1()+j*sumoj,(*itC).Get_z1()+k*sumok,lista_Temp,sentido);
@@ -4822,7 +4850,7 @@ bool CONTAINER::FuerzaDeGravedadIndividual(std::list<CONFIGURACAO> &lista,short 
 						itC->Set_x1((*itC).Get_x1()+(i-1)*sumoi);
 						itC->Set_x2((*itC).Get_x1()+sumoi);
 						//Pongo las piezas que tuviera en la direccion de x
-						itC->Set_dx(1);	
+						itC->Set_dx(1);
 						itC->Set_dy((*itC).Get_dy());
 						itC->Set_dz(1);
 						itC->Set_Num((*itC).Get_dy());
@@ -4841,7 +4869,7 @@ bool CONTAINER::FuerzaDeGravedadIndividual(std::list<CONFIGURACAO> &lista,short 
 						if (itC!=lista.end()) itC2++;
 
 						lista.insert(itC2,lista_Temp.begin(),lista_Temp.end());
-					}				
+					}
 					if (sentido==1 && muevo>0)
 					{
 
@@ -4849,7 +4877,7 @@ bool CONTAINER::FuerzaDeGravedadIndividual(std::list<CONFIGURACAO> &lista,short 
 //						printf("algo se mueve");
 
 						//Tengo que llamar a la funcion con la configuracion
-						//que tengo 
+						//que tengo
 						std::list< CONFIGURACAO > lista_Temp;
 						//Tengo que meter algunas nuevas configuracaos
 						ActualizarConfiguracaoGravedad((*itC),(*itC).Get_x1()+(i-1)*sumoi,(*itC).Get_y1()+(j-1)*sumoj,(*itC).Get_z1()+(k-1)*sumok,(*itC).Get_x1()+i*sumoi,(*itC).Get_y1()+j*sumoj,(*itC).Get_z1()+k*sumok,lista_Temp,sentido);
@@ -4861,7 +4889,7 @@ bool CONTAINER::FuerzaDeGravedadIndividual(std::list<CONFIGURACAO> &lista,short 
 						itC->Set_y1((*itC).Get_y1()+(j-1)*sumoj);
 						itC->Set_y2((*itC).Get_y1()+sumoj);
 						//Pongo las piezas que tuviera en la direccion de x
-						itC->Set_dx((*itC).Get_dx());	
+						itC->Set_dx((*itC).Get_dx());
 						itC->Set_dy(1);
 						itC->Set_dz(1);
 						itC->Set_Num((*itC).Get_dx());
@@ -4889,7 +4917,7 @@ bool CONTAINER::FuerzaDeGravedadIndividual(std::list<CONFIGURACAO> &lista,short 
 //2 eje_y
 int CONTAINER::PuedoMover(std::list<CONFIGURACAO> &lista,int x1,int y1,int z1,int x2,int y2,int z2,short int sentido)
 {
-	//Me dice cuanto puedo mover esta pieza 
+	//Me dice cuanto puedo mover esta pieza
 	//lo primero es localizar el maximo
 	//Lo primero es ver si se intersectan
 	int mintemp=0,min=m_X;
@@ -4905,9 +4933,9 @@ int CONTAINER::PuedoMover(std::list<CONFIGURACAO> &lista,int x1,int y1,int z1,in
 //		CONFIGURACAO kk=(*itC);
 		if (sentido==0)
 		{
-			if ((*itC).Get_z1()>=z1) 
+			if ((*itC).Get_z1()>=z1)
 				return min;
-			if ((*itC).Get_z2()>z1) 
+			if ((*itC).Get_z2()>z1)
 				continue;
 
 
@@ -4929,7 +4957,7 @@ int CONTAINER::PuedoMover(std::list<CONFIGURACAO> &lista,int x1,int y1,int z1,in
 			if (!(z2 <= (*itC).Get_z1() ||  z1 >= (*itC).Get_z2())
 				&& !(y2 <= (*itC).Get_y1() ||  y1 >= (*itC).Get_y2()))
 			{
-				
+
 			if ( x1==((*itC).Get_x2())) 				return 0;
 			mintemp=x1-(*itC).Get_x2();
 			if (mintemp < min)
@@ -4944,8 +4972,8 @@ int CONTAINER::PuedoMover(std::list<CONFIGURACAO> &lista,int x1,int y1,int z1,in
 			if (!(z2 <= (*itC).Get_z1() ||  z1 >= (*itC).Get_z2())
 				&& !(x2 <= (*itC).Get_x1() ||  x1 >= (*itC).Get_x2()))
 			{
-				
-			if ( y1==((*itC).Get_y2())) 
+
+			if ( y1==((*itC).Get_y2()))
 				return 0;
 			mintemp=y1-(*itC).Get_y2();
 			if (mintemp < min)
@@ -4956,15 +4984,15 @@ int CONTAINER::PuedoMover(std::list<CONFIGURACAO> &lista,int x1,int y1,int z1,in
 	}
 	return 0;
 }
-void CONTAINER::BubbleSort(std::list<CONFIGURACAO> &lista,short int tipo) 
+void CONTAINER::BubbleSort(std::list<CONFIGURACAO> &lista,short int tipo)
 {
 	std::list< CONFIGURACAO > ::iterator itc,itc2,itfin;
 	bool fin;
 	itfin=lista.end();
-	do 
+	do
 	{
 		fin=true;
-	    for (itc=lista.begin();itc!=itfin;itc++) 
+	    for (itc=lista.begin();itc!=itfin;itc++)
 		{
 			PintarSolucion(lista);
 			itc2=itc;
@@ -4973,7 +5001,7 @@ void CONTAINER::BubbleSort(std::list<CONFIGURACAO> &lista,short int tipo)
 //			CONFIGURACAO kk2=(*itc2);
 			if (itc2==itfin)
 			break;
-			if ((*itc).Mayor((*itc2),tipo)==true) 
+			if ((*itc).Mayor((*itc2),tipo)==true)
 			{
 				std::list< CONFIGURACAO > ::iterator ittemp;
 				ittemp=itc;
@@ -4981,13 +5009,13 @@ void CONTAINER::BubbleSort(std::list<CONFIGURACAO> &lista,short int tipo)
 				itc2=ittemp;
 	            fin=false;
 				PintarSolucion(lista);
-		
+
 			}
 		}
 //		PintarSolucion(lista);
 
 	} while (fin==false);
-} 
+}
 bool CONFIGURACAO::Mayor(CONFIGURACAO &C,short int tipo)
 {
 	//Por el eje z
@@ -5011,7 +5039,7 @@ bool CONFIGURACAO::Mayor(CONFIGURACAO &C,short int tipo)
 }
 double CONTAINER::Medida1Estabilidad(std::list<CONFIGURACAO> &lista)
 {
-	//Esta tiene que sumar por cuantas cajas de media esta soportada cada caja 
+	//Esta tiene que sumar por cuantas cajas de media esta soportada cada caja
 	//que no esta en el suelo
 	int total=0;
 	int numcaixas=0;
@@ -5025,7 +5053,7 @@ double CONTAINER::Medida1Estabilidad(std::list<CONFIGURACAO> &lista)
 		// Para piezas
 		for (int register i=1;i<=(*itC).Get_dx() ;i++)
 		{
-			
+
 			int sumoi=(((*itC).Get_x2()-(*itC).Get_x1())/(*itC).Get_dx());
 
 			for (int register j=1;j<=(*itC).Get_dy();j++)
@@ -5057,7 +5085,7 @@ double CONTAINER::Medida1Estabilidad(std::list<CONFIGURACAO> &lista)
 						numcaixas55por100++;
 					else
 						kkespia=0;
-			
+
 					int difx=sumoi/2;
 					int dify=sumoj/2;
 					if (2*difx==sumoi)
@@ -5096,7 +5124,7 @@ double CONTAINER::Medida1Estabilidad(std::list<CONFIGURACAO> &lista)
 int CONTAINER::NumeroDeCajasSoportanEsta(int x1,int y1, int z1, int x2, int y2, int z2,std::list<CONFIGURACAO> &lista)
 {
 	int numero=0;
-	//Tengo que recorrer todas las cajas 
+	//Tengo que recorrer todas las cajas
 	std::list<CONFIGURACAO> ::iterator itC,itC2;
 	for (itC=lista.begin();itC!=lista.end();itC++)
 	{
@@ -5104,7 +5132,7 @@ int CONTAINER::NumeroDeCajasSoportanEsta(int x1,int y1, int z1, int x2, int y2, 
 		// Para piezas
 		for (int register i=1;i<=(*itC).Get_dx() ;i++)
 		{
-			
+
 			int sumoi=(((*itC).Get_x2()-(*itC).Get_x1())/(*itC).Get_dx());
 
 			for (int register j=1;j<=(*itC).Get_dy();j++)
@@ -5129,14 +5157,14 @@ int CONTAINER::NumeroDeCajasSoportanEsta(int x1,int y1, int z1, int x2, int y2, 
 		}
 	}
 	return numero;
-}	
+}
 //Cuanta el numero de cajas que soportan esta caja
 int CONTAINER::EstaCajaSoportada(int x1,int y1, int z1, int x2, int y2, int z2,std::list<CONFIGURACAO> &lista,int cantidad)
 {
 	int numero=0;
 	int areapieza=(x2-x1)*(y2-y1);
 	int areacorta=0;
-	//Tengo que recorrer todas las cajas 
+	//Tengo que recorrer todas las cajas
 	std::list<CONFIGURACAO> ::iterator itC,itC2;
 	for (itC=lista.begin();itC!=lista.end();itC++)
 	{
@@ -5144,7 +5172,7 @@ int CONTAINER::EstaCajaSoportada(int x1,int y1, int z1, int x2, int y2, int z2,s
 		// Para piezas
 		for (int register i=1;i<=(*itC).Get_dx() ;i++)
 		{
-			
+
 			int sumoi=(((*itC).Get_x2()-(*itC).Get_x1())/(*itC).Get_dx());
 
 			for (int register j=1;j<=(*itC).Get_dy();j++)
@@ -5174,7 +5202,7 @@ int CONTAINER::EstaCajaSoportada(int x1,int y1, int z1, int x2, int y2, int z2,s
 						areacorta+=cx*cy;
 						if (areacorta>=((double)cantidad*areapieza/(double)100))
 							return true;
-						
+
 					}
 
 				}
@@ -5182,7 +5210,7 @@ int CONTAINER::EstaCajaSoportada(int x1,int y1, int z1, int x2, int y2, int z2,s
 		}
 	}
 	return false;
-}	
+}
 //Esta mide el número medio de cajas que tiene 3 lados pegados a otras cajas
 	//Por tanto lo primero recorrer todas las cajas
 double CONTAINER::Medida2Estabilidad(std::list<CONFIGURACAO> &lista)
@@ -5259,7 +5287,7 @@ int CONTAINER::EstaCajaTiene3Pegados(int x1,int y1, int z1, int x2, int y2, int 
 /// CESCHIA CESCHIA CESCHIA!/// CESCHIA CESCHIA CESCHIA!/// CESCHIA CESCHIA CESCHIA!/// CESCHIA CESCHIA CESCHIA!/// CESCHIA CESCHIA CESCHIA!
 /// CESCHIA CESCHIA CESCHIA!/// CESCHIA CESCHIA CESCHIA!/// CESCHIA CESCHIA CESCHIA!/// CESCHIA CESCHIA CESCHIA!/// CESCHIA CESCHIA CESCHIA!
 void CONTAINER::MinimaDimension_Ceschia()
-{	
+{
 	m_menor_peso=m_X*m_Y*m_Z;//-------------------------------------------
 	m_dimension_menor=m_X;
 	m_menor_volumen=m_X*m_Y*m_Z;
@@ -5278,7 +5306,7 @@ void CONTAINER::MinimaDimension_Ceschia()
 				m_dimension_menor=m_Pieces[icp].Get_y();
 		if (m_Pieces[icp].Get_z()<m_dimension_menor)
 			m_dimension_menor=m_Pieces[icp].Get_z();
-		
+
 		aux_menor_tipo=m_Pieces[icp].Get_x();
 		if (m_Pieces[icp].Get_y()<aux_menor_tipo)
 			aux_menor_tipo=m_Pieces[icp].Get_y();
@@ -5304,7 +5332,7 @@ void CONTAINER::ElegirSpace_Ceschia(SPACE &espacio, bool &posi)
 		if ((*it).Get_Flag()==false)
 		{
 			quedan_todavia=true;
-			if (primero==true) 
+			if (primero==true)
 			{
 				elegido=it;
 				primero=false;
@@ -5326,7 +5354,7 @@ void CONTAINER::ElegirSpace_Ceschia(SPACE &espacio, bool &posi)
 						switch(eleccion)
 						{
 							case 1:
-							{	
+							{
 								if ((*it).Get_z1()>(*elegido).Get_z1()) //OJO APILAR LUEGO CONTRALAPARED
 									elegido=it;
 								if ((*it).Get_z1()==(*elegido).Get_z1())
@@ -5344,7 +5372,7 @@ void CONTAINER::ElegirSpace_Ceschia(SPACE &espacio, bool &posi)
 								break;
 							}
 							case 2:
-							{				
+							{
 								if ((*it).Get_x1()<(*elegido).Get_x1()) //OJO CONTRALAPARED LUEGO APILAR
 									elegido=it;
 								if ((*it).Get_x1()==(*elegido).Get_x1())
@@ -5354,9 +5382,9 @@ void CONTAINER::ElegirSpace_Ceschia(SPACE &espacio, bool &posi)
 									if ((*it).Get_z1()==(*elegido).Get_z1())
 									{
 										if (Mejor_DistA_Que_DistB((*elegido),(*it))==false)
-											elegido=it;		
+											elegido=it;
 									}
-								}	
+								}
 								break;
 							}
 							case 3:
@@ -5370,16 +5398,16 @@ void CONTAINER::ElegirSpace_Ceschia(SPACE &espacio, bool &posi)
 									if ((*it).Get_z1()==(*elegido).Get_z1())
 									{
 										if (Mejor_DistA_Que_DistB((*elegido),(*it))==false)
-										elegido=it;		
+										elegido=it;
 									}
-								}	
+								}
 								break;
 							}
 						}
 					}
 				}
 				else
-				{	
+				{
 					if (m_full_supported==false)
 					{
 						if (Mejor_DistA_Que_DistB((*elegido),(*it))==false)
@@ -5393,7 +5421,7 @@ void CONTAINER::ElegirSpace_Ceschia(SPACE &espacio, bool &posi)
 						switch (eleccion)
 						{
 							case 1:
-							{	
+							{
 								if ((*it).Get_z1()>(*elegido).Get_z1()) //OJO APILAR LUEGO CONTRALAPARED
 									elegido=it;
 								if ((*it).Get_z1()==(*elegido).Get_z1())
@@ -5410,9 +5438,9 @@ void CONTAINER::ElegirSpace_Ceschia(SPACE &espacio, bool &posi)
 								}
 								break;
 							}
-							
+
 							case 2:
-							{				
+							{
 								if ((*it).Get_x1()<(*elegido).Get_x1()) //OJO CONTRALAPARED LUEGO APILAR
 									elegido=it;
 								if ((*it).Get_x1()==(*elegido).Get_x1())
@@ -5422,12 +5450,12 @@ void CONTAINER::ElegirSpace_Ceschia(SPACE &espacio, bool &posi)
 									if ((*it).Get_z1()==(*elegido).Get_z1())
 									{
 										if (Mejor_DistA_Que_DistB((*elegido),(*it))==false)
-											elegido=it;		
+											elegido=it;
 									}
 								}
 								break;
 							}
-							
+
 							case 3:
 							{
 								if ((*it).Get_x1()<(*elegido).Get_x1()) // OJO CONTRALAPARED LUEGO NO APILAR
@@ -5439,45 +5467,45 @@ void CONTAINER::ElegirSpace_Ceschia(SPACE &espacio, bool &posi)
 									if ((*it).Get_z1()==(*elegido).Get_z1())
 									{
 										if (Mejor_DistA_Que_DistB((*elegido),(*it))==false)
-										elegido=it;		
+										elegido=it;
 									}
-								}	
+								}
 								break;
 							}
-						}	
+						}
 					}
 				}
 			}
-				
+
 		}
 		++it;
-		//Funcion que me elimina los espacios 
-		//si la quito todo funsiona igual 
+		//Funcion que me elimina los espacios
+		//si la quito todo funsiona igual
 		/*else
 		{
 			it=m_Spaces.erase(it);
 		}*/
 	}
-	if (quedan_todavia==false || m_Spaces.size()==0) 
+	if (quedan_todavia==false || m_Spaces.size()==0)
 	{
 		return;
 	}
 	posi=true;
 	espacio.ModificarSpacePeso(elegido->Get_x1(),elegido->Get_y1(),elegido->Get_z1(),elegido->Get_x2(),elegido->Get_y2(),elegido->Get_z2(),elegido->Get_m_soporta_peso(),elegido->Get_r_y1(),elegido->Get_r_y2(),elegido->Get_r_L());
 }
-void CONTAINER::ElegirConfiguracao_Ceschia(SPACE &Espacio,CONFIGURACAO &Configuracao, int cliente)	
+void CONTAINER::ElegirConfiguracao_Ceschia(SPACE &Espacio,CONFIGURACAO &Configuracao, int cliente)
 {
 	//Para el aleatorizado hago una estimacion que va a ser una estimacion d
 	//los que puedo tener en la lista mas o menos
 	if (m_Aleatorizado==true)
 	{
 		m_TamRCL=EstimacionPesoCliente_Ceschia(Espacio,cliente);
-		if (m_TamRCL==0) 
+		if (m_TamRCL==0)
 		{
 			int contador_piezas_cliente=0;
 			int piezas_cliente_satisfechas=0;
 			for (int imc=0;imc<m_Q;imc++)
-			{	
+			{
 				if(m_Pieces[imc].Get_Cliente()==cliente)
 				{
 					contador_piezas_cliente++;
@@ -5488,7 +5516,7 @@ void CONTAINER::ElegirConfiguracao_Ceschia(SPACE &Espacio,CONFIGURACAO &Configur
 				}
 			}
 			if(piezas_cliente_satisfechas==contador_piezas_cliente)
-				m_cambiar_cliente=true;		
+				m_cambiar_cliente=true;
 			return;
 		}
 
@@ -5507,12 +5535,12 @@ void CONTAINER::ElegirConfiguracao_Ceschia(SPACE &Espacio,CONFIGURACAO &Configur
 		int contador_piezas_cliente=0;
 		int piezas_cliente_satisfechas=0;
 		for (int imc=0;imc<m_Q;imc++)
-		{	
+		{
 			if(m_Pieces[imc].Get_Cliente()==cliente)
 			{
 				contador_piezas_cliente++;
 				if (m_Pieces[imc].Get_Num()<m_Pieces[imc].Get_q())
-				{				
+				{
 					Configuracao.MejorCapaDeUnaPiezaPeso_Ceschia(Espacio,m_Pieces[imc]);
 				}
 				else
@@ -5530,7 +5558,7 @@ void CONTAINER::ElegirConfiguracao_Ceschia(SPACE &Espacio,CONFIGURACAO &Configur
 	else
 	{
 		for (int imc=0;imc<m_Q;imc++)
-		{	
+		{
 			if (m_Pieces[imc].Get_Num()<m_Pieces[imc].Get_q())
 				//Cambiar para que vaya con columnas
 				Configuracao.MejorColumnaDeUnaPieza(Espacio,m_Pieces[imc]);
@@ -5539,7 +5567,7 @@ void CONTAINER::ElegirConfiguracao_Ceschia(SPACE &Espacio,CONFIGURACAO &Configur
 	//Si es aleatorizado ya tengo todos ahora tengo que elegir uno
 	if (m_Aleatorizado==true)
 	{
-		//Elegir uno al azar 
+		//Elegir uno al azar
 		//Puede ser que la estimacion sea por encima y luego no pueda
 		//colocar tantas por esto
 		int alea=get_random(0,min(m_TamRCL-1,(int)m_ListaRCL.size()-1));
@@ -5547,7 +5575,7 @@ void CONTAINER::ElegirConfiguracao_Ceschia(SPACE &Espacio,CONFIGURACAO &Configur
 		std::list < CONFIGURACAO > ::iterator it;
 		for (it=m_ListaRCL.begin();it!=m_ListaRCL.end();it++)
 		{
-			if (alea==cont) 
+			if (alea==cont)
 			{
 				//si es un bloque mas tarde lo voy a meter
 				if ((*it).Get_Id()<1000)
@@ -5660,7 +5688,7 @@ void CONFIGURACAO::CompararConCapasPeso_Ceschia(short int tipo,SPACE &Espacio, i
 		case 1:
 			{
 				Eje_x=min(Espacio.Get_dx()/x,piezas_maximas);
-				
+
 			}break;
 		case 2:
 			{
@@ -5670,7 +5698,7 @@ void CONFIGURACAO::CompararConCapasPeso_Ceschia(short int tipo,SPACE &Espacio, i
 		case 3:
 			{
 				eleccion=get_random(1,2);
-				
+
 				switch(eleccion)
 				{
 					case 1:
@@ -5753,24 +5781,24 @@ void CONFIGURACAO::CompararConCapasPeso_Ceschia(short int tipo,SPACE &Espacio, i
 				}
 		}
 		//Tengo columnas ahora tengo que hacer caras con esa columna
-		//En eje y 
+		//En eje y
 		//Dimensiones de la pieza las naturales
 		//en x, las demas son unas por tanto esta configuracao
 		//Tengo que poner eje, que ya esta puesto por el espacio
 		ORIG OrigActual;
-		if (m_Container->Get_objetivo_vol()==false)	
+		if (m_Container->Get_objetivo_vol()==false)
 			Cambiar(OrigActual,Espacio.Get_dx()-Eje_x*x,Espacio.Get_dy()-Eje_y*y,Espacio.Get_dz()-Eje_z*z);
-		
+
 		if(m_Container->Get_Algoritmo_Opcion_Ceschia())
 		{
-			Cos=Eje_x*Eje_y*Eje_z*Costo*Volumen;	
+			Cos=Eje_x*Eje_y*Eje_z*Costo*Volumen;
 		}
 		else
 		{
 			Cos=0;
 			Vol=Eje_x*Eje_y*Eje_z*Volumen;
 		}
-		//Para el constructivo 
+		//Para el constructivo
 		if (m_Container->Get_Aleatorizado()==false)
 		{
 			if (m_Container->Get_Tipo_Mejora()!=3)
@@ -5792,11 +5820,11 @@ void CONFIGURACAO::CompararConCapasPeso_Ceschia(short int tipo,SPACE &Espacio, i
 			}
 		}
 		//Para hacer un constructivo aleatorizado
-		//La diferencia es que aqui tengo que tener una lista que es la que me controla cuantos 
-		//pueden caber 
+		//La diferencia es que aqui tengo que tener una lista que es la que me controla cuantos
+		//pueden caber
 		else
 		{
-			//Tengo que ver si puedo o no meterla en la lista 
+			//Tengo que ver si puedo o no meterla en la lista
 			//En la configuracion que tengo es la pero posible
 
 			//Esta funcion inserta esta en la RCL
@@ -5832,7 +5860,7 @@ void CONFIGURACAO::CambiarConfiguracaoPeso_Ceschia(int numpiezas, int ca,int cb,
 	m_dy=cb;
 	m_dz=cc;
 	m_num=ca*cb*cc;
-	
+
 	if(m_Container->Get_Algoritmo_Opcion_Ceschia())
 	{
 		m_Costo=Cos;
@@ -5872,7 +5900,7 @@ void CONFIGURACAO::CambiarConfiguracaoPeso_Ceschia(int numpiezas, int ca,int cb,
 				else
 				{
 					m_y1=Espacio.Get_y1(); m_y2=m_y1+cb*b;
-					
+
 				}
 				m_z1=Espacio.Get_z1(); m_z2=m_z1+cc*c;
 			}
@@ -5903,7 +5931,7 @@ void CONFIGURACAO::CambiarConfiguracaoPeso_Ceschia(int numpiezas, int ca,int cb,
 				else
 				{
 					m_y2=Espacio.Get_y2(); m_y1=m_y2-cb*b;
-				}		
+				}
 				m_z1=Espacio.Get_z1(); m_z2=m_z1+cc*c;
 			}
 			else
@@ -5975,23 +6003,23 @@ void CONFIGURACAO::InsertarOrdenadaRCL_Ceschia(CONFIGURACAO &Actual)
 		{
 			if(m_Container->Get_Algoritmo_Opcion_Ceschia())
 			{
-				if ((*itl).Get_Costo()>Get_Costo())	
+				if ((*itl).Get_Costo()>Get_Costo())
 				{
 					m_Container->Get_ListaRCL().insert(itl,Actual);
 					if (m_Container->Get_ListaRCL().size()>m_Container->Get_TamRCL())
 						m_Container->Get_ListaRCL().pop_front();
 					return;
-				}		
+				}
 			}
 			else
 			{
-				if ((*itl).Get_Volumen()>Get_Volumen())		
+				if ((*itl).Get_Volumen()>Get_Volumen())
 				{
 					m_Container->Get_ListaRCL().insert(itl,Actual);
 					if (m_Container->Get_ListaRCL().size()>m_Container->Get_TamRCL())
 						m_Container->Get_ListaRCL().pop_front();
 					return;
-				}		
+				}
 			}
 		}
 		else
@@ -6012,7 +6040,7 @@ void CONFIGURACAO::InsertarOrdenadaRCL_Ceschia(CONFIGURACAO &Actual)
 }
 void CONTAINER::ActualizarListas_Ceschia(SPACE &EspacioT, CONFIGURACAO &Configuracao)
 {
-	
+
 	//Primero actualizo el numero que  a su vez actualiza el flag
 	m_Pieces[Configuracao.Get_Id()].Add_Num(Configuracao.Get_Num());
 	int kk=m_Pieces[Configuracao.Get_Id()].Get_Num();
@@ -6030,23 +6058,23 @@ void CONTAINER::ActualizarListas_Ceschia(SPACE &EspacioT, CONFIGURACAO &Configur
 	if (m_Pieces[Configuracao.Get_Id()].Get_Num()==m_Pieces[Configuracao.Get_Id()].Get_q())
 	{
 		if ((m_Pieces[Configuracao.Get_Id()].Get_x()==m_dimension_menor
-			||m_Pieces[Configuracao.Get_Id()].Get_y()==m_dimension_menor 
+			||m_Pieces[Configuracao.Get_Id()].Get_y()==m_dimension_menor
 			||m_Pieces[Configuracao.Get_Id()].Get_z()==m_dimension_menor
 			||m_Pieces[Configuracao.Get_Id()].Get_x()*m_Pieces[Configuracao.Get_Id()].Get_m_densidad_pieza()==m_menor_peso
-			||m_Pieces[Configuracao.Get_Id()].Get_y()*m_Pieces[Configuracao.Get_Id()].Get_m_densidad_pieza()==m_menor_peso 
+			||m_Pieces[Configuracao.Get_Id()].Get_y()*m_Pieces[Configuracao.Get_Id()].Get_m_densidad_pieza()==m_menor_peso
 			||m_Pieces[Configuracao.Get_Id()].Get_z()*m_Pieces[Configuracao.Get_Id()].Get_m_densidad_pieza()==m_menor_peso))
 		{
 			MinimaDimension_Ceschia();
 		}
 	}
-	//Ahora tengo que meter los nuevos espacios producidos por la configuracao 
+	//Ahora tengo que meter los nuevos espacios producidos por la configuracao
 	//ademas los tengo que meter en orden porque despues estarán ordenados y es ir colocandolos en le lugar correspondiente
-	std::list< SPACE > lista_temp;	
+	std::list< SPACE > lista_temp;
 	ActualizarEspaciosElegido_Ceschia(EspacioT,Configuracao,lista_temp);
-	//Si encima no queda nada guardar 
+	//Si encima no queda nada guardar
 //Eliminar este espacio
 	std::list< SPACE > ::iterator it;
-	//FALTA 
+	//FALTA
 	for (it = m_Spaces.begin();it!=m_Spaces.end();it++)
 	{
 		if ((*it).Get_x1()==EspacioT.Get_x1() && (*it).Get_x2()==EspacioT.Get_x2() &&
@@ -6087,12 +6115,12 @@ void CONTAINER::ActualizarEspaciosElegido_Ceschia(SPACE &E, CONFIGURACAO &C,std:
 	int dimx=E.Get_x2()-E.Get_x1();
 	int dimy=E.Get_y2()-E.Get_y1();
 	int dimz=E.Get_z2()-E.Get_z1();
-	
+
 
 	//Izquierda: if (xE1-xC1)>0 espaço es ((xE1-xC1),yE2-yE1,zE2-zE1)  v: (xE1,yE1,zE1)
 	if ((C.Get_x1()-E.Get_x1())>0)
 	{
-		//Si se da esto es un espacio en el que no voy a poder colocar nada 
+		//Si se da esto es un espacio en el que no voy a poder colocar nada
 		//Por ahora no lo creo
 		if (m_dimension_menor<=min(min((C.Get_x1()-E.Get_x1()),dimy),dimz) && (m_menor_volumen<=((C.Get_x1()-E.Get_x1())*dimy*dimz)))
 		{
@@ -6129,7 +6157,7 @@ void CONTAINER::ActualizarEspaciosElegido_Ceschia(SPACE &E, CONFIGURACAO &C,std:
 			if (CabeAlguna(dimx,(C.Get_y1()-E.Get_y1()),dimz  )==true)
 			{
 				if(E.Get_r_y1()<C.Get_y1())
-				{		
+				{
 					SPACE Espacio(this,E.Get_x1(),E.Get_y1(),E.Get_z1(),dimx,(C.Get_y1()-E.Get_y1()),dimz,E.Get_r_y1(),min(E.Get_r_y2(),C.Get_y1()),E.Get_r_L(),E.Get_Flag());
 					Espacio.Set_m_soporta_peso(C.Get_m_soporte_peso());
 					InsertarOrden(lista_temp,Espacio);
@@ -6164,7 +6192,7 @@ void CONTAINER::ActualizarEspaciosElegido_Ceschia(SPACE &E, CONFIGURACAO &C,std:
 		if (m_dimension_menor<=min(min(dimx,dimy),(C.Get_z1()-E.Get_z1())) && (m_menor_volumen<=((C.Get_z1()-E.Get_z1())*dimx*dimy)))
 		{
 			if (CabeAlguna(dimx,dimy,(C.Get_z1()-E.Get_z1()) )==true)
-			{	
+			{
 				SPACE Espacio(this,E.Get_x1(),E.Get_y1(),E.Get_z1(),dimx,dimy,(C.Get_z1()-E.Get_z1()),E.Get_r_y1(),E.Get_r_y2(),E.Get_r_L(),E.Get_Flag());
 				Espacio.Set_m_soporta_peso(C.Get_m_soporte_peso());
 				InsertarOrden(lista_temp,Espacio);
@@ -6205,7 +6233,7 @@ void CONTAINER::ActualizarEspaciosElegido_Ceschia(SPACE &E, CONFIGURACAO &C,std:
 			{
 				if (CabeAlguna((C.Get_x2()-C.Get_x1()),(C.Get_y2()-C.Get_y1()),(E.Get_z2()-C.Get_z2()) )==true)
 				{
-					SPACE Espacio(this,max(C.Get_x1(),E.Get_x1()),max(C.Get_y1(),E.Get_y1()),C.Get_z2(),(min(C.Get_x2(),E.Get_x2())-max(C.Get_x1(),E.Get_x1())),(min(C.Get_y2(),E.Get_y2())-max(C.Get_y1(),E.Get_y1())),(E.Get_z2()-C.Get_z2()),E.Get_r_y1(), E.Get_r_y2(), min((E.Get_r_L()-C.Get_dz()),0),E.Get_Flag());	
+					SPACE Espacio(this,max(C.Get_x1(),E.Get_x1()),max(C.Get_y1(),E.Get_y1()),C.Get_z2(),(min(C.Get_x2(),E.Get_x2())-max(C.Get_x1(),E.Get_x1())),(min(C.Get_y2(),E.Get_y2())-max(C.Get_y1(),E.Get_y1())),(E.Get_z2()-C.Get_z2()),E.Get_r_y1(), E.Get_r_y2(), min((E.Get_r_L()-C.Get_dz()),0),E.Get_Flag());
 					Espacio.Set_m_soporta_peso(C.Get_m_soporte_peso_arriba());
 					InsertarOrden(lista_temp,Espacio);
 				}
@@ -6255,7 +6283,7 @@ void CONTAINER::ActualizarEspaciosElegido_Liu(SPACE &E, CONFIGURACAO &C,std::lis
 			if (CabeAlguna(dimx,(C.Get_y1()-E.Get_y1()),dimz  )==true)
 			{
 				if(E.Get_r_y1()<C.Get_y1())
-				{				
+				{
 					SPACE Espacio(this,E.Get_x1(),E.Get_y1(),E.Get_z1(),dimx,(C.Get_y1()-E.Get_y1()),dimz,E.Get_r_y1(),min(E.Get_r_y2(),C.Get_y1()),E.Get_r_L(),E.Get_Flag());
 					Espacio.Set_m_soporta_peso(C.Get_m_soporte_peso());
 					InsertarOrden(lista_temp,Espacio);
@@ -6287,7 +6315,7 @@ void CONTAINER::ActualizarEspaciosElegido_Liu(SPACE &E, CONFIGURACAO &C,std::lis
 		if (m_full_supported==false)
 		{
 			if (m_dimension_menor<=min(min(dimx,dimy),(E.Get_z2()-C.Get_z2())) && (m_menor_volumen<=((E.Get_z2()-C.Get_z2())*dimx*dimy)) )
-			{	
+			{
 				if (CabeAlguna(dimx,dimy,(E.Get_z2()-C.Get_z2()) )==true)
 				{
 					SPACE Espacio(this,E.Get_x1(),E.Get_y1(),C.Get_z2(),dimx,dimy,(E.Get_z2()-C.Get_z2()),E.Get_r_y1(), E.Get_r_y2(), min((E.Get_r_L()-C.Get_dz()),0),E.Get_Flag());
@@ -6304,7 +6332,7 @@ void CONTAINER::ActualizarEspaciosElegido_Liu(SPACE &E, CONFIGURACAO &C,std::lis
 			{
 				if (CabeAlguna((C.Get_x2()-C.Get_x1()),(C.Get_y2()-C.Get_y1()),(E.Get_z2()-C.Get_z2()) )==true)
 				{
-					SPACE Espacio(this,max(C.Get_x1(),E.Get_x1()),max(C.Get_y1(),E.Get_y1()),C.Get_z2(),(min(C.Get_x2(),E.Get_x2())-max(C.Get_x1(),E.Get_x1())),(min(C.Get_y2(),E.Get_y2())-max(C.Get_y1(),E.Get_y1())),(E.Get_z2()-C.Get_z2()),E.Get_r_y1(), E.Get_r_y2(), min((E.Get_r_L()-C.Get_dz()),0),E.Get_Flag());	
+					SPACE Espacio(this,max(C.Get_x1(),E.Get_x1()),max(C.Get_y1(),E.Get_y1()),C.Get_z2(),(min(C.Get_x2(),E.Get_x2())-max(C.Get_x1(),E.Get_x1())),(min(C.Get_y2(),E.Get_y2())-max(C.Get_y1(),E.Get_y1())),(E.Get_z2()-C.Get_z2()),E.Get_r_y1(), E.Get_r_y2(), min((E.Get_r_L()-C.Get_dz()),0),E.Get_Flag());
 					Espacio.Set_m_soporta_peso(C.Get_m_soporte_peso_arriba());
 					InsertarOrden(lista_temp,Espacio);
 				}

@@ -70,6 +70,7 @@ struct mdcvfp {
         int y;
     };
     vector <relocation_point> relocation_points;
+    vector <demanda> demandaClientes;
 };
 
 /////////////////////////

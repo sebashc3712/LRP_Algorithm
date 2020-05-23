@@ -4087,12 +4087,12 @@ int main(int argc, char**argv) {
 
         // Reading of the info of boxes
         int kk{0};
-        //srand(time(NULL));
+
         for(int i{0};i<mydata.ncustomers;i++){
-            //cout<<"Customer "<<i;
+
             data_input>>mydata_tmp;
             data_input>>mydata.customers[i].numberBoxes;
-            //cout<<" has "<<mydata.customers[i].numberBoxes<<" boxes"<<endl;
+
             int type_of_waste{1};
             for(int j{0};j<mydata.customers[i].numberBoxes;j++){
                 mydata.boxes.resize(mydata.boxes.size()+mydata.customers[i].numberBoxes);
@@ -4111,8 +4111,45 @@ int main(int argc, char**argv) {
             }
         }
 
+        /***********************Adding info boxes to relocation points************************************/
+
+        int initial_size=mydata.boxes.size();
+        int new_box=mydata.boxes.size();
+        mydata.boxes.resize(mydata.boxes.size()+(3*mydata.boxes.size()));
+        int reloc_point=mydata.ncustomers;
+        int ref_point{0};
+
+        for(int i{0};i<mydata.ncustomers;i++){
+
+            for(int k{0};k<3;k++){
+
+                for(int j{0};j<initial_size;j++){
+
+                    if(mydata.boxes[j].customerId==ref_point){
+
+                        mydata.boxes[new_box].customerId=reloc_point;
+                        mydata.boxes[new_box].boxId=mydata.boxes[j].boxId;
+                        mydata.boxes[new_box].heightBox=mydata.boxes[j].heightBox;
+                        mydata.boxes[new_box].widthBox=mydata.boxes[j].widthBox;
+                        mydata.boxes[new_box].lengthBox=mydata.boxes[j].lengthBox;
+                        mydata.boxes[new_box].fragilityBox=mydata.boxes[j].fragilityBox;
+                        mydata.boxes[new_box].wasteType=mydata.boxes[j].wasteType;
+                        new_box++;
+
+                    }
+
+                }
+                reloc_point++;
+            }
+
+            ref_point++;
+        }
+
+        /*************************************************************************************************/
+
         // Calculation of the demandVolumen per customer
-        for(int i{0};i<mydata.boxes.size();i++){
+        //for(int i{0};i<mydata.boxes.size();i++){
+        for( int i{0};i<initial_size;i++){
             mydata.customers[mydata.boxes[i].customerId].demandVolume+=mydata.boxes[i].heightBox*mydata.boxes[i].widthBox*mydata.boxes[i].lengthBox;
         }
 
