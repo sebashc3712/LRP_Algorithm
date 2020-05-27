@@ -13,7 +13,7 @@
 #include <string.h>
 #include <time.h>
 #include <stdio.h>
-//#include <GL/glut.h>
+#include <GL/glut.h>
 
 #ifndef Container_H
  #include "Container.h"
@@ -33,6 +33,7 @@ bool mainCLP(mdcvfp caso, int * ruta, int tamanioRuta, bool banderaDibujado){
 	//si es 1 es full_supported
 	//cout << "Paso" << endl;
 	CONTAINER Container(caso,ruta,tamanioRuta);
+	//cout<<"Container created"<<endl;
 	Container.SetValorQuita(0.5);
 	bool parametro_opcion_algoritmo=true;	//full support
 	int parametro_opcion=3;				//que autor
@@ -101,13 +102,17 @@ bool mainCLP(mdcvfp caso, int * ruta, int tamanioRuta, bool banderaDibujado){
 		Container.Set_Algoritmo_Opcion_Junqueira(true); //TRUE -> Delta igual a cero
 	else
 		Container.Set_Algoritmo_Opcion_Junqueira(false);
-
+    //cout<<"ONLY CESHIA LEFT"<<endl;
 //cout << "Paso2" << endl;
  cabe = Container.Grasp_Ceschia();
 //	Container.Constructivo_Ceschia(false);
+    //cout<<"Ceshia passed"<<endl;
 
 	//Bandera de dibujado para mostrar patrón de empaquetamiento en pantalla
 	if(banderaDibujado){
+//	    int argc = 1;
+//        char *argv[1] = {(char*)"Something"};
+//        glutInit(&argc, argv);
 		//Container.DibujarOpenGL(Container.Get_BestListaConfiguracaos());
 
 		Container.EscribirMejorSolucion(Container.Get_BestListaConfiguracaos());

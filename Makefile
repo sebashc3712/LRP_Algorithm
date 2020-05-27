@@ -24,9 +24,9 @@ ifeq ($(OS),Linux)
 	#CC = g++ -std=c++14 -Ofast -march=sandybridge -mtune=intel
 	#CC = g++ -std=c++14 -g -march=sandybridge -mtune=intel
 	CC = g++ -std=c++14 -g -no-pie -march=sandybridge -mtune=intel
-	CCFLAGS = -Wall -Wextra $(CPXgccFLAG)
+	CCFLAGS = -Wall -Wextra $(CPXgccFLAG) -lglut -lGL -lGLU -lglut -lm
 	#CCFLAGS = -Wall -Wextra 
-	LIBS = lib/LKH-2.0.7/liblkh-gcc.a lib/VRPH-1.0.0/libvrph-gcc.a $(CPXgccLIB)
+	LIBS = lib/LKH-2.0.7/liblkh-gcc.a lib/VRPH-1.0.0/libvrph-gcc.a $(CPXgccLIB) 
 	#LIBS = lib/LKH-2.0.7/liblkh-gcc.a lib/VRPH-1.0.0/libvrph-gcc.a 
 	LDD = ldd
 endif

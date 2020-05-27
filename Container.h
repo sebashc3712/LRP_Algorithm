@@ -59,7 +59,7 @@ public:
 	PLANOSOPORTE(int xi,int yi,int xf, int yf, int z, int soporte);
 	PLANOSOPORTE();
 	~PLANOSOPORTE(){};
-	
+
 	int Getxi(){return xi;};
 	int Getyi(){return yi;};
 	int Getz(){return z;};
@@ -69,10 +69,10 @@ public:
 
 	int Getxf(){return xf;};
 	int Getyf(){return yf;};
-	
+
 	void Setxf(int a){xf=a;};
 	void Setyf(int a){yf=a;};
-	
+
 
 	int Getsoporte(){return soporte;};
 	void Setsoporte(int a){soporte=a;};
@@ -102,15 +102,15 @@ public:
 };
 
 //****************
-//Clase Espacio 
+//Clase Espacio
 //****************
 class SPACE{
 	// origen
-	int m_x1; int m_y1; 	int m_z1; 
-	// fin 
-	int m_x2; int m_y2; 	int m_z2; 
+	int m_x1; int m_y1; 	int m_z1;
+	// fin
+	int m_x2; int m_y2; 	int m_z2;
 	// largo, ancho, alto
-	int m_dx; int m_dy; 	int m_dz; 
+	int m_dx; int m_dy; 	int m_dz;
 
 		int r_y1; int r_y2;     int r_L;
 
@@ -119,8 +119,8 @@ class SPACE{
 	int m_val_dist;
 	ORIG m_distancia_origen; //Distancia al origen
 	//es a que esquina es la que esta más cercana
-	// 1.(0,0,0) , 2.(0,Y,0)  3.(0,0,Z)  4.(0,Y,Z)  5.(X,0,0)  6.(X,Y,0)  7.(X,0,Z)  8.(X,Y,Z) 
-	short int m_origen_distancia; 
+	// 1.(0,0,0) , 2.(0,Y,0)  3.(0,0,Z)  4.(0,Y,Z)  5.(X,0,0)  6.(X,Y,0)  7.(X,0,Z)  8.(X,Y,Z)
+	short int m_origen_distancia;
 	//Puntero estatico al Contenedor
 	static CONTAINER *m_Container;
 	int m_soporta_peso;	//----------------------------------------------
@@ -200,11 +200,11 @@ class CONFIGURACAO{
 	//1.- apoyada cara x , 2.- rotada eje x
 	//3.- apoyada cara y, 4.- rotada eje y
 	//5.- apoyada cara z, 6.- rotada eje z
-	short int m_tipo; 
+	short int m_tipo;
 	short int m_origen_distancia;
 	ORIG m_set_distancias;
 	int m_x1; //Posicion inicio
-	int m_y1; //Posicion inicio 
+	int m_y1; //Posicion inicio
 	int m_z1; //Posicion inicio
 	int m_x2; //Posicion fin
 	int m_y2; //Posicion fin
@@ -447,13 +447,13 @@ public:
 	CONFIGURACAO &Get_Configuracao(){return m_Configuracao;};
 	std::list<CONFIGURACAO> &Get_Configuracaos(){return m_Configuracaos_new;};
 
-	//**funciones de 
+	//**funciones de
 	//hay que evaluar el movimiento
 	//esta funcion me dice cuanto es lo que vale ese movimiento
 	//hace las intersecciones con los otros bloque y calcula
 	//el valor de esa interseccion
 	void EvaluacionMovimiento(CONFIGURACAO &);
-	//Cuenta cuanto hay en cada cuadrante del container con la 
+	//Cuenta cuanto hay en cada cuadrante del container con la
 	//nueva lista de bloque
 	void EvaluarMovimiento();
 
@@ -471,7 +471,7 @@ public:
 	void CompararMovimientos(MOV_AUMENTAR &otro);
 
 
-	//	
+	//
 	//
 };
 //******************
@@ -535,7 +535,7 @@ class CONTAINER{
 		std::vector <int> m_total_volumen_cliente;
 
 	std::vector <int> vec_minima_longitud;
-		
+
 	//Lista de espacios hasta la mejora
 	std::list <SPACE > m_Spaces_Mejora;
 	std::list <SPACE > m_Spaces_Mejora_cliente;
@@ -603,7 +603,7 @@ class CONTAINER{
 	double m_medidaCG;
 	double m_medida60por100;
 	//m_tipo_origen
-	//2 dos esquinas 
+	//2 dos esquinas
 	//4 cuatro esquinas
 	//8 ocho esquinas
 	int m_tipo_origen;
@@ -634,7 +634,8 @@ class CONTAINER{
 
 public:
 	//constructor
-   CONTAINER(instancia , int *, int );
+   //CONTAINER(instancia , int *, int );
+   CONTAINER(mdcvfp , int *, int );
 	//CONTAINER(char *nombre,int caso,int opcion);
 	//CONTAINER(int mx, int my, int mz);
 	//Lee los datos del container y los modifica directamente en la clase container.
@@ -642,7 +643,8 @@ public:
 	//destructor
 	~CONTAINER(){};
 	//Lectura de datos
-	void LeerDatosContainer(instancia, int *, int);
+	//void LeerDatosContainer(instancia, int *, int);
+	void LeerDatosContainer(mdcvfp, int *, int);
 	//Escritura de datos
 	void EscribirDatosProgramaDibujo();
 	//Funciones Get
@@ -746,12 +748,12 @@ public:
 	bool CabeAlguna(int dx,int dy,int dz);
 	//me dice si cabe alguna con esta orientacion
 	int EstimacionConEstaOrientacionAlguna(int dx,int dy,int dz, int x, int y,int z, int Id,int piezas_maximas);
-	//Esta tiene que sumar por cuantas cajas de media esta soportada cada caja 
+	//Esta tiene que sumar por cuantas cajas de media esta soportada cada caja
 	//que no esta en el suelo
 	double Medida1Estabilidad(std::list<CONFIGURACAO> &lista);
-	
+
 	//Cuanta el numero de cajas que soportan esta caja
-	int NumeroDeCajasSoportanEsta(int x1,int y1, int z1, int x2, int y2, int z2,std::list<CONFIGURACAO> &lista);	
+	int NumeroDeCajasSoportanEsta(int x1,int y1, int z1, int x2, int y2, int z2,std::list<CONFIGURACAO> &lista);
 	int EstaCajaSoportada(int x1,int y1, int z1, int x2, int y2, int z2,std::list<CONFIGURACAO> &lista,int cantidad);
 
 	///**** Calcula la menor dimension para un espacio
@@ -804,7 +806,7 @@ public:
 
 
 	bool Grasp_Ceschia();
-	
+
 
 
 	void Mejora_Cliente_Ceschia(std::vector <bool> &ya_mejorado_cliente,int cliente);
@@ -861,7 +863,7 @@ public:
 	int EstimacionConEstaOrientacion(SPACE &Espacio, int x, int y,int z, int Id,int piezas_maximas);
 	int EstimacionConEstaOrientacionPeso(SPACE &Espacio, int x, int y,int z, int Id,int piezas_maximas, int fuerza);
 	int EstimacionConEstaOrientacionPeso_Ceschia(SPACE &Espacio, int x, int y,int z, int Id,int piezas_maximas, int fuerza);
-	//Estimacion 
+	//Estimacion
 	int Estimacion(SPACE &Espacio);
 	int EstimacionPesoCliente(SPACE &Espacio,int cliente);
 	int EstimacionCliente(SPACE &Espacio, int cliente);

@@ -25,6 +25,7 @@
 #endif
 
 using namespace std;
+typedef float dist_t;
 
 //Estructura para almacenar la demanda de un cliente
 struct demanda{

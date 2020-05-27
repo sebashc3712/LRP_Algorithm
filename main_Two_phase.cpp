@@ -16,6 +16,7 @@
 #include <time.h>
 #include <typeinfo>
 #include <ilcplex/ilocplex.h>
+#include <GL/glut.h>
 #define PI 3.14159265
 
 #ifndef cambioTipoDato_H
@@ -3953,6 +3954,8 @@ OneRouteReult OneRouteOpt(int customer, vector<vector<dist_t>> Distancias, list<
 
 int main(int argc, char**argv) {
 
+    glutInit(&argc, argv);
+
     srand (time(0));
 
     /********************How to run the code**************************************************/
@@ -4092,10 +4095,10 @@ int main(int argc, char**argv) {
 
             data_input>>mydata_tmp;
             data_input>>mydata.customers[i].numberBoxes;
+            mydata.boxes.resize(mydata.boxes.size()+mydata.customers[i].numberBoxes);
 
             int type_of_waste{1};
             for(int j{0};j<mydata.customers[i].numberBoxes;j++){
-                mydata.boxes.resize(mydata.boxes.size()+mydata.customers[i].numberBoxes);
                 mydata.boxes[kk].customerId=i;
                 mydata.boxes[kk].boxId=j;
                 data_input>>mydata.boxes[kk].heightBox;
@@ -4114,8 +4117,8 @@ int main(int argc, char**argv) {
         /***********************Adding info boxes to relocation points************************************/
 
         int initial_size=mydata.boxes.size();
+        cout<<"Intial size was: "<<initial_size<<endl;
         int new_box=mydata.boxes.size();
-        mydata.boxes.resize(mydata.boxes.size()+(3*mydata.boxes.size()));
         int reloc_point=mydata.ncustomers;
         int ref_point{0};
 
@@ -4127,6 +4130,7 @@ int main(int argc, char**argv) {
 
                     if(mydata.boxes[j].customerId==ref_point){
 
+                        mydata.boxes.resize(mydata.boxes.size()+1);
                         mydata.boxes[new_box].customerId=reloc_point;
                         mydata.boxes[new_box].boxId=mydata.boxes[j].boxId;
                         mydata.boxes[new_box].heightBox=mydata.boxes[j].heightBox;
@@ -4146,6 +4150,48 @@ int main(int argc, char**argv) {
         }
 
         /*************************************************************************************************/
+
+        /***************************Print Boxes***********************************************************/
+
+        for(int i{0};i<mydata.boxes.size();i++){
+
+            cout<<"Customer ID: "<<mydata.boxes[i].customerId<<", Height: "<<mydata.boxes[i].heightBox<<", Width: "<<mydata.boxes[i].widthBox<<", Length: "<<mydata.boxes[i].lengthBox<<endl;
+        }
+
+        /*************************************************************************************************/
+
+        /**************************Create ListadoItems in Structure***************************************/
+        cout<<"Test1"<<endl;
+
+        for(int i{0};i<(mydata.ncustomers+(mydata.ncustomers*3));i++){
+
+            mydata.demandaClientes.resize(mydata.demandaClientes.size()+1);
+            vector<vector<float>> list_customer;
+            vector<float> attr_box;
+            cout<<mydata.boxes.size()<<endl;
+
+            for(int j{0};j<mydata.boxes.size();j++){
+
+                cout<<"j: "<<j<<endl;
+
+                if(mydata.boxes[j].customerId==i){
+
+                    attr_box.push_back(mydata.boxes[j].widthBox);
+                    attr_box.push_back(0);
+                    attr_box.push_back(mydata.boxes[j].lengthBox);
+                    attr_box.push_back(0);
+                    attr_box.push_back(mydata.boxes[j].heightBox);
+                    attr_box.push_back(1);
+                    list_customer.push_back(attr_box);
+                    attr_box = vector<float>();
+                }
+            }
+            mydata.demandaClientes[i].listadoItems=list_customer;
+        }
+
+        cout<<"First loop passed!"<<endl;
+
+        /*******************************************************************************************************/
 
         // Calculation of the demandVolumen per customer
         //for(int i{0};i<mydata.boxes.size();i++){
@@ -4937,24 +4983,38 @@ int main(int argc, char**argv) {
 
         /***************** Using GRASP to delete unfeasible clusters******************/
 
-        list<vector<int>>::iterator it_partial_clusters = partial_clusters.begin();
-        list<vector<vector<int>>>::iterator it_partial_rec_types=partial_recollection_types.begin();
+        list<vector<int>> partial_clusters2=partial_clusters;
+        partial_clusters=list<vector<int>>();
+        list<vector<vector<int>>> partial_recollection_types2=partial_recollection_types;
+        partial_recollection_types=list<vector<vector<int>>>();
 
-        for(it_partial_clusters;it_partial_clusters!=partial_clusters.end();it_partial_clusters++){
+        list<vector<int>>::iterator it_partial_clusters = partial_clusters2.begin();
+        list<vector<vector<int>>>::iterator it_partial_rec_types=partial_recollection_types2.begin();
+
+
+        for(it_partial_clusters;it_partial_clusters!=partial_clusters2.end();it_partial_clusters++){
 
             vector<int> temp_ruta = (*it_partial_clusters);
-            int* ruta=VectorToArray(temp_ruta);
+            int *ruta=convertirRutaVectorArreglo(temp_ruta);
 
+            if(mainCLP(mydata, ruta,(*it_partial_clusters).size(),true)==true){
 
-            if(mainCLP(mydata,ruta,(*it_partial_clusters).size(),false)==false){
-
-                partial_clusters.erase(it_partial_clusters);
-                partial_recollection_types.erase(it_partial_rec_types);
+                cout<<"It fit!!"<<endl;
+                partial_clusters.push_back((*it_partial_clusters));
+                partial_recollection_types.push_back((*it_partial_rec_types));
 
             }
 
             it_partial_rec_types++;
         }
+
+        for(int i{1};i<=mydata.ncustomers;i++){
+
+            partial_clusters.push_back({i});
+            partial_recollection_types.push_back({{1,1,1}});
+        }
+
+
 
 		/*****************************************************************************/
 
@@ -5056,8 +5116,10 @@ int main(int argc, char**argv) {
             }
 
             IloInt number_minimum_clusters = int(Nclusters);
+//            model.add(number_clusters>=(number_minimum_clusters-1));
+//            model.add(number_clusters<=mydata.nvehicles);
             model.add(number_clusters>=(number_minimum_clusters-1));
-            model.add(number_clusters<=mydata.nvehicles);
+            model.add(number_clusters<=mydata.ncustomers);
             number_clusters.end();
 
             cplex.clearModel();
@@ -5543,11 +5605,16 @@ int main(int argc, char**argv) {
                                                        post_lkh_clusters, Distancias,optimal_rec_types,
                                                        mydata,temp_excess, excess_per_cluster, C_Data);
 
+                            int *temp_ruta1=convertirRutaVectorArreglo(post_lkh_clusters[cluster1]);
+                            int *temp_ruta2=convertirRutaVectorArreglo(post_lkh_clusters[cluster2]);
+
                             //cout<<"The result is = "<<result_swap.result<<endl;
 
-                            if(result_swap.result<0){
+                            if(result_swap.result<0 &&
+                               mainCLP(mydata,temp_ruta1,post_lkh_clusters[cluster1].size(),false)==true &&
+                               mainCLP(mydata,temp_ruta2,post_lkh_clusters[cluster2].size(),false)==true){
 
-                                cout<<"Changed!"<<endl;
+                                //cout<<"Changed!"<<endl;
                                 test[0]+=result_swap.result;
                                 post_lkh_clusters=result_swap.solution;
                                 temp_excess=result_swap.excess;
@@ -5584,8 +5651,12 @@ int main(int argc, char**argv) {
                                                        mydata,temp_excess,excess_per_cluster, C_Data);
 
                             //cout<<"The result is = "<<result_insertion_route2.result<<endl;
+                            int *temp_ruta1=convertirRutaVectorArreglo(post_lkh_clusters[cluster1]);
+                            int *temp_ruta2=convertirRutaVectorArreglo(post_lkh_clusters[cluster2]);
 
-                            if(result_insertion_route2.result<0){
+                            if(result_insertion_route2.result<0 &&
+                               mainCLP(mydata,temp_ruta1,post_lkh_clusters[cluster1].size(),false)==true &&
+                               mainCLP(mydata,temp_ruta2,post_lkh_clusters[cluster2].size(),false)==true){
 
                                 test[0]+=result_insertion_route2.result;
                                 post_lkh_clusters=result_insertion_route2.solution;
@@ -5663,7 +5734,7 @@ int main(int argc, char**argv) {
 
         cout<<"IMPROVEMENT PHASE..."<<endl;
 
-        int max_iterations = (1000000/pow(mydata.ncustomers,2))*10;
+        int max_iterations = (10000/pow(mydata.ncustomers,2));
 
         cout<<"NUMBERS OF ITERATIONS = "<<max_iterations<<endl;
 
@@ -5681,7 +5752,7 @@ int main(int argc, char**argv) {
 
         for(int it{0};it<max_iterations;it++){
 
-            //cout<<"ITERATION "<<it<<"...."<<endl;
+            cout<<"ITERATION "<<it<<"...."<<endl;
 
             //cout<<"Size of Tabu List = "<<tabu_list.lista.size()<<endl;
 
@@ -5840,8 +5911,13 @@ int main(int argc, char**argv) {
                                                                          optimal_rec_types, mydata,temp_excess,
                                                                          excess_per_cluster, C_Data);
 
+                                    int *temp_ruta1=convertirRutaVectorArreglo(post_lkh_clusters[cluster1]);
+                                    int *temp_ruta2=convertirRutaVectorArreglo(post_lkh_clusters[cluster2]);
+
                                     if(temp_imp<improvement && tabu_list.check(post_lkh_clusters[cluster1][cust1],
-                                                                               post_lkh_clusters[cluster2][cust2])==false){
+                                                                               post_lkh_clusters[cluster2][cust2])==false &&
+                                       mainCLP(mydata,temp_ruta1,post_lkh_clusters[cluster1].size(),false)==true &&
+                                       mainCLP(mydata,temp_ruta2,post_lkh_clusters[cluster2].size(),false)==true){
 
                                         improvement=temp_imp;
                                         chosen_operator="Swap Inter-Route";
@@ -5851,7 +5927,9 @@ int main(int argc, char**argv) {
 
                                     }
 
-                                    if(temp_imp<best_swapinter){
+                                    if(temp_imp<best_swapinter &&
+                                       mainCLP(mydata,temp_ruta1,post_lkh_clusters[cluster1].size(),false)==true &&
+                                       mainCLP(mydata,temp_ruta2,post_lkh_clusters[cluster2].size(),false)==true){
 
                                         best_swapinter=temp_imp;
                                         node_o_swapinter=post_lkh_clusters[cluster1][cust1];
@@ -5887,8 +5965,13 @@ int main(int argc, char**argv) {
                                                                      optimal_rec_types, mydata,temp_excess,
                                                                      excess_per_cluster, C_Data);
 
+                                    int *temp_ruta1=convertirRutaVectorArreglo(post_lkh_clusters[cluster1]);
+                                    int *temp_ruta2=convertirRutaVectorArreglo(post_lkh_clusters[cluster2]);
+
                                     if(temp_imp<improvement && tabu_list.check(post_lkh_clusters[cluster1][cust1],
-                                                                               post_lkh_clusters[cluster2][cust2])==false){
+                                                                               post_lkh_clusters[cluster2][cust2])==false &&
+                                       mainCLP(mydata,temp_ruta1,post_lkh_clusters[cluster1].size(),false)==true &&
+                                       mainCLP(mydata,temp_ruta2,post_lkh_clusters[cluster2].size(),false)==true){
 
                                         improvement=temp_imp;
                                         chosen_operator="Insertion-to-route";
@@ -5898,7 +5981,9 @@ int main(int argc, char**argv) {
 
                                     }
 
-                                    if(temp_imp<best_insertion_route){
+                                    if(temp_imp<best_insertion_route &&
+                                       mainCLP(mydata,temp_ruta1,post_lkh_clusters[cluster1].size(),false)==true &&
+                                       mainCLP(mydata,temp_ruta2,post_lkh_clusters[cluster2].size(),false)==true){
 
                                         best_insertion_route=temp_imp;
                                         node_o_insertion_route=post_lkh_clusters[cluster1][cust1];

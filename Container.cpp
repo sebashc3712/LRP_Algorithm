@@ -1169,31 +1169,6 @@ void CONTAINER::EscribirDatosProgramaDibujo()
 }
 void CONTAINER::LeerDatosContainer(mdcvfp caso, int * ruta, int tamanioRuta)
 {
-    /*****************Create ListadoItems in Structure*********************/
-
-    for(int i{0};i<(caso.ncustomers*3);i++){
-
-        vector<vector<float>> list_customer;
-        vector<float> attr_box;
-
-        for(int j{0};caso.boxes.size();j++){
-
-            if(caso.boxes[j].customerId==i){
-
-                attr_box.push_back(caso.boxes[j].widthBox);
-                attr_box.push_back(0);
-                attr_box.push_back(caso.boxes[j].lengthBox);
-                attr_box.push_back(0);
-                attr_box.push_back(caso.boxes[j].heigthBox);
-                attr_box.push_back(0);
-                list_customer.push_back(attr_box);
-                attr_box = vector<float>();
-            }
-        }
-        caso.demandaClientes[i].listadoItems=list_customer;
-    }
-
-    /***********************************************************************/
 
 	//FILE *fin2;
 	m_Pieces.clear();
@@ -1218,10 +1193,10 @@ void CONTAINER::LeerDatosContainer(mdcvfp caso, int * ruta, int tamanioRuta)
 	//printf("Numero de clientes %d",n_cliente);
 	int sum=0;
 	for(int i=0;i<n_cliente;i++){
-
 		sum = sum + caso.demandaClientes[ruta[i]-1].listadoItems.size();
 
 	}
+
 	m_Q = sum;
 
 
@@ -1256,18 +1231,18 @@ void CONTAINER::LeerDatosContainer(mdcvfp caso, int * ruta, int tamanioRuta)
 			//Leemos las coordenadas de las piezas
 			//fscanf(fin2,"%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n" , &Id, &x, &Rx, &y, &Ry, &z, &Rz,&q,&s,&s1,&s2,&s3,&cli);
 
-			aux_s=caso.demandaClientes[ruta[i]-1].listadoItems[j][0]*caso.demandaClientes[ruta[i]-1].listadoItems[j][1]*caso.demandaClientes[ruta[i]-1].listadoItems[j][2];
+			aux_s=caso.demandaClientes[ruta[i]-1].listadoItems[j][0]*caso.demandaClientes[ruta[i]-1].listadoItems[j][2]*caso.demandaClientes[ruta[i]-1].listadoItems[j][4];
 			//PIECE Piece(Id,x,Rx,y,Ry,z,Rz,q,this,aux_s,999999,999999,999999,cli,aux_costopieza);
 			if(caso.demandaClientes[ruta[i]-1].listadoItems[j][3]==1)
 			{
-				PIECE Piece(Id,caso.demandaClientes[ruta[i]-1].listadoItems[j][2],caso.demandaClientes[ruta[i]-1].listadoItems[j][4],caso.demandaClientes[ruta[i]-1].listadoItems[j][1],caso.demandaClientes[ruta[i]].listadoItems[j][5],caso.demandaClientes[ruta[i]].listadoItems[j][0],caso.demandaClientes[ruta[i]].listadoItems[j][6],1,this,aux_s,0,0,0,cli,aux_costopieza);
+				PIECE Piece(Id,caso.demandaClientes[ruta[i]-1].listadoItems[j][0],caso.demandaClientes[ruta[i]-1].listadoItems[j][1],caso.demandaClientes[ruta[i]-1].listadoItems[j][2],caso.demandaClientes[ruta[i]-1].listadoItems[j][3],caso.demandaClientes[ruta[i]-1].listadoItems[j][4],caso.demandaClientes[ruta[i]-1].listadoItems[j][5],1,this,aux_s,0,0,0,cli,aux_costopieza);
 				m_total_volumen_cliente[i]+=Piece.Get_Volumen()*q;
 				m_total_volumen+=Piece.Get_Volumen()*q;
 				m_Pieces.push_back(Piece);
 			}
 			else
 			{
-				PIECE Piece(Id,caso.demandaClientes[ruta[i]-1].listadoItems[j][2],caso.demandaClientes[ruta[i]-1].listadoItems[j][4],caso.demandaClientes[ruta[i]-1].listadoItems[j][1],caso.demandaClientes[ruta[i]-1].listadoItems[j][5],caso.demandaClientes[ruta[i]].listadoItems[j][0],caso.demandaClientes[ruta[i]].listadoItems[j][6],1,this,aux_s,999999,999999,999999,cli,aux_costopieza);
+				PIECE Piece(Id,caso.demandaClientes[ruta[i]-1].listadoItems[j][0],caso.demandaClientes[ruta[i]-1].listadoItems[j][1],caso.demandaClientes[ruta[i]-1].listadoItems[j][2],caso.demandaClientes[ruta[i]-1].listadoItems[j][3],caso.demandaClientes[ruta[i]-1].listadoItems[j][4],caso.demandaClientes[ruta[i]-1].listadoItems[j][5],1,this,aux_s,999999,999999,999999,cli,aux_costopieza);
 				m_total_volumen_cliente[i]+=Piece.Get_Volumen()*q;
 				m_total_volumen+=Piece.Get_Volumen()*q;
 				m_Pieces.push_back(Piece);
