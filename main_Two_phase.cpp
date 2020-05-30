@@ -3287,6 +3287,7 @@ struct ResultInsertionRoute{
     dist_t result;
     dist_t excess;
     vector<dist_t> excess_clusters;
+    int cluster_origin;
 };
 
 ResultInsertionRoute InsertionRouteOpt(int customer_o, int customer_d, vector<vector<int>> solution, vector<vector<dist_t>> Distancias,
@@ -3485,6 +3486,7 @@ ResultInsertionRoute InsertionRouteOpt(int customer_o, int customer_d, vector<ve
         data_to_return.demand=demand;
         data_to_return.excess=(Exceed2*mydata.factor_demand_dist);
         data_to_return.excess_clusters=excess_clusters;
+        data_to_return.cluster_origin=info_cluster1[0];
 
         //cout<<"End Insertion to route"<<endl;
 
@@ -4918,6 +4920,12 @@ int main(int argc, char**argv) {
 
         cout<<"SIZE OF PARTIAL RECOLLECTION TYPE!!"<<partial_recollection_types.size()<<endl;
 
+        for(int i{1};i<=mydata.ncustomers;i++){
+
+            partial_clusters.push_back({i});
+            partial_recollection_types.push_back({{1,1,1}});
+        }
+
         /*************** Writing the distance of each cluster*************************/
 
 		vector < double > partial_distances(partial_clusters.size(),0);
@@ -4987,11 +4995,13 @@ int main(int argc, char**argv) {
         partial_clusters=list<vector<int>>();
         list<vector<vector<int>>> partial_recollection_types2=partial_recollection_types;
         partial_recollection_types=list<vector<vector<int>>>();
+        vector<double> partial_distances2=partial_distances;
+        partial_distances=vector<double>();
 
         list<vector<int>>::iterator it_partial_clusters = partial_clusters2.begin();
         list<vector<vector<int>>>::iterator it_partial_rec_types=partial_recollection_types2.begin();
 
-
+        int temp_count=0;
         for(it_partial_clusters;it_partial_clusters!=partial_clusters2.end();it_partial_clusters++){
 
             vector<int> temp_ruta = (*it_partial_clusters);
@@ -5002,16 +5012,12 @@ int main(int argc, char**argv) {
                 cout<<"It fit!!"<<endl;
                 partial_clusters.push_back((*it_partial_clusters));
                 partial_recollection_types.push_back((*it_partial_rec_types));
+                partial_distances.push_back(partial_distances2[temp_count]);
 
             }
 
             it_partial_rec_types++;
-        }
-
-        for(int i{1};i<=mydata.ncustomers;i++){
-
-            partial_clusters.push_back({i});
-            partial_recollection_types.push_back({{1,1,1}});
+            temp_count++;
         }
 
 
@@ -5658,11 +5664,23 @@ int main(int argc, char**argv) {
                                mainCLP(mydata,temp_ruta1,post_lkh_clusters[cluster1].size(),false)==true &&
                                mainCLP(mydata,temp_ruta2,post_lkh_clusters[cluster2].size(),false)==true){
 
+                                cout<<"Result insertion-to-route = "<<result_insertion_route2.result<<endl;
+
                                 test[0]+=result_insertion_route2.result;
                                 post_lkh_clusters=result_insertion_route2.solution;
                                 optimal_rec_types=result_insertion_route2.demand;
                                 temp_excess=result_insertion_route2.excess;
                                 excess_per_cluster=result_insertion_route2.excess_clusters;
+
+                            }
+
+                            if(post_lkh_clusters[cluster1].size()==0){
+
+                                post_lkh_clusters.erase(post_lkh_clusters.begin()+cluster1);
+                                list<vector<vector<int>>>::iterator temp_it = optimal_rec_types.begin();
+                                advance(temp_it,cluster1);
+                                optimal_rec_types.erase(temp_it);
+                                excess_per_cluster.erase(excess_per_cluster.begin()+cluster1);
 
                             }
                         }
@@ -5687,6 +5705,7 @@ int main(int argc, char**argv) {
 
                     if(result_two_opt2.result<0){
 
+                        cout<<"Result Two-Opt = "<<result_two_opt2.result<<endl;
                         test[0]+=result_two_opt2.result;
                         post_lkh_clusters=result_two_opt2.solution;
 
@@ -5754,13 +5773,13 @@ int main(int argc, char**argv) {
 
             cout<<"ITERATION "<<it<<"...."<<endl;
 
-            //cout<<"Size of Tabu List = "<<tabu_list.lista.size()<<endl;
+            cout<<"Size of Tabu List = "<<tabu_list.lista.size()<<endl;
 
             tabu_list.refresh();
 
             int temp_increment{0};
 
-            //tabu_list.mostrar();
+            tabu_list.mostrar();
 
             //cout<<"Tabu updated..."<<endl;
 
@@ -5791,7 +5810,7 @@ int main(int argc, char**argv) {
 
 
 
-            if(r<=0.5){
+            if(r<=0.7){
 
                 /**********Estimation of Insertion****************************/
 
@@ -6208,12 +6227,82 @@ int main(int argc, char**argv) {
             /***********************************************************************************************/
 
             //cout<<">>>>>>>>>>>>>>>>> "<<chosen_operator<<" <<<<<<<<<<<<<<<<<<<< "<<node_o<<", "<<node_d<<endl;
+            bool add_tabu=1;
+//
+//            if(chosen_operator==""){
+//
+//                int temp_chosen2{0};
+//
+//                for(int i{0};i<excess_per_cluster.size();i++){
+//
+//                    if(excess_per_cluster[i]>0.0){
+//
+//                        temp_chosen2=i;
+//                        break;
+//
+//                    }
+//                }
+//
+//
+//                int random_cust1 = rand()%(post_lkh_clusters[temp_chosen2].size());
+//
+//
+//                OneRouteReult temp_one_route1;
+//
+//                temp_one_route1=OneRouteOpt(post_lkh_clusters[temp_chosen2][random_cust1],Distancias,
+//                                           optimal_rec_types,post_lkh_clusters,excess_per_cluster,temp_excess,
+//                                           C_Data,mydata);
+//
+//                test[0]+=temp_one_route1.result;
+//                post_lkh_clusters=temp_one_route1.solution;
+//                optimal_rec_types=temp_one_route1.demand;
+//                temp_excess=temp_one_route1.excess;
+//                excess_per_cluster=temp_one_route1.excess_clusters;
+//            }
+
+//            if(chosen_operator==""){
+//
+//                int v2 = rand() % 4 + 1;
+//
+//                if(v2==1){
+//
+//                    chosen_operator="Insertion";
+//                    node_o=node_o_insertion;
+//                    node_d=node_d_insertion;
+//
+//                }
+//                else if(v2==2){
+//
+//                    chosen_operator="Two-Opt";
+//                    node_o=node_o_two_opt;
+//                    node_d=node_d_two_opt;
+//
+//                }
+//                else if(v2==3){
+//
+//                    chosen_operator="Swap Inter-Route";
+//                    node_o=node_o_swapinter;
+//                    node_d=node_d_swapinter;
+//
+//                }
+//                else{
+//
+//                    chosen_operator="Insertion-to-route";
+//                    node_o=node_o_insertion_route;
+//                    node_d=node_d_insertion_route;
+//                }
+//
+//                add_tabu=0;
+//            }
+
 
             if(chosen_operator=="Insertion"){
 
                 selected_operators[0]+=1;
 
-                //PrintMatrix(post_lkh_clusters,"[","]");
+                cout<<"Relocation selected!"<<endl;
+
+                PrintMatrix(post_lkh_clusters,"[","]");
 
                 ResultInsertion result_insertion2;
 
@@ -6257,7 +6346,7 @@ int main(int argc, char**argv) {
 
 
 
-                tabu_list.add(node_o,node_d);
+                if(add_tabu==1){tabu_list.add(node_o,node_d);}
 
 
                 //cout<<"RESULT: "<<result_insertion2.result<<endl;
@@ -6279,7 +6368,9 @@ int main(int argc, char**argv) {
 
                 selected_operators[2]+=1;
 
-                //PrintMatrix(post_lkh_clusters,"[","]");
+                PrintMatrix(post_lkh_clusters,"[","]");
+
+                cout<<"Swap Inter-Route selected!"<<endl;
 
                 ResultSwap result_swap2;
 
@@ -6299,7 +6390,7 @@ int main(int argc, char**argv) {
                 excess_per_cluster=result_swap2.excess_clusters;
 
 
-                tabu_list.add(node_o,node_d);
+                if(add_tabu==1){tabu_list.add(node_o,node_d);}
 
                 //cout<<"RESULT: "<<result_swap2.result<<endl;
 
@@ -6320,7 +6411,9 @@ int main(int argc, char**argv) {
 
                 selected_operators[3]+=1;
 
-                //PrintMatrix(post_lkh_clusters,"[","]");
+                PrintMatrix(post_lkh_clusters,"[","]");
+
+                cout<<"Insertion-to-route selected"<<endl;
 
                 ResultInsertionRoute result_insertion_route;
 
@@ -6341,7 +6434,17 @@ int main(int argc, char**argv) {
                 excess_per_cluster=result_insertion_route.excess_clusters;
                 temp_rcost=temp_rcost;
 
-                tabu_list.add(node_o,node_d);
+                if(add_tabu==1){tabu_list.add(node_o,node_d);}
+
+                if(post_lkh_clusters[result_insertion_route.cluster_origin].size()==0){
+
+                    post_lkh_clusters.erase(post_lkh_clusters.begin()+result_insertion_route.cluster_origin);
+                    list<vector<vector<int>>>::iterator temp_it = optimal_rec_types.begin();
+                    advance(temp_it,result_insertion_route.cluster_origin);
+                    optimal_rec_types.erase(temp_it);
+                    excess_per_cluster.erase(excess_per_cluster.begin()+result_insertion_route.cluster_origin);
+
+                }
 
                 //cout<<"RESULT: "<<result_insertion_route.result<<endl;
 
@@ -6362,7 +6465,9 @@ int main(int argc, char**argv) {
 
                 selected_operators[1]+=1;
 
-                //PrintMatrix(post_lkh_clusters,"[","]");
+                PrintMatrix(post_lkh_clusters,"[","]");
+
+                cout<<"Two-Opt selected"<<". o: "<<node_o<<", d: "<<node_d<<endl;
 
                 ResultTwoOpt result_two_opt;
 
@@ -6372,6 +6477,8 @@ int main(int argc, char**argv) {
                 result_two_opt=TwoOptOperator(node_o,node_d,post_lkh_clusters,Distancias,
                                               mydata);
 
+                cout<<"Two-Opt works"<<endl;
+
                 test[0]=test[0]+result_two_opt.result;
                 post_lkh_clusters=result_two_opt.solution;
                 optimal_rec_types=optimal_rec_types;
@@ -6379,7 +6486,7 @@ int main(int argc, char**argv) {
                 temp_excess=temp_excess;
                 excess_per_cluster=excess_per_cluster;
 
-                tabu_list.add(node_o,node_d);
+                if(add_tabu==1){tabu_list.add(node_o,node_d);}
 
                 //cout<<"RESULT: "<<result_two_opt.result<<endl;
 
@@ -6398,8 +6505,9 @@ int main(int argc, char**argv) {
 
             }else{
 
-//                cout<<"Kein Operator"<<endl;
+                cout<<"Kein Operator"<<endl;
                 selected_operators[4]+=1;
+                PrintMatrix(post_lkh_clusters,"[","]");
 //                cout<<"Relocation = "<<best_insertion<<endl;
 //                cout<<"Two-Opt = "<<best_two_opt<<endl;
 //                cout<<"Swap = "<<best_swapinter<<endl;
@@ -6507,7 +6615,7 @@ int main(int argc, char**argv) {
             }
         }
 
-
+        vector<string> labels_operator={"Relocation","Two-Opt","Swap Inter-Route","Insertion-to-Route","None", "New Route"};
         cout<<"IMPROVEMENT PHASE F.O = "<<first_phase_fo<<endl;
         cout<<"IMPROVEMENT RELOC COST = "<<first_reloc_cost<<endl;
         cout<<"BEST OBJECTIVE FUNCTION = "<<bestSolution.objective_function<<endl;
@@ -6543,7 +6651,7 @@ int main(int argc, char**argv) {
 
         for(int i{0};i<selected_operators.size();i++){
 
-            cout<<selected_operators[i]<<" ";
+            cout<<labels_operator[i]<<": "<<selected_operators[i]<<endl;
         }
 
         cout<<endl;
