@@ -4157,24 +4157,24 @@ int main(int argc, char**argv) {
 
         for(int i{0};i<mydata.boxes.size();i++){
 
-            cout<<"Customer ID: "<<mydata.boxes[i].customerId<<", Height: "<<mydata.boxes[i].heightBox<<", Width: "<<mydata.boxes[i].widthBox<<", Length: "<<mydata.boxes[i].lengthBox<<endl;
+            //cout<<"Customer ID: "<<mydata.boxes[i].customerId<<", Height: "<<mydata.boxes[i].heightBox<<", Width: "<<mydata.boxes[i].widthBox<<", Length: "<<mydata.boxes[i].lengthBox<<endl;
         }
 
         /*************************************************************************************************/
 
         /**************************Create ListadoItems in Structure***************************************/
-        cout<<"Test1"<<endl;
+        //cout<<"Test1"<<endl;
 
         for(int i{0};i<(mydata.ncustomers+(mydata.ncustomers*3));i++){
 
             mydata.demandaClientes.resize(mydata.demandaClientes.size()+1);
             vector<vector<float>> list_customer;
             vector<float> attr_box;
-            cout<<mydata.boxes.size()<<endl;
+            //cout<<mydata.boxes.size()<<endl;
 
             for(int j{0};j<mydata.boxes.size();j++){
 
-                cout<<"j: "<<j<<endl;
+                //cout<<"j: "<<j<<endl;
 
                 if(mydata.boxes[j].customerId==i){
 
@@ -4191,7 +4191,7 @@ int main(int argc, char**argv) {
             mydata.demandaClientes[i].listadoItems=list_customer;
         }
 
-        cout<<"First loop passed!"<<endl;
+        //cout<<"First loop passed!"<<endl;
 
         /*******************************************************************************************************/
 
@@ -4577,47 +4577,47 @@ int main(int argc, char**argv) {
 
         dist_t average_distances = sum_distances/float(count_distances);
 
-        PrintDistanceMatrix(Distancias,"[","]");
-
-        int reloc_points_reference{75};
-
-        cout<<"[";
-        for(int i{0};i<75;i++){
-
-            cout<<"[";
-
-            for(int j{0};j<300;j++){
-
-                if(i==j || j==reloc_points_reference ||
-                   j==reloc_points_reference+1 ||
-                   j==reloc_points_reference+2){
-
-                    cout<<"1";
-
-                }else{
-
-                    cout<<"0";
-
-                }
-
-                if(j!=299){
-
-                    cout<<",";
-
-                }
-
-            }
-            cout<<"],"<<endl;
-            reloc_points_reference+=3;
-        }
-        cout<<"]"<<endl;
-
-        for(int i{0};i<C_Data.size();i++){
-
-            cout<<C_Data[i].dem<<",";
-        }
-
-        cout<<endl;
+//        PrintDistanceMatrix(Distancias,"[","]");
+//
+//        int reloc_points_reference{75};
+//
+//        cout<<"[";
+//        for(int i{0};i<75;i++){
+//
+//            cout<<"[";
+//
+//            for(int j{0};j<300;j++){
+//
+//                if(i==j || j==reloc_points_reference ||
+//                   j==reloc_points_reference+1 ||
+//                   j==reloc_points_reference+2){
+//
+//                    cout<<"1";
+//
+//                }else{
+//
+//                    cout<<"0";
+//
+//                }
+//
+//                if(j!=299){
+//
+//                    cout<<",";
+//
+//                }
+//
+//            }
+//            cout<<"],"<<endl;
+//            reloc_points_reference+=3;
+//        }
+//        cout<<"]"<<endl;
+//
+//        for(int i{0};i<C_Data.size();i++){
+//
+//            cout<<C_Data[i].dem<<",";
+//        }
+//
+//        cout<<endl;
 
 #ifdef NOLKH
         string tmpstr;
@@ -4918,7 +4918,7 @@ int main(int argc, char**argv) {
 
         /*****************************************************************************/
 
-        cout<<"SIZE OF PARTIAL RECOLLECTION TYPE!!"<<partial_recollection_types.size()<<endl;
+        //cout<<"SIZE OF PARTIAL RECOLLECTION TYPE!!"<<partial_recollection_types.size()<<endl;
 
         for(int i{1};i<=mydata.ncustomers;i++){
 
@@ -5009,7 +5009,7 @@ int main(int argc, char**argv) {
 
             if(mainCLP(mydata, ruta,(*it_partial_clusters).size(),true)==true){
 
-                cout<<"It fit!!"<<endl;
+                //cout<<"It fit!!"<<endl;
                 partial_clusters.push_back((*it_partial_clusters));
                 partial_recollection_types.push_back((*it_partial_rec_types));
                 partial_distances.push_back(partial_distances2[temp_count]);
@@ -5664,7 +5664,7 @@ int main(int argc, char**argv) {
                                mainCLP(mydata,temp_ruta1,post_lkh_clusters[cluster1].size(),false)==true &&
                                mainCLP(mydata,temp_ruta2,post_lkh_clusters[cluster2].size(),false)==true){
 
-                                cout<<"Result insertion-to-route = "<<result_insertion_route2.result<<endl;
+                                //cout<<"Result insertion-to-route = "<<result_insertion_route2.result<<endl;
 
                                 test[0]+=result_insertion_route2.result;
                                 post_lkh_clusters=result_insertion_route2.solution;
@@ -5705,7 +5705,7 @@ int main(int argc, char**argv) {
 
                     if(result_two_opt2.result<0){
 
-                        cout<<"Result Two-Opt = "<<result_two_opt2.result<<endl;
+                        //cout<<"Result Two-Opt = "<<result_two_opt2.result<<endl;
                         test[0]+=result_two_opt2.result;
                         post_lkh_clusters=result_two_opt2.solution;
 
@@ -5753,7 +5753,8 @@ int main(int argc, char**argv) {
 
         cout<<"IMPROVEMENT PHASE..."<<endl;
 
-        int max_iterations = (10000/pow(mydata.ncustomers,2));
+        //int max_iterations = (10000/pow(mydata.ncustomers,2));
+        int max_iterations = (10000/mydata.ncustomers);
 
         cout<<"NUMBERS OF ITERATIONS = "<<max_iterations<<endl;
 
@@ -5771,15 +5772,15 @@ int main(int argc, char**argv) {
 
         for(int it{0};it<max_iterations;it++){
 
-            cout<<"ITERATION "<<it<<"...."<<endl;
+            //cout<<"ITERATION "<<it<<"...."<<endl;
 
-            cout<<"Size of Tabu List = "<<tabu_list.lista.size()<<endl;
+            //cout<<"Size of Tabu List = "<<tabu_list.lista.size()<<endl;
 
             tabu_list.refresh();
 
             int temp_increment{0};
 
-            tabu_list.mostrar();
+            //tabu_list.mostrar();
 
             //cout<<"Tabu updated..."<<endl;
 
@@ -6229,36 +6230,36 @@ int main(int argc, char**argv) {
             //cout<<">>>>>>>>>>>>>>>>> "<<chosen_operator<<" <<<<<<<<<<<<<<<<<<<< "<<node_o<<", "<<node_d<<endl;
             bool add_tabu=1;
 //
-//            if(chosen_operator==""){
-//
-//                int temp_chosen2{0};
-//
-//                for(int i{0};i<excess_per_cluster.size();i++){
-//
-//                    if(excess_per_cluster[i]>0.0){
-//
-//                        temp_chosen2=i;
-//                        break;
-//
-//                    }
-//                }
-//
-//
-//                int random_cust1 = rand()%(post_lkh_clusters[temp_chosen2].size());
-//
-//
-//                OneRouteReult temp_one_route1;
-//
-//                temp_one_route1=OneRouteOpt(post_lkh_clusters[temp_chosen2][random_cust1],Distancias,
-//                                           optimal_rec_types,post_lkh_clusters,excess_per_cluster,temp_excess,
-//                                           C_Data,mydata);
-//
-//                test[0]+=temp_one_route1.result;
-//                post_lkh_clusters=temp_one_route1.solution;
-//                optimal_rec_types=temp_one_route1.demand;
-//                temp_excess=temp_one_route1.excess;
-//                excess_per_cluster=temp_one_route1.excess_clusters;
-//            }
+            if(chosen_operator==""){
+
+                int temp_chosen2=rand()%(post_lkh_clusters.size());
+
+                int random_cust1 = rand()%(post_lkh_clusters[temp_chosen2].size());
+
+
+                OneRouteReult temp_one_route1;
+
+                temp_one_route1=OneRouteOpt(post_lkh_clusters[temp_chosen2][random_cust1],Distancias,
+                                           optimal_rec_types,post_lkh_clusters,excess_per_cluster,temp_excess,
+                                           C_Data,mydata);
+
+                test[0]+=temp_one_route1.result;
+                post_lkh_clusters=temp_one_route1.solution;
+                optimal_rec_types=temp_one_route1.demand;
+                temp_excess=temp_one_route1.excess;
+                excess_per_cluster=temp_one_route1.excess_clusters;
+
+                if(post_lkh_clusters[temp_chosen2].size()==0){
+
+                    post_lkh_clusters.erase(post_lkh_clusters.begin()+temp_chosen2);
+                    list<vector<vector<int>>>::iterator temp_it = optimal_rec_types.begin();
+                    advance(temp_it,temp_chosen2);
+                    optimal_rec_types.erase(temp_it);
+                    excess_per_cluster.erase(excess_per_cluster.begin()+temp_chosen2);
+
+                }
+            }
+
 
 //            if(chosen_operator==""){
 //
@@ -6300,9 +6301,9 @@ int main(int argc, char**argv) {
 
                 selected_operators[0]+=1;
 
-                cout<<"Relocation selected!"<<endl;
+                //cout<<"Relocation selected!"<<endl;
 
-                PrintMatrix(post_lkh_clusters,"[","]");
+                //PrintMatrix(post_lkh_clusters,"[","]");
 
                 ResultInsertion result_insertion2;
 
@@ -6368,9 +6369,9 @@ int main(int argc, char**argv) {
 
                 selected_operators[2]+=1;
 
-                PrintMatrix(post_lkh_clusters,"[","]");
+                //PrintMatrix(post_lkh_clusters,"[","]");
 
-                cout<<"Swap Inter-Route selected!"<<endl;
+                //cout<<"Swap Inter-Route selected!"<<endl;
 
                 ResultSwap result_swap2;
 
@@ -6411,9 +6412,9 @@ int main(int argc, char**argv) {
 
                 selected_operators[3]+=1;
 
-                PrintMatrix(post_lkh_clusters,"[","]");
+                //PrintMatrix(post_lkh_clusters,"[","]");
 
-                cout<<"Insertion-to-route selected"<<endl;
+                //cout<<"Insertion-to-route selected"<<endl;
 
                 ResultInsertionRoute result_insertion_route;
 
@@ -6465,9 +6466,9 @@ int main(int argc, char**argv) {
 
                 selected_operators[1]+=1;
 
-                PrintMatrix(post_lkh_clusters,"[","]");
+                //PrintMatrix(post_lkh_clusters,"[","]");
 
-                cout<<"Two-Opt selected"<<". o: "<<node_o<<", d: "<<node_d<<endl;
+                //cout<<"Two-Opt selected"<<". o: "<<node_o<<", d: "<<node_d<<endl;
 
                 ResultTwoOpt result_two_opt;
 
@@ -6477,7 +6478,7 @@ int main(int argc, char**argv) {
                 result_two_opt=TwoOptOperator(node_o,node_d,post_lkh_clusters,Distancias,
                                               mydata);
 
-                cout<<"Two-Opt works"<<endl;
+                //cout<<"Two-Opt works"<<endl;
 
                 test[0]=test[0]+result_two_opt.result;
                 post_lkh_clusters=result_two_opt.solution;
@@ -6505,9 +6506,9 @@ int main(int argc, char**argv) {
 
             }else{
 
-                cout<<"Kein Operator"<<endl;
+                //cout<<"Kein Operator"<<endl;
                 selected_operators[4]+=1;
-                PrintMatrix(post_lkh_clusters,"[","]");
+                //PrintMatrix(post_lkh_clusters,"[","]");
 //                cout<<"Relocation = "<<best_insertion<<endl;
 //                cout<<"Two-Opt = "<<best_two_opt<<endl;
 //                cout<<"Swap = "<<best_swapinter<<endl;
