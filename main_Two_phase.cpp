@@ -2786,9 +2786,87 @@ dist_t SwapInterRouteEstimator(int customer_1, int customer_2, vector<vector<int
     vector<int> info_cluster1 = ClusterOfCustomer(solution,customer_1);
     vector<int> info_cluster2 = ClusterOfCustomer(solution,customer_2);
 
+//    cout<<"Info of cluster calculated"<<endl;
+//    cout<<info_cluster1[0]<<", "<<info_cluster1[1]<<endl;
+//    cout<<info_cluster2[0]<<", "<<info_cluster2[1]<<endl;
+
     dist_t result{0.0};
 
-    if(info_cluster1[1]==0 && info_cluster2[1]!=0 && info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
+    if(solution[info_cluster1[0]].size()==1 && info_cluster2[1]!=0 &&
+            info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
+
+        result = Distancias[0][customer_2]+\
+                Distancias[customer_2][0]+\
+                Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_1]+\
+                Distancias[customer_1][solution[info_cluster2[0]][info_cluster2[1]+1]]-\
+                Distancias[0][customer_1]-\
+                Distancias[customer_1][0]-\
+                Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_2]-\
+                Distancias[customer_2][solution[info_cluster2[0]][info_cluster2[1]+1]];
+    }
+    else if(solution[info_cluster1[0]].size()==1 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
+
+        result = Distancias[0][customer_2]+\
+                Distancias[customer_2][0]+\
+                Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_1]+Distancias[customer_1][0]-\
+                Distancias[0][customer_1]-\
+                Distancias[customer_1][0]-\
+                Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_2]-Distancias[customer_2][0];
+
+    }
+    else if(solution[info_cluster1[0]].size()==1 && info_cluster2[1]==0){
+
+        result = Distancias[0][customer_2]+\
+                Distancias[customer_2][0]+Distancias[0][customer_1]+\
+                Distancias[customer_1][solution[info_cluster2[0]][info_cluster2[1]+1]]-\
+                Distancias[0][customer_1]-\
+                Distancias[customer_1][0]-Distancias[0][customer_2]-\
+                Distancias[customer_2][solution[info_cluster2[0]][info_cluster2[1]+1]];
+
+
+    }
+    else if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && solution[info_cluster2[0]].size()==1){
+
+        result = Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_2]+Distancias[customer_2][0]+\
+                Distancias[0][customer_1]+\
+                Distancias[customer_1][0]-\
+                Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_1]-Distancias[customer_1][0]-\
+                Distancias[0][customer_2]-\
+                Distancias[customer_2][0];
+
+    }
+//    else if(solution[info_cluster1[0]].size()==1 && info_cluster2[1]!=0 &&
+//            info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
+//
+//            result = Distancias[0][customer_2]+Distancias[customer_2][0]+\
+//                Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_1]+\
+//                Distancias[customer_1][solution[info_cluster2[0]][info_cluster2[1]+1]]-\
+//                Distancias[0][customer_1]-Distancias[customer_1][0]-\
+//                Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_2]-\
+//                Distancias[customer_2][solution[info_cluster2[0]][info_cluster2[1]+1]];
+//
+//    }
+    else if(info_cluster1[1]==0 && solution[info_cluster2[0]].size()==1){
+
+        result = Distancias[customer_2][solution[info_cluster1[0]][info_cluster1[1]+1]]+\
+                Distancias[0][customer_1]-\
+                Distancias[customer_1][solution[info_cluster1[0]][info_cluster1[1]+1]]-\
+                Distancias[0][customer_2];
+
+    }
+    else if(info_cluster1[1]!=0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1) &&
+            solution[info_cluster2[0]].size()==1){
+
+            result = Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_2]+\
+                Distancias[customer_2][solution[info_cluster1[0]][info_cluster1[1]+1]]+Distancias[0][customer_1]+\
+                Distancias[customer_1][0]-\
+                Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_1]-\
+                Distancias[customer_1][solution[info_cluster1[0]][info_cluster1[1]+1]]-Distancias[0][customer_2]-\
+                Distancias[customer_2][0];
+
+
+    }
+    else if(info_cluster1[1]==0 && info_cluster2[1]!=0 && info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
 
         result = Distancias[0][customer_2]+Distancias[customer_2][solution[info_cluster1[0]][info_cluster1[1]+1]]+\
                 Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_1]+\
@@ -2798,7 +2876,7 @@ dist_t SwapInterRouteEstimator(int customer_1, int customer_2, vector<vector<int
                 Distancias[customer_2][solution[info_cluster2[0]][info_cluster2[1]+1]];
 
     }
-    if(info_cluster1[1]!=0 && info_cluster2[1]==0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1)){
+    else if(info_cluster1[1]!=0 && info_cluster2[1]==0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1)){
 
         result = Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_2]+\
                 Distancias[customer_2][solution[info_cluster1[0]][info_cluster1[1]+1]]+Distancias[0][customer_1]+\
@@ -2809,7 +2887,7 @@ dist_t SwapInterRouteEstimator(int customer_1, int customer_2, vector<vector<int
 
 
     }
-    if(info_cluster1[1]==0 && info_cluster2[1]==0){
+    else if(info_cluster1[1]==0 && info_cluster2[1]==0){
 
         result = Distancias[customer_2][solution[info_cluster1[0]][info_cluster1[1]+1]]+\
                 Distancias[customer_1][solution[info_cluster2[0]][info_cluster2[1]+1]]-\
@@ -2817,7 +2895,7 @@ dist_t SwapInterRouteEstimator(int customer_1, int customer_2, vector<vector<int
                 Distancias[customer_2][solution[info_cluster2[0]][info_cluster2[1]+1]];
 
     }
-    if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]!=0 &&
+    else if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]!=0 &&
              info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
 
         result = Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_2]+Distancias[customer_2][0]+\
@@ -2828,7 +2906,7 @@ dist_t SwapInterRouteEstimator(int customer_1, int customer_2, vector<vector<int
                 Distancias[customer_2][solution[info_cluster2[0]][info_cluster2[1]+1]];
 
     }
-    if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]==0){
+    else if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]==0){
 
         result = Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_2]+\
                 Distancias[customer_1][solution[info_cluster2[0]][info_cluster2[1]+1]]-\
@@ -2836,7 +2914,7 @@ dist_t SwapInterRouteEstimator(int customer_1, int customer_2, vector<vector<int
                 Distancias[customer_2][solution[info_cluster2[0]][info_cluster2[1]+1]];
 
     }
-    if(info_cluster1[1]!=0 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1) &&
+    else if(info_cluster1[1]!=0 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1) &&
              info_cluster1[1]!=(solution[info_cluster1[0]].size()-1)){
 
         result = Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_2]+\
@@ -2847,14 +2925,15 @@ dist_t SwapInterRouteEstimator(int customer_1, int customer_2, vector<vector<int
                 Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_2]-Distancias[customer_2][0];
 
     }
-    if(info_cluster1[1]==0 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
+    else if(info_cluster1[1]==0 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
 
         result = Distancias[customer_2][solution[info_cluster1[0]][info_cluster1[1]+1]]+\
                 Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_1]-\
                 Distancias[customer_1][solution[info_cluster1[0]][info_cluster1[1]+1]]-\
                 Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_2];
 
-    }if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
+    }
+    else if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
 
         result =Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_2]+\
                 Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_1]-\
@@ -2862,7 +2941,7 @@ dist_t SwapInterRouteEstimator(int customer_1, int customer_2, vector<vector<int
                 Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_2];
 
     }
-    if(info_cluster1[1]!=0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1) &&
+    else if(info_cluster1[1]!=0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1) &&
         info_cluster2[1]!=0 && info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
 
         result = Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_2]+\
@@ -2874,11 +2953,16 @@ dist_t SwapInterRouteEstimator(int customer_1, int customer_2, vector<vector<int
                 Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_2]-\
                 Distancias[customer_2][solution[info_cluster2[0]][info_cluster2[1]+1]];
 
-    }
+    }else{result=0.0;}
+
+//    cout<<"Result calculated"<<endl;
 
     int temp_customer = solution[info_cluster1[0]][info_cluster1[1]];
+//    cout<<"temp_customer"<<endl;
     solution[info_cluster1[0]][info_cluster1[1]]=customer_2;
     solution[info_cluster2[0]][info_cluster2[1]]=temp_customer;
+
+//    cout<<"Customers changed"<<endl;
 
     //dist_t Exceed2=ExceedsCapacity(solution,demand,mydata);
 
@@ -2899,6 +2983,8 @@ dist_t SwapInterRouteEstimator(int customer_1, int customer_2, vector<vector<int
             Exceed2+=excess_clusters[i];
         }
     }
+
+    //cout<<"Excess calculated"<<endl;
 
     result=result-Exceed1+(Exceed2*mydata.factor_demand_dist);
     //result=result+Exceed2;
@@ -2942,7 +3028,81 @@ ResultSwap SwapInterRoute(int customer_1, int customer_2, vector<vector<int>> so
 
     dist_t result{0.0};
 
-    if(info_cluster1[1]==0 && info_cluster2[1]!=0 && info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
+    if(solution[info_cluster1[0]].size()==1 && info_cluster2[1]!=0 &&
+            info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
+
+        result = Distancias[0][customer_2]+\
+                Distancias[customer_2][0]+\
+                Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_1]+\
+                Distancias[customer_1][solution[info_cluster2[0]][info_cluster2[1]+1]]-\
+                Distancias[0][customer_1]-\
+                Distancias[customer_1][0]-\
+                Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_2]-\
+                Distancias[customer_2][solution[info_cluster2[0]][info_cluster2[1]+1]];
+    }
+    else if(solution[info_cluster1[0]].size()==1 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
+
+        result = Distancias[0][customer_2]+\
+                Distancias[customer_2][0]+\
+                Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_1]+Distancias[customer_1][0]-\
+                Distancias[0][customer_1]-\
+                Distancias[customer_1][0]-\
+                Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_2]-Distancias[customer_2][0];
+
+    }
+    else if(solution[info_cluster1[0]].size()==1 && info_cluster2[1]==0){
+
+        result = Distancias[0][customer_2]+\
+                Distancias[customer_2][0]+Distancias[0][customer_1]+\
+                Distancias[customer_1][solution[info_cluster2[0]][info_cluster2[1]+1]]-\
+                Distancias[0][customer_1]-\
+                Distancias[customer_1][0]-Distancias[0][customer_2]-\
+                Distancias[customer_2][solution[info_cluster2[0]][info_cluster2[1]+1]];
+
+
+    }
+    else if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && solution[info_cluster2[0]].size()==1){
+
+        result = Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_2]+Distancias[customer_2][0]+\
+                Distancias[0][customer_1]+\
+                Distancias[customer_1][0]-\
+                Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_1]-Distancias[customer_1][0]-\
+                Distancias[0][customer_2]-\
+                Distancias[customer_2][0];
+
+    }
+//    else if(solution[info_cluster1[0]].size()==1 && info_cluster2[1]!=0 &&
+//            info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
+//
+//            result = Distancias[0][customer_2]+Distancias[customer_2][0]+\
+//                Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_1]+\
+//                Distancias[customer_1][solution[info_cluster2[0]][info_cluster2[1]+1]]-\
+//                Distancias[0][customer_1]-Distancias[customer_1][0]-\
+//                Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_2]-\
+//                Distancias[customer_2][solution[info_cluster2[0]][info_cluster2[1]+1]];
+//
+//    }
+    else if(info_cluster1[1]==0 && solution[info_cluster2[0]].size()==1){
+
+        result = Distancias[customer_2][solution[info_cluster1[0]][info_cluster1[1]+1]]+\
+                Distancias[0][customer_1]-\
+                Distancias[customer_1][solution[info_cluster1[0]][info_cluster1[1]+1]]-\
+                Distancias[0][customer_2];
+
+    }
+    else if(info_cluster1[1]!=0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1) &&
+            solution[info_cluster2[0]].size()==1){
+
+            result = Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_2]+\
+                Distancias[customer_2][solution[info_cluster1[0]][info_cluster1[1]+1]]+Distancias[0][customer_1]+\
+                Distancias[customer_1][0]-\
+                Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_1]-\
+                Distancias[customer_1][solution[info_cluster1[0]][info_cluster1[1]+1]]-Distancias[0][customer_2]-\
+                Distancias[customer_2][0];
+
+
+    }
+    else if(info_cluster1[1]==0 && info_cluster2[1]!=0 && info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
 
         result = Distancias[0][customer_2]+Distancias[customer_2][solution[info_cluster1[0]][info_cluster1[1]+1]]+\
                 Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_1]+\
@@ -2952,7 +3112,7 @@ ResultSwap SwapInterRoute(int customer_1, int customer_2, vector<vector<int>> so
                 Distancias[customer_2][solution[info_cluster2[0]][info_cluster2[1]+1]];
 
     }
-    if(info_cluster1[1]!=0 && info_cluster2[1]==0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1)){
+    else if(info_cluster1[1]!=0 && info_cluster2[1]==0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1)){
 
         result = Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_2]+\
                 Distancias[customer_2][solution[info_cluster1[0]][info_cluster1[1]+1]]+Distancias[0][customer_1]+\
@@ -2963,7 +3123,7 @@ ResultSwap SwapInterRoute(int customer_1, int customer_2, vector<vector<int>> so
 
 
     }
-    if(info_cluster1[1]==0 && info_cluster2[1]==0){
+    else if(info_cluster1[1]==0 && info_cluster2[1]==0){
 
         result = Distancias[customer_2][solution[info_cluster1[0]][info_cluster1[1]+1]]+\
                 Distancias[customer_1][solution[info_cluster2[0]][info_cluster2[1]+1]]-\
@@ -2971,7 +3131,7 @@ ResultSwap SwapInterRoute(int customer_1, int customer_2, vector<vector<int>> so
                 Distancias[customer_2][solution[info_cluster2[0]][info_cluster2[1]+1]];
 
     }
-    if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]!=0 &&
+    else if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]!=0 &&
              info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
 
         result = Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_2]+Distancias[customer_2][0]+\
@@ -2982,7 +3142,7 @@ ResultSwap SwapInterRoute(int customer_1, int customer_2, vector<vector<int>> so
                 Distancias[customer_2][solution[info_cluster2[0]][info_cluster2[1]+1]];
 
     }
-    if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]==0){
+    else if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]==0){
 
         result = Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_2]+\
                 Distancias[customer_1][solution[info_cluster2[0]][info_cluster2[1]+1]]-\
@@ -2990,7 +3150,7 @@ ResultSwap SwapInterRoute(int customer_1, int customer_2, vector<vector<int>> so
                 Distancias[customer_2][solution[info_cluster2[0]][info_cluster2[1]+1]];
 
     }
-    if(info_cluster1[1]!=0 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1) &&
+    else if(info_cluster1[1]!=0 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1) &&
              info_cluster1[1]!=(solution[info_cluster1[0]].size()-1)){
 
         result = Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_2]+\
@@ -3001,14 +3161,15 @@ ResultSwap SwapInterRoute(int customer_1, int customer_2, vector<vector<int>> so
                 Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_2]-Distancias[customer_2][0];
 
     }
-    if(info_cluster1[1]==0 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
+    else if(info_cluster1[1]==0 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
 
         result = Distancias[customer_2][solution[info_cluster1[0]][info_cluster1[1]+1]]+\
                 Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_1]-\
                 Distancias[customer_1][solution[info_cluster1[0]][info_cluster1[1]+1]]-\
                 Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_2];
 
-    }if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
+    }
+    else if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
 
         result =Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_2]+\
                 Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_1]-\
@@ -3016,7 +3177,7 @@ ResultSwap SwapInterRoute(int customer_1, int customer_2, vector<vector<int>> so
                 Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_2];
 
     }
-    if(info_cluster1[1]!=0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1) &&
+    else if(info_cluster1[1]!=0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1) &&
         info_cluster2[1]!=0 && info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
 
         result = Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_2]+\
@@ -3028,7 +3189,7 @@ ResultSwap SwapInterRoute(int customer_1, int customer_2, vector<vector<int>> so
                 Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_2]-\
                 Distancias[customer_2][solution[info_cluster2[0]][info_cluster2[1]+1]];
 
-    }
+    }else{result=0.0;}
 
     //cout<<"RESULT CALCULATED!"<<endl;
     int temp_customer = solution[info_cluster1[0]][info_cluster1[1]];
@@ -3083,10 +3244,39 @@ dist_t InsertionRouteEstimator(int customer_o, int customer_d, vector<vector<int
         vector<int> info_cluster1 = ClusterOfCustomer(solution,customer_o);
         vector<int> info_cluster2 = ClusterOfCustomer(solution,customer_d);
 
+//        cout<<"Info of cluster calculated"<<endl;
+//        cout<<info_cluster1[0]<<", "<<info_cluster1[1]<<endl;
+//        cout<<info_cluster2[0]<<", "<<info_cluster2[1]<<endl;
+
         dist_t result{0.0};
         int counter_if{0};
 
-        if(info_cluster1[1]==0 && info_cluster2[1]!=0 && info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
+        if(solution[info_cluster1[0]].size()==1 && info_cluster2[1]==0){
+
+            result = Distancias[customer_o][customer_d]-\
+                    Distancias[0][customer_o]-\
+                    Distancias[0][customer_d];
+
+        }
+        else if(solution[info_cluster1[0]].size()==1 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
+
+            result =Distancias[customer_o][customer_d]+\
+                    Distancias[customer_o][solution[info_cluster2[0]][info_cluster2[1]-1]]-\
+                    Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_d]-\
+                    Distancias[0][customer_o]-\
+                    Distancias[customer_o][0];
+
+        }
+        else if(solution[info_cluster1[0]].size()==1 && info_cluster2[1]!=0 &&
+                info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
+
+            result = Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_o]+\
+                    Distancias[customer_o][customer_d]-Distancias[0][customer_o]-\
+                    Distancias[customer_o][0]-\
+                    Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_d];
+
+        }
+        else if(info_cluster1[1]==0 && info_cluster2[1]!=0 && info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
             //cout<<"Case 1"<<endl; //ok
             counter_if++;
 
@@ -3097,7 +3287,7 @@ dist_t InsertionRouteEstimator(int customer_o, int customer_d, vector<vector<int
                     Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_d];
 
         }
-        if(info_cluster1[1]!=0 && info_cluster2[1]==0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1)){
+        else if(info_cluster1[1]!=0 && info_cluster2[1]==0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1)){
             //cout<<"Case 2"<<endl;//ok
             counter_if++;
 
@@ -3108,7 +3298,7 @@ dist_t InsertionRouteEstimator(int customer_o, int customer_d, vector<vector<int
                     Distancias[0][customer_d];
 
         }
-        if(info_cluster1[1]==0 && info_cluster2[1]==0){
+        else if(info_cluster1[1]==0 && info_cluster2[1]==0){
             //cout<<"Case 3"<<endl; //ok
             counter_if++;
 
@@ -3117,7 +3307,7 @@ dist_t InsertionRouteEstimator(int customer_o, int customer_d, vector<vector<int
                     Distancias[customer_o][solution[info_cluster1[0]][info_cluster1[1]+1]];
 
         }
-        if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]!=0 &&
+        else if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]!=0 &&
                  info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
             //cout<<"Case 4"<<endl; // ok
             counter_if++;
@@ -3129,7 +3319,7 @@ dist_t InsertionRouteEstimator(int customer_o, int customer_d, vector<vector<int
                     Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_d];
 
         }
-        if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]==0){
+        else if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]==0){
             //cout<<"Case 5"<<endl; //ok
             counter_if++;
 
@@ -3139,7 +3329,7 @@ dist_t InsertionRouteEstimator(int customer_o, int customer_d, vector<vector<int
                     Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][0];
 
         }
-        if(info_cluster1[1]!=0 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1) &&
+        else if(info_cluster1[1]!=0 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1) &&
                  info_cluster1[1]!=(solution[info_cluster1[0]].size()-1)){
             //cout<<"Case 6"<<endl; // ok
             counter_if++;
@@ -3151,7 +3341,7 @@ dist_t InsertionRouteEstimator(int customer_o, int customer_d, vector<vector<int
                     Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][solution[info_cluster1[0]][info_cluster1[1]+1]];
 
         }
-        if(info_cluster1[1]==0 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
+        else if(info_cluster1[1]==0 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
             //cout<<"Case 7"<<endl; // ok
             counter_if++;
 
@@ -3161,7 +3351,7 @@ dist_t InsertionRouteEstimator(int customer_o, int customer_d, vector<vector<int
                     Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_d];
 
         }
-        if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) &&
+        else if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) &&
                  info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
             //cout<<"Case 8"<<endl; //ok
             counter_if++;
@@ -3172,7 +3362,7 @@ dist_t InsertionRouteEstimator(int customer_o, int customer_d, vector<vector<int
                     Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_o]-\
                     Distancias[customer_o][0];
         }
-        if(info_cluster1[1]!=0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1) &&
+        else if(info_cluster1[1]!=0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1) &&
             info_cluster2[1]!=0 && info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
             //cout<<"Case 9"<<endl; // ok
             counter_if++;
@@ -3184,14 +3374,16 @@ dist_t InsertionRouteEstimator(int customer_o, int customer_d, vector<vector<int
                     Distancias[customer_o][solution[info_cluster1[0]][info_cluster1[1]+1]]-\
                     Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_d];
 
-        }
+        }else{result=0.0;}
 
-        if(counter_if==0){
-            cout<<"DIDN'T ENTER TO IF!!!<<<<<<<<<"<<endl;
-            cout<<"Size of cluster o "<<solution[info_cluster1[0]].size()-1<<endl;
-            cout<<"Size of cluster d "<<solution[info_cluster2[0]].size()-1<<endl;
-            cout<<info_cluster1[1]<<" and "<<info_cluster2[1]<<endl;
-        }
+        //cout<<"Result calculated"<<endl;
+
+//        if(counter_if==0){
+//            cout<<"DIDN'T ENTER TO IF!!!<<<<<<<<<"<<endl;
+//            cout<<"Size of cluster o "<<solution[info_cluster1[0]].size()-1<<endl;
+//            cout<<"Size of cluster d "<<solution[info_cluster2[0]].size()-1<<endl;
+//            cout<<info_cluster1[1]<<" and "<<info_cluster2[1]<<endl;
+//        }
 
         //PrintMatrix(solution,"[","]");
         int temp{0};
@@ -3309,7 +3501,32 @@ ResultInsertionRoute InsertionRouteOpt(int customer_o, int customer_d, vector<ve
 
         dist_t result{0.0};
 
-        if(info_cluster1[1]==0 && info_cluster2[1]!=0 && info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
+        if(solution[info_cluster1[0]].size()==1 && info_cluster2[1]==0){
+
+            result = Distancias[customer_o][customer_d]-\
+                    Distancias[0][customer_o]-\
+                    Distancias[0][customer_d];
+
+        }
+        else if(solution[info_cluster1[0]].size()==1 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
+
+            result =Distancias[customer_o][customer_d]+\
+                    Distancias[customer_o][solution[info_cluster2[0]][info_cluster2[1]-1]]-\
+                    Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_d]-\
+                    Distancias[0][customer_o]-\
+                    Distancias[customer_o][0];
+
+        }
+        else if(solution[info_cluster1[0]].size()==1 && info_cluster2[1]!=0 &&
+                info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
+
+            result = Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_o]+\
+                    Distancias[customer_o][customer_d]-Distancias[0][customer_o]-\
+                    Distancias[customer_o][0]-\
+                    Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_d];
+
+        }
+        else if(info_cluster1[1]==0 && info_cluster2[1]!=0 && info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
             //cout<<"Case 1"<<endl; //ok
 
             result = Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_o]+\
@@ -3319,7 +3536,7 @@ ResultInsertionRoute InsertionRouteOpt(int customer_o, int customer_d, vector<ve
                     Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_d];
 
         }
-        if(info_cluster1[1]!=0 && info_cluster2[1]==0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1)){
+        else if(info_cluster1[1]!=0 && info_cluster2[1]==0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1)){
             //cout<<"Case 2"<<endl;//ok
 
             result = Distancias[0][customer_o]+Distancias[customer_o][customer_d]-\
@@ -3329,7 +3546,7 @@ ResultInsertionRoute InsertionRouteOpt(int customer_o, int customer_d, vector<ve
                     Distancias[0][customer_d];
 
         }
-        if(info_cluster1[1]==0 && info_cluster2[1]==0){
+        else if(info_cluster1[1]==0 && info_cluster2[1]==0){
             //cout<<"Case 3"<<endl; //ok
 
             result = Distancias[customer_o][customer_d]-Distancias[0][customer_d]+\
@@ -3337,7 +3554,7 @@ ResultInsertionRoute InsertionRouteOpt(int customer_o, int customer_d, vector<ve
                     Distancias[customer_o][solution[info_cluster1[0]][info_cluster1[1]+1]];
 
         }
-        if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]!=0 &&
+        else if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]!=0 &&
                  info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
             //cout<<"Case 4"<<endl; // ok
 
@@ -3348,7 +3565,7 @@ ResultInsertionRoute InsertionRouteOpt(int customer_o, int customer_d, vector<ve
                     Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_d];
 
         }
-        if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]==0){
+        else if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) && info_cluster2[1]==0){
             //cout<<"Case 5"<<endl; //ok
 
             result = Distancias[customer_o][customer_d]-\
@@ -3357,7 +3574,7 @@ ResultInsertionRoute InsertionRouteOpt(int customer_o, int customer_d, vector<ve
                     Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][0];
 
         }
-        if(info_cluster1[1]!=0 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1) &&
+        else if(info_cluster1[1]!=0 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1) &&
                  info_cluster1[1]!=(solution[info_cluster1[0]].size()-1)){
             //cout<<"Case 6"<<endl; // ok
 
@@ -3368,7 +3585,7 @@ ResultInsertionRoute InsertionRouteOpt(int customer_o, int customer_d, vector<ve
                     Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][solution[info_cluster1[0]][info_cluster1[1]+1]];
 
         }
-        if(info_cluster1[1]==0 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
+        else if(info_cluster1[1]==0 && info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
             //cout<<"Case 7"<<endl; // ok
 
             result = Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_o]+\
@@ -3377,8 +3594,8 @@ ResultInsertionRoute InsertionRouteOpt(int customer_o, int customer_d, vector<ve
                     Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_d];
 
         }
-        if(info_cluster1[1]==(solution[info_cluster1[0]]).size()-1 &&
-                 info_cluster2[2]==(solution[info_cluster2[0]]).size()-1){
+        else if(info_cluster1[1]==(solution[info_cluster1[0]].size()-1) &&
+                 info_cluster2[1]==(solution[info_cluster2[0]].size()-1)){
             //cout<<"Case 8"<<endl; //ok
 
             result = Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_o]+\
@@ -3387,7 +3604,7 @@ ResultInsertionRoute InsertionRouteOpt(int customer_o, int customer_d, vector<ve
                     Distancias[solution[info_cluster1[0]][info_cluster1[1]-1]][customer_o]-\
                     Distancias[customer_o][0];
         }
-        if(info_cluster1[1]!=0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1) &&
+        else if(info_cluster1[1]!=0 && info_cluster1[1]!=(solution[info_cluster1[0]].size()-1) &&
             info_cluster2[1]!=0 && info_cluster2[1]!=(solution[info_cluster2[0]].size()-1)){
             //cout<<"Case 9"<<endl; // ok
 
@@ -3398,7 +3615,7 @@ ResultInsertionRoute InsertionRouteOpt(int customer_o, int customer_d, vector<ve
                     Distancias[customer_o][solution[info_cluster1[0]][info_cluster1[1]+1]]-\
                     Distancias[solution[info_cluster2[0]][info_cluster2[1]-1]][customer_d];
 
-        }
+        }else{result=0.0;}
 
         //cout<<"RESULT CALCULATED!!!"<<endl;
 
@@ -3869,7 +4086,9 @@ OneRouteReult OneRouteOpt(int customer, vector<vector<dist_t>> Distancias, list<
 
         dist_t result{0.0};
 
-        if(info_node[1]==0){
+        if(solution[info_node[0]].size()==1){result=0.0;}
+
+        else if(info_node[1]==0){
 
             result = Distancias[0][customer]+Distancias[0][solution[info_node[0]][info_node[1]+1]]-\
                 Distancias[customer][solution[info_node[0]][info_node[1]+1]];
@@ -5754,7 +5973,7 @@ int main(int argc, char**argv) {
         cout<<"IMPROVEMENT PHASE..."<<endl;
 
         //int max_iterations = (10000/pow(mydata.ncustomers,2));
-        int max_iterations = (10000/mydata.ncustomers);
+        int max_iterations = (10000/(mydata.ncustomers*2));
 
         cout<<"NUMBERS OF ITERATIONS = "<<max_iterations<<endl;
 
@@ -5862,6 +6081,8 @@ int main(int argc, char**argv) {
                     }
                 }
 
+                //cout<<"End of estimation of Relocation"<<endl;
+
                 /********************************************************************************************/
 
                 /****************************Estimation of Two-Opt**********************************************/
@@ -5904,6 +6125,8 @@ int main(int argc, char**argv) {
                     }
                 }
 
+                //cout<<"End of estimation of Two-Opt"<<endl;
+
 
                 /***********************************************************************************************/
 
@@ -5925,11 +6148,25 @@ int main(int argc, char**argv) {
                                 if(post_lkh_clusters[cluster1][cust1]!=post_lkh_clusters[cluster2][cust2] &&
                                    cluster1!=cluster2){
 
+//                                    if(it>200){
+//
+//                                        cout<<"Node 1: "<<post_lkh_clusters[cluster1][cust1]<<endl;
+//                                        cout<<"Node 2: "<<post_lkh_clusters[cluster2][cust2]<<endl;
+//
+//                                        cout<<"Size of post_lkh_clusters: "<<post_lkh_clusters.size()<<endl;
+//                                        cout<<"Size of optimal_rec_types: "<<optimal_rec_types.size()<<endl;
+//                                        cout<<"Size of excess: "<<excess_per_cluster.size()<<endl;
+//
+//                                        PrintMatrix(post_lkh_clusters,"[","]");
+//                                    }
+
                                     temp_imp=SwapInterRouteEstimator(post_lkh_clusters[cluster1][cust1],
                                                                          post_lkh_clusters[cluster2][cust2],
                                                                          post_lkh_clusters, Distancias,
                                                                          optimal_rec_types, mydata,temp_excess,
                                                                          excess_per_cluster, C_Data);
+
+//                                    if(it>200){cout<<"Swap Inter-route finished"<<endl;}
 
                                     int *temp_ruta1=convertirRutaVectorArreglo(post_lkh_clusters[cluster1]);
                                     int *temp_ruta2=convertirRutaVectorArreglo(post_lkh_clusters[cluster2]);
@@ -5961,6 +6198,7 @@ int main(int argc, char**argv) {
                         }
                     }
                 }
+                //cout<<"End of estimation of Swap Inter-route"<<endl;
 
                 /***********************************************************************************************/
 
@@ -5979,11 +6217,25 @@ int main(int argc, char**argv) {
                                 if(post_lkh_clusters[cluster1][cust1]!=post_lkh_clusters[cluster2][cust2] &&
                                    cluster1!=cluster2){
 
+//                                    if(it>200){
+//
+//                                        cout<<"Node 1: "<<post_lkh_clusters[cluster1][cust1]<<endl;
+//                                        cout<<"Node 2: "<<post_lkh_clusters[cluster2][cust2]<<endl;
+//
+//                                        cout<<"Size of post_lkh_clusters: "<<post_lkh_clusters.size()<<endl;
+//                                        cout<<"Size of optimal_rec_types: "<<optimal_rec_types.size()<<endl;
+//                                        cout<<"Size of excess: "<<excess_per_cluster.size()<<endl;
+//
+//                                        PrintMatrix(post_lkh_clusters,"[","]");
+//                                    }
+
                                     temp_imp=InsertionRouteEstimator(post_lkh_clusters[cluster1][cust1],
                                                                      post_lkh_clusters[cluster2][cust2],
                                                                      post_lkh_clusters, Distancias,
                                                                      optimal_rec_types, mydata,temp_excess,
                                                                      excess_per_cluster, C_Data);
+
+                                    //if(it>200){cout<<"Insertion-to-route finished"<<endl;}
 
                                     int *temp_ruta1=convertirRutaVectorArreglo(post_lkh_clusters[cluster1]);
                                     int *temp_ruta2=convertirRutaVectorArreglo(post_lkh_clusters[cluster2]);
@@ -6015,6 +6267,7 @@ int main(int argc, char**argv) {
                         }
                     }
                 }
+                //cout<<"End of estimation of Insertion-to-route"<<endl;
 
                 /************************************************************************************************/
             }
@@ -6229,6 +6482,8 @@ int main(int argc, char**argv) {
 
             //cout<<">>>>>>>>>>>>>>>>> "<<chosen_operator<<" <<<<<<<<<<<<<<<<<<<< "<<node_o<<", "<<node_d<<endl;
             bool add_tabu=1;
+
+            //cout<<"CHOSEN OPERATOR: "<<chosen_operator<<endl;
 //
             if(chosen_operator==""){
 
@@ -6507,6 +6762,7 @@ int main(int argc, char**argv) {
             }else{
 
                 //cout<<"Kein Operator"<<endl;
+                tracking_fo.push_back(test[0]);
                 selected_operators[4]+=1;
                 //PrintMatrix(post_lkh_clusters,"[","]");
 //                cout<<"Relocation = "<<best_insertion<<endl;
@@ -6516,70 +6772,80 @@ int main(int argc, char**argv) {
 
             }
 
-            int prob_random = rand() % (size_prob_excess)+1;
-
-            int ref_prob_excess=0;
-
-            float limit{0.0};
-
-            if(prob_random<=distr_prob_excess[0].size()){
-
-                limit = 0.25;
-
-            }else if (prob_random<=distr_prob_excess[1].size()){
-
-                limit=0.5;
-                ref_prob_excess=1;
-
-            }else{
-
-                limit=0.75;
-                ref_prob_excess=2;
-
-            }
-
-            float r2 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-
-            if(temp_excess>0.0 && r2<limit){
-
-                int temp_chosen{0};
-
-                for(int i{0};i<excess_per_cluster.size();i++){
-
-                    if(excess_per_cluster[i]>0.0){
-
-                        temp_chosen=i;
-                        break;
-
-                    }
-                }
-
-
-                int random_cust = rand()%(post_lkh_clusters[temp_chosen].size());
-
-
-                OneRouteReult temp_one_route;
-
-                temp_one_route=OneRouteOpt(post_lkh_clusters[temp_chosen][random_cust],Distancias,
-                                           optimal_rec_types,post_lkh_clusters,excess_per_cluster,temp_excess,
-                                           C_Data,mydata);
-
-                if(temp_one_route.result<0.0){
-
-                    distr_prob_excess[ref_prob_excess].push_back(1);
-
-                }
-
-
-                test[0]+=temp_one_route.result;
-                post_lkh_clusters=temp_one_route.solution;
-                optimal_rec_types=temp_one_route.demand;
-                temp_excess=temp_one_route.excess;
-                excess_per_cluster=temp_one_route.excess_clusters;
-
-                selected_operators[5]+=1;
-
-            }
+//            int prob_random = rand() % (size_prob_excess)+1;
+//
+//            int ref_prob_excess=0;
+//
+//            float limit{0.0};
+//
+//            if(prob_random<=distr_prob_excess[0].size()){
+//
+//                limit = 0.25;
+//
+//            }else if (prob_random<=distr_prob_excess[1].size()){
+//
+//                limit=0.5;
+//                ref_prob_excess=1;
+//
+//            }else{
+//
+//                limit=0.75;
+//                ref_prob_excess=2;
+//
+//            }
+//
+//            float r2 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+//
+//            if(temp_excess>0.0 && r2<limit){
+//
+//                int temp_chosen{0};
+//
+//                for(int i{0};i<excess_per_cluster.size();i++){
+//
+//                    if(excess_per_cluster[i]>0.0){
+//
+//                        temp_chosen=i;
+//                        break;
+//
+//                    }
+//                }
+//
+//
+//                int random_cust = rand()%(post_lkh_clusters[temp_chosen].size());
+//
+//
+//                OneRouteReult temp_one_route;
+//
+//                temp_one_route=OneRouteOpt(post_lkh_clusters[temp_chosen][random_cust],Distancias,
+//                                           optimal_rec_types,post_lkh_clusters,excess_per_cluster,temp_excess,
+//                                           C_Data,mydata);
+//
+//                if(temp_one_route.result<0.0){
+//
+//                    distr_prob_excess[ref_prob_excess].push_back(1);
+//
+//                }
+//
+//
+//                test[0]+=temp_one_route.result;
+//                post_lkh_clusters=temp_one_route.solution;
+//                optimal_rec_types=temp_one_route.demand;
+//                temp_excess=temp_one_route.excess;
+//                excess_per_cluster=temp_one_route.excess_clusters;
+//
+//                selected_operators[5]+=1;
+//
+//                if(post_lkh_clusters[temp_chosen].size()==0){
+//
+//                    post_lkh_clusters.erase(post_lkh_clusters.begin()+temp_chosen);
+//                    list<vector<vector<int>>>::iterator temp_it = optimal_rec_types.begin();
+//                    advance(temp_it,temp_chosen);
+//                    optimal_rec_types.erase(temp_it);
+//                    excess_per_cluster.erase(excess_per_cluster.begin()+temp_chosen);
+//
+//                }
+//
+//            }
 
             increments_fo+=temp_increment;
 
