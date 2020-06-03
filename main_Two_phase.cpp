@@ -4244,7 +4244,7 @@ int main(int argc, char**argv) {
 
 #ifdef MDVRP
         mdcvfp mydata; // Create structure
-        mydata.penalty_reloc = 2.0; // Fixed cost to relocate a customer
+        mydata.penalty_reloc = 5.0; // Fixed cost to relocate a customer
         int mydata_tmp; // Temporal string to store the values which are not necessary
 
         ifstream data_input((testname + "/" + filename + ".txt").c_str());
